@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="scripts/mystyles.css">
+</head>
+<body>
+
+<div class="container-master">
+<div class="container-full-width">
+<header>
+   <h1>luaXroot Wiki</h1>
+</header>
+</div>
+
+<div class="container-content">
+<nav>
+<iframe src="sidebar.html" style="border:none;"></iframe>
+</nav>
+
+<article>
+
+<h1 id="intro">Introduction</h1>
+<p>The best introduction to Lua is of course <a href="https://www.lua.org/manual/5.3/manual.html">the one written by the authors themselves</a>.</p>
+
+<p>In a Nutshell, Lua is a <i>scripting language</i> which means that it is not a language by itself. It works as an additional layer to another program. 
+This allows to be able to modify the properties and functionalities of the program without having to recompile the source code.<br/>
+It is also <i>dynamic</i> which means that you can modify it while the program is running. Everything happens in modules which can be added or removed extremely easily, encouraging experimentation.</p>
+
+<p>The following sub-sections are explaining the basic concepts of the Lua scripting language. Anyone slightly experienced with other programming language should get confortable with it easily.</p>
+
+<h1 id="index">Index:</h1>
+<ul>
+	<li><a href="#var-and-types">Variables and types</a></li>
+	<ul>
+		<li><a href="#var-nil">nil</a></li>
+		<li><a href="#var-bool-num-str">boolean, number and string</a></li>
+		<li><a href="#var-table">table</a></li>
+		<li><a href="#var-func">function</a></li>
+		<li><a href="#var-ud">userdata</a></li>
+  	</ul>
+	
+	<li><a href="#the-env">The Environment</a></li>
+	
+	<li><a href="#tables">Tables</a></li>
+	
+	<li><a href="#ops-and-statements">Operators and Statements</a></li>
+	<ul>
+		<li><a href="#the-ops">The operators</a></li>
+		<li><a href="#if-statement">if statement</a></li>
+		<li><a href="#else-statement">elseif, else statements</a></li>
+		<li><a href="#for-statement">for loop</a></li>
+		<li><a href="#while-statement">while loop</a></li>
+	</ul>
+	
+	<li><a href="#reading-tables">Reading tables</a></li>
+	
+	<li><a href="#funcs">Functions</a></li>
+	<ul>
+		<li><a href="#funcs-defs">Function Definition</a></li>
+		<li><a href="#funcs-override">Function Overriding</a></li>
+		<li><a href="#funcs-methods">Function as table members</a></li>
+  	</ul>
+	
+	<li><a href="#mods-and-packs">Modules and Packages</a></li>
+</ul>
+
+<h2 id="var-and-types">Variables and types</h2>
+
+<p>Unlike a language like C, Lua variables do not *need* to be declared nor typed. For instance in C you would need to write the following to assign 3 variables to respectively integer, 
+string of character and floating point number</p>
+
+<pre class="prettyprint">
+int i = 5;
+string s = "This is a string";
+float f = 3.14157;
+</pre>
+
+<p>In Lua you would write directly</p>
+
+<pre class="prettyprint">
+i = 5
+s = "This is a string"
+f = 3.14157
+</pre>
+
+<p>The types are deduced from the assigned value. They are also not definitive. You could reassigned the variable i later on to something else with a different type. 
+Note that you also do not need anything at the end of a line to terminate it. You can though use a semi-colon to separate different statements on the same line</p>
+
+<pre class="prettyprint">
+i = 5; s = "This is a string"; f = 3.14157
+</pre>
+
+<p>There are 8 basic types in Lua: <i>nil</i>, <i>boolean</i>, <i>number</i>, <i>string</i>, <i>function</i>, <i>userdata</i>, <i>thread</i>, and <i>table</i></p>
+
+<h3 id="var-nil">nil</h3>
+<p>Have only one value which is... <b>nil</b><br/>
+It means the absence of any useful value. It is used to reset a variable, to kind of "delete" it from the environment.</p>
+
+<h3 id="var-bool-num-str">boolean, number ans string</h3>
+<p>They are the same than their C counterpart types.<br/>
+<i>boolean</i> are either <b>true</b> or <b>false</b>.<br/>
+<i>number</i> are either integer or floating point, without distinction.  <br/>  
+<i>string</i> are chain of characters of variable length terminated by '<b>\0</b>' or the <b>NULL</b> character.<br/>
+<i>string</i> can be concatenated together using the operator "<b>..</b>"</p>
+
+<pre class="prettyprint">
+   print("Hello".." World".." !!")
+</pre>
+
+<p>would print on screen "Hello World !!".<br/>
+Please note that if you need to sequentially concatenate strings this might not be very efficient. For instance it is not recommended to do the following</p>
+
+<pre class="prettyprint">
+   local s = "Hello"
+   s = s.." World"
+   s = s.." !!"
+</pre>
+
+<p>In this case you are copying the value of the string s several times while it is unnecessary. This won't be an issue with short strings but may become one if performances 
+are important while dealing with long strings. If you need to sequentially append strings at the end of another string you should look into 
+the <a href="#"><i>table.concat</i></a> function discussed a bit later.</p>
+
+<h3 id="var-table">table</h3>
+<p><i>table</i> are associative arrays.<br/>
+They can behave like a standard C array or as maps with an association of a <i>key</i> and a <i>value</i>.<br/>
+More about table <a href="#">here</a> and <a href="#">here</a>.</p>
+
+<h3 id="var-func">function</h3>
+<p>Self explanatory. Functions are described into more details <a href="#">here</a>.</p>
+
+<h3 id="var-ud">userdata</h3>
+<p><i>userdata</i> are used as a link to C pointers. They are particularly useful for example to associate a C++ class to an object that can be manipulated in Lua.<br/>
+More about the userdata later.</p>
+
+<h3 id="var-thread">thread</h3>
+<p>We don't really care here.</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h2 id="the-env">The Environment</h2>
+
+<p>Variables are scoped in Lua as they are in other languages. For instance a C snippet that would be</p>
+
+<pre class="prettyprint">
+ -- [assuming a boolean x has been set earlier in the code]
+
+int a;                                      // a is declared here
+
+if(x == true)
+{
+   a = 1;                                   // a is in scope because declared outside and before the if
+   string message1 = "a is equal to 1";     // message1 is declared here
+   cout << message1 << endl;
+}                                           // end of message1 scope
+else
+{
+   a = 2;                                   // a is in scope because declared outside and before the if
+   string message2 = "a is equal to 2";     // message2 is declared here
+   cout << message2 << endl; 
+}                                           // end of message2 scope
+
+                                            // a is still in scope but message1 and message2 are not
+</pre>
+
+<p>Writing something similar in Lua using the variable definition described above would not give quite the same result</p>
+
+<pre class="prettyprint">
+ -- [assuming a boolean x has been set earlier in the code]
+
+a = 0                             -- a is **globally** declared here
+
+if x then
+   a = 1                          -- a is in scope because declared **globally** before
+   message1 = "a is equal to 1"   --  message1 is **globally** declared here
+   print(message1)                          
+else
+   a = 2                          -- a AND message1 are in scope because declared **globally** before
+   message2 = "a is equal to 2"   -- message2 is **globally** declared here
+   print(message2) 
+end                                          
+
+                                  -- a, message1 and message2 are still in scope because **globally** declared
+</pre>
+
+<p>By default, Lua variables will be global meaning that once defined, they are here to stay. If you want to scope them, you have to use the keyword <i>local</i></p>
+
+<pre class="prettyprint">
+ -- [assuming a boolean x has been set earlier in the code]
+
+local a = 0                            -- a is locally declared here
+
+if x then
+   a = 1                               -- a is in scope because declared outside and before the if statement
+   local message1 = "a is equal to 1"  -- message1 is locally declared within the if statement
+   print(message1)                          
+else                                   -- message1 falls out of scope here
+   a = 2                               -- a is in scope because declared outside and before the if statement
+   local message2 = "a is equal to 2"  -- message2 is locally declared within the if statement
+   print(message2)
+end                                    -- message2 falls out of scope here                           
+
+                                       -- a is still in scope because locally declared outside of the if statement
+</pre>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h2 id="tables">Tables</h2>
+<p>The tables are one of the main tool for any Lua script. They can be used as C arrays or vectors, or as some kind of dynamic structures.</p>
+
+<p>Let's consider the following C statements</p>
+
+<pre class="prettyprint">
+   int array[3];
+
+   array[0] = 3;
+   array[1] = 1;
+   array[2] = 4;
+</pre>
+
+<p>would be</p>
+
+<pre class="prettyprint">
+   local array = {}      -- this "declares" the table
+   array[1] = 3
+   array[2] = 1
+   array[3] = 4
+</pre>
+
+<p>or</p>
+
+<pre class="prettyprint">
+   local array = { 3, 1, 4 }      -- this "declares" and populates the table
+</pre>
+
+<p>Please note that in Lua, arrays starts at index 1 and not 0.</p>
+
+<p>Another way to achieve the say thing and that would give a behavior closer to a C vector would be</p>
+
+<pre class="prettyprint">
+   local array = {}        -- this "declares" the table
+   table.insert(array, 3)  -- append 3 at the end of the array, here element number 1
+   table.insert(array, 1)  -- append 1 at the end of the array, here element number 2
+   table.insert(array, 4)  -- append 4 at the end of the array, here element number 4
+</pre>
+
+<p>The function <i>table.insert</i> is behaving similarly to the <i>push_back</i> function with C vectors.<br/>
+When tables are populated as arrays or vector, the size can be retrieved using the # operator</p>
+
+<pre class="prettyprint">
+   print(#array)    -- would print 3 because we inserted 3 elements in our table
+</pre>
+
+<p>Now a table could be used as a struct.</p>
+
+<pre class="prettyprint">
+   struct detector{
+      unsigned long long entry = 0;
+      double energy = 0;
+      int strip = 0;
+   };
+</pre>
+
+<p>Would be</p>
+
+<pre class="prettyprint">
+   local detector = {
+      entry = 0,
+      energy = 0,
+      strip = 0
+   }
+</pre>
+
+<p><b>Please note that in this case the operator # would not return the size of the table. There is not easy way to get how many elements are in a table using key-value association.</b></p>
+
+<p>When the table is initialized with elements, these elements are separated with a coma (,).<br/>
+As we already said, tables are dynamic, so nothing prevents you to then add members to that structure (something that would not be possible in C.</p>
+
+<pre class="prettyprint">
+   detector.timestamp = 0
+</pre>
+
+<p>And now your detector structure has a new member called timestamp.</p>
+
+<p>Note that the dot (.) is used as an accessor to table members, similarly to how one would access a struc member in C. But this is just a helper syntax for the actual accessor []</p>
+
+<pre class="prettyprint">
+   detector["timestamp"] = 0    -- this would produce the same result as above
+</pre>
+
+<p>Actually tables are really the *base* of Lua since everything is registered in a global table called <b>_G</b><br/>
+When a variable is declared globally like explained earlier, what is happening is that this variable is actually registered in that global table.</p>
+
+<pre class="prettyprint">
+   var = 3.14157      -- a global number is declared here
+
+   print(var)         -- will print on the screen "3.14157"
+   print(_G["var"])   -- will print on the screen... "3.14157", congratulation
+</pre>
+
+<p>The way to process through a table is slightly different according to the way it has been filled (as an array or as an key-value struct like object). These ways are discussed in the next sub-section.</p>
+
+<h3>Concatenating strings from a table</h3>
+
+<p>Tables offer another nice functionality: the concatenation of all the strings contained within a table. For this to work, the table needs to be used as a sorted array</p>
+
+<pre class="prettyprint">
+   local str = { "Hello", " ", "World", " !!"}
+   print(table.concat(str))    -- will print "Hello World !!"
+</pre>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h2 id="ops-and-statements">Operators and Statements</h2>
+
+<p>Statements are quite similar to C statements, just with slightly different syntax.</p>
+
+<h3 id ="the-ops">The operators</h3>
+
+<p>The operators are very similar to the C operators.<br/>
+The following list give the correspondence between the C operator (on the left) and the Lua operator (on the right)</p>
+
+<table>
+	   <tr>
+	   	   <th>C operator</th>
+		   <th>Lua operator</th>
+		   <th>Comments</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th>+</th>
+		   <th>+</th>
+		   <th style="font-weight: normal;">addition</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th>-</th>
+		   <th>-</th>
+		   <th style="font-weight: normal;">substraction</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th>/</th>
+		   <th>/</th>
+		   <th style="font-weight: normal;">division</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th>*</th>
+		   <th>*</th>
+		   <th style="font-weight: normal;">multiplicatiom</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th>=</th>
+		   <th>=</th>
+		   <th style="font-weight: normal;">equal <b>ASSIGNMENT</b></th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th>==</th>
+		   <th>==</th>
+		   <th style="font-weight: normal;">equal to <b>COMPARISON</b></th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th>!=</th>
+		   <th>~=</th>
+		   <th style="font-weight: normal;">not equal</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th><</th>
+		   <th><</th>
+		   <th style="font-weight: normal;">less than</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th><=</th>
+		   <th><=</th>
+		   <th style="font-weight: normal;">less than or equal to</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th>></th>
+		   <th>></th>
+		   <th style="font-weight: normal;">more than</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th>>=</th>
+		   <th>>=</th>
+		   <th style="font-weight: normal;">more than or equal to</th>
+	   </tr>
+</table>
+
+<p>The AND, OR, NOT operator are though very different</p>
+
+<table>
+	   <tr>
+	   	   <th>C operator</th>
+		   <th>Lua operator</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th style="font-weight: normal;">&&</th>
+		   <th style="font-weight: normal;">and</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th style="font-weight: normal;">||</th>
+		   <th style="font-weight: normal;">or</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th style="font-weight: normal;">!</th>
+		   <th style="font-weight: normal;">not</th>
+	   </tr>
+</table>
+
+<p><b>Please note that the C "!=" equivalent in Lua is not "not=" or "not =" or "not ==". It is written as stated above "~="</b></p>
+
+<p>Lua also offer a convenient power operator ^</p>
+
+<pre class="prettyprint">
+   2^3 = 8
+</pre>
+
+<p>Bitwise operators are also available</p>
+
+<table>
+	   <tr>
+	   	   <th>operator</th>
+		   <th>Functionality</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th style="font-weight: normal;">&</th>
+		   <th style="font-weight: normal;">bitmask AND</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th style="font-weight: normal;">|</th>
+		   <th style="font-weight: normal;">bitmask OR</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th style="font-weight: normal;"><<</th>
+		   <th style="font-weight: normal;">bitshift left</th>
+	   </tr>
+	   
+	   <tr>
+	   	   <th style="font-weight: normal;">>></th>
+		   <th style="font-weight: normal;">bitshift right</th>
+	   </tr>
+</table>
+
+<p>And a modulo operator % (integer rest of the euclidean division)</p>
+
+<pre class="prettyprint">
+   14%3 = 2
+</pre>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h3 id="if-statement">if statement</h3>
+<p>the if statement is written in the following way.</p>
+
+<p>C if statement</p>
+
+<pre class="prettyprint">
+   if(a == b)
+   {
+      [do something]
+   }
+</pre>
+
+<p>Lua if statement</p>
+
+<pre class="prettyprint">
+   if a == b then
+      [do something]
+   end
+</pre>
+
+<h3 id="else-statement">elseif, else statments</h3>
+<p>the else statements are written the following way</p>
+
+<p>C if-else if-else statement</p>
+
+<pre class="prettyprint">
+   if(a == b)
+   {
+      [do something]
+   }
+   else if(a < b)
+  {
+      [do something else]
+  }
+  else
+  {
+      [do something else]
+  }
+</pre>
+
+<p>Lua if-elseif-else statement</p>
+
+<pre class="prettyprint">
+   if a == b then
+      [do something]
+   elseif a < b then
+      [do something else]
+   else
+      [do something else]
+   end
+</pre>
+
+<p>Please note that the <i>elseif</i> statement takes no space between <i>else</i> and <i>if</i>. Also the <i>elseif</i> statement <b>needs</b> a <i>then</i> after the condition while the <i>else</i> <b>does not</b>.</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h3 id="for-statement">for statement</h3>
+<p>The for statement is very similar as well</p>
+
+<p>C for statement</p>
+
+<pre class="prettyprint">
+   for(int i =0; i <= 9; i++)
+   {
+      [do something]
+   }
+</pre>
+
+<p>Lua for statement</p>
+
+<pre class="prettyprint">
+   for i=0,9 do
+      [do something]
+   end
+</pre>
+
+<p>The Lua for statement can take an extra parameter to specify the step</p>
+
+<pre class="prettyprint">
+   for i=1,10,2 do
+      [do something]
+   end
+</pre>
+
+<p>will produce a loop that will use the following values of i: 1, 3, 5, 7, 9.<br/>
+The next value would be 11 since the step is 2 but since we specified that we want i to be maximally 10, it stops at 9.<br/>
+The step could also be negative</p>
+
+<pre class="prettyprint">
+   for i = 100,-50,-15 do
+      [some fancy stuffs]
+   end
+</pre>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h3 id="while-statement">while loop</h3>
+
+<p>The while loop is again very similar</p>
+
+<p>C while</p>
+
+<pre class="prettyprint">
+   bool b = false
+   int x, y = 14941, 9642 
+   while(!b)
+   {
+      if(x%y < 5) b = true;
+      else x = x-y;
+   }
+</pre>
+
+<p>Lua while loop</p>
+
+<pre class="prettyprint">
+   local b = false
+   local x, y = 14941, 9642
+   while not b do
+      if x%y < 5 then
+         b = true
+      else
+         x = x-y
+      end
+   end
+</pre>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h2 id="reading-tables">Reading tables</h2>
+</p>The content of a table can be read in different ways.</p>
+
+</p>If the table is a simple array/vector, one could do it the C way</p>
+
+<pre class="prettyprint">
+   local tbl = { 3, 1, 4, 1, 5, 7 }
+
+   for i = 1 , #tbl do
+      print(tbl[i])
+   end
+</pre>
+
+<p>would print on the screen</p>
+
+<pre class="prettyprint">
+3
+1
+4
+1
+5
+7
+</pre>
+
+<p>Lua offer another way to do that though</p>
+
+<pre class="prettyprint">
+  local tbl = { 3, 1, 4, 1, 5, 7 }
+
+   for i, v in ipairs(tbl) do
+      print(v)
+   end
+</pre>
+
+<p>would print exactly the same thing.<br/>
+The <i>ipairs</i> relates to the fact that tables are associative containers with each entry being a key and a value. When tables are used as arrays, the keys are merely the element 
+number (in the order they have been inserted in the table).<br/>
+We are here considering the pairs of key-value in the table *tbl*, and assign the <i>key</i> to <i>i</i> and the <i>value</i> to <i>ipairs</i>.</p>
+
+<p>Something similar can be done for tables not used as arrays. For instance</p>
+
+<pre class="prettyprint">
+   local detector = {
+      entry = 987654,
+      energy = 666.666,
+      strip = 3,
+      timestamp = 14157
+   }
+
+   for k, v in pairs(detector) do
+      print(k, v)
+   end
+</pre>
+
+<p>would print</p>
+
+<pre class="prettyprint">
+   entry      987654
+   strip      3
+   timestamp  14157
+   energy     666.666
+</pre>
+
+<p>Note that I put a random order for the print out. This is because when the *keys* for a table are not integer of increasing order starting from 1 separated by steps of 1, 
+the order in which they are processed is random.<br/>
+Note also that this time we are calling *pairs* and not *ipairs*. The keys are not integers anymore.</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h2 id="funcs">Functions<h2>
+<h3 id="funcs-defs">Function Definition</h3>
+<p>Function definitions in Lua are similar to their C siblings but at the same time very different.<br/>
+For the similarities:</p>
+
+<p>A function in C</p>
+
+<pre class="prettyprint">
+   int AddNumbers(int a, int b)
+   {
+      return a+b;
+   }
+</pre>
+
+<p>The same function in Lua</p>
+
+<pre class="prettyprint">
+   local function AddNumbers(a, b)
+      return a+b
+   end
+
+   -- an equivalent function definition would be
+   local AddNumbers = function(a, b)
+      return a+b
+   end
+</pre>
+
+<p>In the end functions are just like any other more classic variables (numbers, booleans, strings, ...). They can be either <b>global</b> or <b>local</b>, they can be registered in tables, 
+their assignment can be changed, ...</p>
+ 
+<p>Functions can be called from within other functions as you would expect:</p>
+
+<pre class="prettyprint">
+   local function AddNumbers(a, b)
+      return a+b
+   end
+
+   local function AddAndSquareResult(a, b)
+      local add = AddNumbers(a, b)
+      return a^2
+   end
+</pre>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h3 id="funcs-override">Function Overriding</h3>
+<p>Something very handy is the ability to override an existing function. This is particularly useful for several reasons. Let's imagine we have an existing function doing the addition between 2 numbers, 
+included in a module previously loaded. Now we would like this function to add together these numbers only under a specific condition, 
+and would like it to be retroactive on all the scripts using it, even the ones called from outside of our scripts.</p>
+
+<pre class="prettyprint">
+   -- MODULE A previously loaded
+
+   local function AddNumbers(a, b)
+      return a+b
+   end
+
+</pre>
+
+<pre class="prettyprint">
+   -- Our own Module
+
+   local OriginalAddNumbers = AddNumbers
+   -- we assigned to the variable OriginalAddNumbers the current function AddNumbers
+
+   local function AddNumbers(a, b)
+      if a > b then
+         return OriginalAddNumbers(a, b)
+      else
+         return nil
+      end
+   end
+</pre>
+
+<p>What the function *AddNumbers* is now doing is calling the old value of this function (merly adding together a and b) only if a is biger than b, and doing nothing otherwise. 
+As long as this override happens after the original <i>AddNumbers</i> function is loaded, any call to this function will now call our overridden version, even calls outside of our script(s).</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h3 id="funcs-methods">Function as table members</h3>
+<p>As mentioned ealier, function are variables like any other. The can therefore be a member of a table.<br/>
+Taking again the example of a table that would be a struct for a stripped detector</p>
+
+<pre class="prettyprint">
+   -- assuming we calibrated our detector and obtained
+   -- a slope of 'a' and an offset of 'b' for each of the strips
+
+   local detector = {
+      entry = 9173,
+      energy = 123.456,
+      strip = 3,
+      GetEnCal = function(self)
+         return a[self.strip] * self.energy + b[self.strip]
+      end
+   }
+
+   local en3 = detector.GetEnCal(detector)
+
+   [...]
+
+   detector.strip = 2
+   detector.energy = 987.654
+   local en2 = detector.GetEnCal(detector)
+
+   print(en2)
+   print(en3)
+</pre>
+
+<p>would print the calibrated energy using first the parameters for the strip 3 then for the strip 2.<br/>
+What happens is that the function <i>GetEnCal</i> which is stored in the table <i>detector</i> gets called by <i>detecotr.GetEnCal</i>. The argument passed is the table <i>detector</i> itself, 
+so in the function, self is replaced by <i>detector</i>. You can do the rest of the math yourself.<br/>
+You will notice it is not a very elegant syntax. Lua has a nice way of dealing with this. The functions calls could be replaced by</p>
+
+<pre class="prettyprint">
+   local en3 = detector:GetEnCal()
+
+   [...]
+
+   detector.strip = 2
+   detector.energy = 987.654
+   local en2 = detector:GetEnCal()
+</pre>
+
+<p>The colon (:) instead of the dot (.) when calling a function is actually implicitly passing what is on the left of the ':' as the first argument of the function without having to specify it. 
+It is easy here to follow that the table *detecotr* will then be passed as the first argument in the function <i>GetEnCal</i>.  
+This table actually starts to look like a the equivalent of a C++ class with its own methods. There would still be some more job to do to have a class-like behaviors with this table but that's not 
+the subject here (but it is the subject of <a href="#">this section</a>).
+
+<p><a href="#intro">go back to top</a></p>
+
+<h2 id="mods-and-packs">Modules and Packages</h2>
+
+<p>As said previously, Lua revolves around modules and packages. But what are these?<br/>
+These are merely scripts that are loaded to provide functions or definitions to the main script or other sub-scripts. You can see them as "#include" for a C/C++ script.<br/>
+There are several ways to load modules, the main ones being</p>
+
+<pre class="prettyprint">
+   -- Assuming we have a module in /home/tdrump/science.lua
+
+   -- Option 1: dofile
+   dofile("/home/tdrump/science.lua")
+
+   -- Option 2: require
+   require("science")
+</pre>
+
+<p>The 2 options are different in what the achieve eventually.<br/>
+The <i>dofile</i>  will load the given file no matter where it is as long a a path (absolute or relative) is provided and execute that script, effectively loading whatever is inside. 
+If global variables or functions are declared in the loaded script, then from now on they are available to any other scripts running in the same environment 
+(as long as you try to use them after the script has been loaded).<br/>
+The <i>require</i> is a more demanding beast. You notice that you do not specify here anymore the path to the script. This is because require use what you pass as an argument as a hint 
+to find the corresponding script. For it to work you need to have included the path where the script is located in the list of path the *require* function will use to search for it. Also 
+a major difference with <i>dofile</i>* is that <i>require</i> register the script you loaded in the global table <i>package</i> and keep track of all the modules you included. This way 
+if several sub-modules calls <i>require</i> on the same module, it will effectively be loaded only once. This is not the case with <i>dofile</i>.<br/>
+<a href="https://www.lua.org/manual/5.3/manual.html#pdf-require">More info about this topic can be found here</a>.
+
+<p><a href="#intro">go back to top</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+</div>
+
+<div class="container-full-width">
+<footer>https://github.com/zupalex/luaXroot</footer>
+</div>
+</div>
+
+
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</body>
+</html>
