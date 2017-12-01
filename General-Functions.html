@@ -92,33 +92,38 @@ functions (<a href="#">more about this here</a>).
 
 <p><a href="#intro">go back to top</a></p>
 
-<h2 id="luaxroot-additions"><b>luaXroot</b> additions
+<h2 id="luaxroot-additions"><b>luaXroot</b> additions</h2>
 
 <p><b>luaXroot</b> also offers binders to most of these system calls and basic functions.<br/>
 Below are a list of these functions with a description and their arguments list.</p>
- 
-<p>- Each argument is specified using the following nomenclature: <type, default value if any>  <br/>
-examples: \<integer\>, \<float, 3.14157\>, \<string, "O_RDONLY | O_NONBLOCK"\>, ...<br/>
-- A <i>[o]</i> in front of an argument means that it's optional.<br/>
-- Some functions takes an arguments table. In this case the arguments are enclosed with <i>{ ... }</i>. Each argument inside the table has a name that <b>MUST</b> be specified when 
-calling the function. The advantage of arguments tables is that optional arguments can be omitted completely when calling the function, and passed in any order.</p>
+
+<ul>
+<li>Each argument is specified using the following nomenclature: < type, default value if any ><br/>
+<b>Examples:</b>  <integer >, < float, 3.14157 >, < string, "O_RDONLY | O_NONBLOCK" >, ...<br/></li>
+<li>A <i>[o]</i> in front of an argument means that it's optional.<br/></li>
+<li>Some functions takes an arguments table. In this case the arguments are enclosed with <i>{ ... }</i>. Each argument inside the table has a name that <b>MUST</b> be specified when 
+calling the function. The advantage of arguments tables is that optional arguments can be omitted completely when calling the function, and passed in any order.</p></li>
+</ul>
 
 <h3 id="sysopen"><i>SysOpen</i></h3>
-<p>({<b>name</b>=<string>, <i>[o]</i> <b>flags</b>=<string, "O_RDONLY | O_NONBLOCK">, <i>[p]</i> <b>mode</b>=<string, "0666">})<br/>
+<p>({<b>name</b>=< string >, <i>[o]</i> <b>flags</b>=< string, "O_RDONLY | O_NONBLOCK" >, <i>[p]</i> <b>mode</b>=< string, "0666" >})<br/>
 <i>Return values</i>: <b>int</b></p>
 
 <p>Returns an integer corresponding to the [file descriptor](https://en.wikipedia.org/wiki/File_descriptor) associated to the opened file.<br/>
 Takes an arguments table.<br/>
-You might want to use this function instead of the <i>io.open</i> if you want more controls over how the file is opened (permissions, ...)<br/>
-<i>name</i>: the name of the file<br/>
-<i>flags</i>: define how the file will be opened ("O_RDONLY" for read only, "O_RDWR" for read and write, ...). They have to be given as a string. Bitwise AND and OR operations 
-are possible (e.g. "O_RDONLY | O_NONBLOCK"). See [this page](https://linux.die.net/man/3/open) for the different flags.<br/>
-<i>mode</i>: permission on the file given as a string (default "0666")</p>
+You might want to use this function instead of the <i>io.open</i> if you want more controls over how the file is opened (permissions, ...)</p>
+
+<ul>
+<li><i>name</i>: the name of the file</li>
+<li><i>flags</i>: define how the file will be opened ("O_RDONLY" for read only, "O_RDWR" for read and write, ...). They have to be given as a string. Bitwise AND and OR operations 
+are possible (e.g. "O_RDONLY | O_NONBLOCK"). See [this page](https://linux.die.net/man/3/open) for the different flags.</li>
+<li><i>mode</i>: permission on the file given as a string (default "0666")</li>
+</ul>
 
 <p><a href="#intro">go back to top</a></p>
 
 <h3 id="sysclose"><i>SysClose</i></h3>
-<p>(<int>)<br/>
+<p>(< int >)<br/>
 <i>Return values</i>: <b>nil</b></p>
 
 Closes the file associated to the file descriptor passed as the first argument.
@@ -126,7 +131,7 @@ Closes the file associated to the file descriptor passed as the first argument.
 <p><a href="#intro">go back to top</a></p>
 
 <h3 id="sysftruncate"><i>SysFtruncate</i></h3>
-({<b>fd</b>=<int>, <b>size</b>=<int>})  
+({<b>fd</b>=< int >, <b>size</b>=< int >})  
 <i>Return values</i>: <b>nil</b>
 
 <p>Causes the file associated to the file descriptor <i>fd</i> to be truncated to exactly the size specified by <i>size</i>.<br/>  
@@ -136,100 +141,109 @@ The file offset is not changed.<br/>
 
 <p><a href="#intro">go back to top</a></p>
 
-### *SysRead*
-({**fd**=\<int\>, *[o]* **size**=\<int\>})  
-*Return values*: **string**, **int**
+<h3 id="sysread"><i>SysRead</i></h3>
+<p>({<b>fd</b>=< int >, <i>[o]</i> <b>size</b>=< int >})<br/>
+<i>Return value</i>*: <b>string</b>, <b>int</b></p>
 
-Read *size* bytes from the file corresponding to the file descriptor *fd*. If *size* is not specified, read all the available data.  
-It returns the read data as a string, followed by the amount of bytes read.
-
-<p><a href="#intro">go back to top</a></p>
-
-### *SysWrite* 
-({**fd**=\<int\>, **data**=\<string\>, *[o]* **size**=\<int\>})  
-*Return values*: **int**
-
-Write *size* bytes from the string *data* to the file associated to the file descriptor *fd*. If *size* is not specified, it writes all the available data.  
-It returns the amount of bytes written.
+<p>Read <i>size</i> bytes from the file corresponding to the file descriptor <i>fd</i>. If <i>size</i> is not specified, read all the available data.<br/>
+It returns the read data as a string, followed by the amount of bytes read.</p>
 
 <p><a href="#intro">go back to top</a></p>
 
-### *SysDup* 
-(\<int\>)  
-*Return values*: **int**
+<h3 id="syswrite"><i>SysWrite</i></h3>
+<p>({<b>fd</b>=< int >, <b>data</b>=< string >, <i>[o]</i> <b>size</b>=< int >})<br/>
+<i>Return values</i>: <b>int</b></p>
 
-Creates a copy of the file descriptor given as the first argument using the lowest-numbered unused file descriptor.  
-It returns that new file descriptor.
-
-<p><a href="#intro">go back to top</a></p>
-
-### *SysDup2*
-(\<int\>, \<int\>)  
-*Return values*: **nil**
-
-Performs the same operation as [SysDup]() but using the file descriptor provided as second argument instead of the lowest-numbered unused one.
+<p>Write <i>size</i> bytes from the string <i>data</i> to the file associated to the file descriptor <i>fd</i>. If <i>size</i> is not specified, it writes all the available data.<br/>
+It returns the amount of bytes written.</p>
 
 <p><a href="#intro">go back to top</a></p>
 
-### *MakePipe*
-()  
-*Return values*: **int**, **int**
+<h3 id="sysdup"><i>SysDup</i></h3>
+<p>(< int >)<br/>
+<i>Return values</i>: <b>int</b></p>
 
-Creates a pipe between 2 file descriptors and returns them (the first one is the input of the pipe, the second one is the ouput).
-
-<p><a href="#intro">go back to top</a></p>
-
-### *MakeFifo*
-({**name**=\<string\>, *[o]* **mode**=\<string, "0777"\>})  
-*Return values*: **nil**
-
-Create a FiFo using the *name* argument.  
-*mode* is the permission
+<p>Creates a copy of the file descriptor given as the first argument using the lowest-numbered unused file descriptor.<br/>
+It returns that new file descriptor.</p>
 
 <p><a href="#intro">go back to top</a></p>
 
-### *SysFtok*
-({**pathname**=\<string\>, *[o]* **id**=\<int, 90\>})  
-*Return values*: **int**
+<h3 id="sysdup2"><i>SysDup2</i></h3>
+<p>(< int >, < int >)<br/>
+<i>Return values</i>: <b>nil</b></p>
 
-Generates a key using the *pathname* argument. This key is used to initiate [Semaphores](), [Messages Queues]() or [Shared Memory Segments]().  
-*id* is used only if more than 1 key need to be generated using the same file
-
-<p><a href="#intro">go back to top</a></p>
-
-### *SysSelect*
-({*[o]* **read**=\<table\>, *[o]* **write**=\<table\>, *[o]* **exception**=\<table\>})  
-*Return values*: **table**, **table**, **table**
-
-Allows to monitor multiple file descriptors simultaneously, and check whether any of these is *ready* for one of the following operations: read, write and exceptions.  
-The file descriptors you wish to monitor should be placed in tables and passed in the matching category.  
-When *SysSelect* returns, it returns 3 tables/nil values. The first value is either **_nil_** (if no file descriptor was ready to be read or if none were being monitored for read operation) or a table containing all the file descriptors ready to be read. The second value return is the same for the write operation and the third is for the exception operation.  
-For a detailed description of the *select* C function, [click here](http://man7.org/linux/man-pages/man2/select.2.html).
+<p>Performs the same operation as <a href="#sysdup"><i>SysDup</i></a> but using the file descriptor provided as second argument instead of the lowest-numbered unused one.</p>
 
 <p><a href="#intro">go back to top</a></p>
 
-### *SysExec*
-({**file**=\<string\>, **args**=\<table\>, *[o]* **env**=\<table\>})  
-*Return values*: **nil**
+<h3 id="makepipe"><i>MakePipe</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>int</b>, <b>int</b></p>
 
-Execute the process corresponding to the command *file* with the arguments *args*. The first argument in the *args* table must be the command to execute. It is often redundant with the *file*.  
-A list of environment variables can be passed in *env*.  
-For instance, one could run the *echo* command inside a Lua script
-```lua
+<p>Creates a pipe between 2 file descriptors and returns them (the first one is the input of the pipe, the second one is the ouput).</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h3 id="makefifo"><i>MakeFifo</i></h3>
+<p>({<b>name</b>=< string >, <i>[o]</i> <b>mode</b>=< string, "0777" >})  
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Create a FiFo using the <i>name</i> argument.<br/>
+<i>mode</i> is the permission to use to create the FiFo.</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h3 id="sysftok"><i>SysFtok</i></h3>
+<p>({<b>pathname</b>=< string >, <i>[o]</i> <b>id</b>=< int, 90 >})  <br/>
+<i>Return values</i>: <b>int</b></p>
+
+<p>Generates a key using the <i>pathname</i> argument. This key is used to initiate <a href="#semaphores">Semaphores</a>, 
+<a href="#messagesqueues">Messages Queues</a> or <a href="#sharedmemorysegments">Shared Memory Segments</a>.<br/>
+<i>id</i> is used only if more than 1 key need to be generated using the same file.</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h3 id = "sysselect"><i>SysSelect</i></h3>
+<p>({<i>[o]</i> <b>read</b>=< table >, <i>[o]</i> <b>write</b>=< table >, <i>[o]</i> <b>exception</b>=< table >})<br/>
+<i>Return values</i>: <b>table</b>, <b>table</b>, <b>table</b></p>
+
+<p>Allows to monitor multiple file descriptors simultaneously, and check whether any of these is <i>ready</i> for one of the following operations: read, write and exceptions.<br/>
+The file descriptors you wish to monitor should be placed in tables and passed in the matching category.<br/>
+When <i>SysSelect</i> returns, it returns 3 <b>tables</b>/<b>nil</b> values. The first value is either <b>nil</b> (if no file descriptor was ready to be read or if none were being monitored for 
+read operation) or a table containing all the file descriptors ready to be read. The second value return is the same for the write operation and the third is for the exception operation.<br/>
+For a detailed description of the <i>select</i> C function, <a href="http://man7.org/linux/man-pages/man2/select.2.html">click here</a>.</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h3 id="sysexec"><i>SysExec</i></h3>
+<p>({<b>file</b>=< string >, <b>args</b>=< table >, <i>[o]</i> <b>env</b>=< table >})<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+Execute the process corresponding to the command <i>file</i> with the arguments <i>args</i>. The first argument in the <i>args</i> table must be the command to execute. 
+It is often redundant with the <i>file</i>.<br/>
+A list of environment variables can be passed in <i>env</i>.<br/>
+For instance, one could run the <i>echo</i> command inside a Lua script<br/>
+
+<pre class=prettyprint>
    SysExec({file="echo", args={"echo", "Hellow World"}}) 
    -- this will display on screen "Hello World" 
    -- and terminate the process
-```
+</pre>
+
 <p><a href="#intro">go back to top</a></p>
 
-### *SysFork*
-({**fn**=\<function\>, *[o]* **args**=\<table\>, *[o]* **preinit**=\<function\>})  
-*Return values*: **nil**
+<h3 id="sysfork"><i>SysFork</i></h3>
+<p>({<b>fn</b>=< function >, <i>[o]</i> <b>args</b>=< table >, <i>[o]</i> <b>preinit</b>=< function >})<br/>
+<i>Return values</i>: <b>nil</b></p>
 
-[Fork](http://man7.org/linux/man-pages/man2/fork.2.html) the process and execute the function *fn* with the arguments *args* in the child process.  
-This can be used to start a new task in the background. Note that this function duplicates the process and does not create a new thread. It's usage is very specific and does not allow further communication with the forked process from the master process. [*StartNewTask*]() should be the preferred method when one wants to start a new background task.  
-Example
-```lua
+<a href="http://man7.org/linux/man-pages/man2/fork.2.html">Fork</a> the process and execute the function <i>fn</i> with the arguments <i>args</i> in the child process.<br/>
+This can be used to start a new task in the background. Note that this function duplicates the process and does not create a new thread. It's usage is very 
+specific and does not allow further communication with the forked process from the master process. <a href="#startnewtask">StartNewTask</a> should be the preferred method when one wants 
+to start a new background task.</p>
+
+<p>Example</p>
+
+<pre class="prettyprint">
    local EchoFn = function(message)
       SysExec({file="echo", args={"echo", message}})
    end
@@ -238,36 +252,44 @@ Example
    -- This command created a clone of the current process. 
    -- The cloned process will execute the command *echo "Hello World"* 
    -- and terminate while the master process whill keep on running.
-```
+</pre>
 
 <p><a href="#intro">go back to top</a></p>
 
-# Inter-Process Communications
-**luaXroot** offer binders for the different inter-process communication tools
+<h2 id="ipc">Inter-Process Communications</h2>
 
-## Messages Queues
-**luaXroot** proveds "raw" bindings for the Messages Queues functions as well as wrapper and helper functions.  
-The "raw" binders are presented first: [*MsgGet*](https://github.com/zupalex/luaXroot/wiki/Built-in-Functions:-General-Functions#msgget), [*MsgSnd*](https://github.com/zupalex/luaXroot/wiki/Built-in-Functions:-General-Functions#msgsnd), [*MsgRcv*](https://github.com/zupalex/luaXroot/wiki/Built-in-Functions:-General-Functions#msgsnd), [*MsgCtl*](https://github.com/zupalex/luaXroot/wiki/Built-in-Functions:-General-Functions#msgctl)
+<p><b>luaXroot</b> offer binders for the different inter-process communication tools</p>
 
-### *MsgGet*
-({**key**=\<int\>, *[o]* **flags**=\<string\, "IPC_CREAT | IPC_EXCL | 0666">})  
-*Return values*: **int**
+<h3 id="messagesqueues">Messages Queues</h3>
+<b>luaXroot</b> provides "raw" bindings for the Messages Queues functions as well as wrapper and helper functions.<br/>
+The "raw" binders are presented first: <a href="#msgget"><i>MsgGet</i>/a>, <a href="#msgsnd"><i>MsgSnd</i></a>, 
+<a href="#msgsnd"><i>MsgRcv</i>/a>, <a href="#msgctl"><i>MsgCtl</i></a>.
 
-Create or retrieve a message queue using the key provided by the argument *key* and returns its ID. The fact that the message queue is created or not depends on the *flags* specified. See this link for a [list of the possible flags](http://pubs.opengroup.org/onlinepubs/7908799/xsh/sysipc.h.html).
+<h3 id="msgget"><i>MsgGet</i></h3>
+<p>({<b>key</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "IPC_CREAT | IPC_EXCL | 0666" >})<br/>
+<i>Return values</i>: <b>int</b></p>
+
+<p>Create or retrieve a message queue using the key provided by the argument <i>key</i> and returns its ID. 
+The fact that the message queue is created or not depends on the <i>flags</i> specified. 
+See this link for a <a href="http://pubs.opengroup.org/onlinepubs/7908799/xsh/sysipc.h.html">list of the possible flags</a>.</p>
 
 <p><a href="#intro">go back to top</a></p>
 
-### *MsgSnd*
-({**msgid**=\<int\>, **data**=\<table\>, *[o]* **mtype**=\<int\, 0>, *[o]* **flags**=\<string\>})  
-*Return values*: **nil**
+<h3 id="msgsnd"><i>MsgSnd</i></h3>
+<p>({<b>msgid</b>=< int >, <b>data</b>=< table >, <i>[o]</i> <b>mtype</b>=< int, 0 >, <i>[o]</i> <b>flags</b>=< string >})<br/>
+<i>Return values</i>: <b>nil</b></p>
 
-Send the message contained in the table *data* to the message queue identified by *msgid*.
-The *data* argument is a table containing itself 2 subtables:  
-*data*={**format**=\<table\>, **values**=\<table\>}  
-*format* is the string identifier of the elements inside the message.  
-*values* are the values of the elements inside the message.  
-Example
-```lua
+<p>Send the message contained in the table *data* to the message queue identified by <i>msgid</i>.<br/>
+The <i>data</i> argument is a table containing itself 2 subtables:</p>
+<ul>
+<li><i>data</i>={<b>format</b>=< table >, <b>values</b>=< table >}</li>
+<li><i>format</i> is the string identifier of the elements inside the message.</li>
+<li><i>values</i> are the values of the elements inside the message.</li>
+</ul>
+
+<p>Example</p>
+
+<pre class="prettyprint">
    -- [... Some code before generating a key msgkey ... ]
 
    mid = MsgGet({key=msgkey})
@@ -278,84 +300,92 @@ Example
    local message = { format=message_format , values=message_vals }
 
    MsgSnd( { msgid=mid, data=message } )
-```
+</pre>
 
-For an explanation about *mtype* and *flags* (optionnal arguments) see [this link](http://man7.org/linux/man-pages/man2/msgop.2.html).
-
-<p><a href="#intro">go back to top</a></p>
-
-### *MsgRcv*
-({**msgid**=\<int\>, **format**=\<table\>, *[o]* **mtype**=\<int\, 0>, *[o]* **flags**=\<string\>})  
-*Return values*: **table**, **bool**
-
-Receive the message in the message queue identified by *msgid*. It uses the *format* table to determine how to read the message, similarly to the [*MsgSnd*](https://github.com/zupalex/luaXroot/wiki/Built-in-Functions:-General-Functions#msgsnd) function.
-
-For an explanation about *mtype* and *flags* (optionnal arguments) see [this link](http://man7.org/linux/man-pages/man2/msgop.2.html).
+<p>For an explanation about <i>mtype</i> and <i>flags</i> (optionnal arguments) see <a href="http://man7.org/linux/man-pages/man2/msgop.2.html">this link</a>.</p>
 
 <p><a href="#intro">go back to top</a></p>
 
-### *MsgCtl*
-({**msgid**=\<int\>, **cmd**=\<int\>})  
-*Return values*: **nil** OR **table** (depending on *cmd* argument)
+<h3 id="msgrcv"><i>MsgRcv</i></h3>
+<p>({<b>msgid</b>=< int >, <b>format</b>=< table >, <i>[o]</i> <b>mtype</b>=< int, 0 >, <i>[o]</i> <b>flags</b>=< string >})<br/>
+<i>Return values</i>: <b>table</b>, <b>bool</b></p>
 
-Perform the operation identified by *cmd* on the message queue identified by *msgid*.  
-The supported operations are:
-- IPC_STAT: get statistics about the message queue
-- IPC_RMID: mark the message queue for deletion
+<p>Receive the message in the message queue identified by <i>msgid</i>. It uses the <i>format</i> table to determine how to read the message, similarly 
+to the <a href="#msgsnd">MsgSnd</a> function.</p>
 
-These operations are described [here](http://man7.org/linux/man-pages/man2/msgctl.2.html).
+<p>For an explanation about <i>mtype</i> and <i>flags</i> (optionnal arguments) see <a href="http://man7.org/linux/man-pages/man2/msgop.2.html">this link</a>.</p>
 
 <p><a href="#intro">go back to top</a></p>
 
-## Helpers and Wrappers
-Most of these functions are registered in the table *mgsq*
+<h3 id="msgctl"><i>MsgCtl</i></h3>
+<p>({<b>msgid</b>=< int >, <b>cmd</b>=< int >})<br/>  
+<i>Return values</i>: <b>nil</b> OR <b>table</b> (depending on <i>cmd</i> argument)</p>
 
-### *PrintMessagesQueueHelp*
-()
-*Return values*: **nil**
+<p>Perform the operation identified by <i>cmd</i> on the message queue identified by <i>msgid</i>.<br/>
+The supported operations are:</p>
+<ul><li>IPC_STAT: get statistics about the message queue</li>
+<li>IPC_RMID: mark the message queue for deletion</li></ul>
 
-Display help on creating or getting a message queue.
-
-### *msgq.ListActiveMsgqs*
-()
-*Return values*: **nil**
-
-Print a list of the active messages queues and provide statistics.
-
-### *MsgqObject*
-A Lua Class used to manipulate more easily messages queues.
-
-##### Members
-- *path*: path to the message queue file (if any).
-- *fd*: file descriptor of the message queue file (if any).
-- *key*: key used to open the message queue.
-- *id*: identifier of the message queue.
-- *size*: size in bytes of the messages sent and received.
-- *owner*: whether or not the MsgqObject is the owner of the message queue
-
-##### Methods
-- *Receive*(\<table\>, \<int\>, \<string\>) : Receive a message
-  - argument 1 as the [*format* table](https://github.com/zupalex/luaXroot/wiki/Built-in-Functions:-General-Functions#msgsnd)
-  - argument 2 as *mtype*
-  - argument 3 as *flags*
-
-### *msgq.CreateMsgq*
-()
-*Return values*: **MsgqObject**
-
-## Semaphores
+<p>These operations are described <a href="http://man7.org/linux/man-pages/man2/msgctl.2.html">here</a>.</p>
 
 <p><a href="#intro">go back to top</a></p>
 
-## Shared Memory Segments
+<h2 id="helpers-and-wrappers">Helpers and Wrappers</h2>
+<p>Most of these functions are registered in the <b>global</b> table <i>mgsq</i></p>
+
+<h3 id="printmessagesqueueshelp"><i>PrintMessagesQueuesHelp</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Display help on creating or getting a message queue.</p>
+
+<h3 id="msgq-listactivemsgqs"><i>msgq.ListActiveMsgqs</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Print a list of the active messages queues and provide statistics.</p>
+
+<h3 id="msgqobject"><i>MsgqObject</i></h3>
+<p>A Lua Class used to manipulate more easily messages queues.</p>
+
+<h4 ="msgqobject-members">Members</h4>
+<ul>
+<li><i>path</i>: path to the message queue file (if any).</li>
+<li><i>fd</i>: file descriptor of the message queue file (if any).</li>
+<li><i>key</i>: key used to open the message queue.</li>
+<li><i>id</i>: identifier of the message queue.</li>
+<li><i>size</i>: size in bytes of the messages sent and received.</li>
+<li><i>owner</i>: whether or not the MsgqObject is the owner of the message queue.</li>
+</ul>
+
+<h4 ="msgqobject-methods">Methods</h4>
+<ul>
+    <li><i>Receive</i>(< table >, < int >, < string >) : Receive a message
+         <ul>
+		 	 <li>argument 1 as the <a href="#msgsnd"><i>format</i> table</a></li>
+			 <li>argument 2 as <i>mtype</i></li>
+			 <li>argument 3 as <i>flags</i></li>
+		 </ul>
+	</li>
+</ul>
+
+<h3 id="msgq-createmsgq"><i>msgq.CreateMsgq</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>MsgqObject</b></p>
+
+<h2 id="semaphores">Semaphores</h2>
 
 <p><a href="#intro">go back to top</a></p>
 
-## Memory Mapped Files
+<h2 id="sharedmemorysegments">Shared Memory Segments</h2>
 
 <p><a href="#intro">go back to top</a></p>
 
-## Sockets
+<h2 id="memorymappedfiles">Memory Mapped Files</h2>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h2 id="sockets">Sockets</h2>
 
 <p><a href="#intro">go back to top</a></p>
 
@@ -376,5 +406,6 @@ A Lua Class used to manipulate more easily messages queues.
 </div>
 </div>
 
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 </body>
 </html>
