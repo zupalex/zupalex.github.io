@@ -2,6 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="scripts/mystyles.css">
+
 </head>
 <body>
 
@@ -14,7 +15,7 @@
 
 <div class="container-content">
 <nav>
-<iframe src="sidebar.html" style="border:none;"></iframe>
+<iframe src="sidebar.html"  style="border:none;"  onload="SetSidebarHeight(this);"></iframe>
 </nav>
 
 <article>
@@ -435,7 +436,7 @@ The supported operations are:</p>
 
 <h4 ="msgqobject-methods">Methods</h4>
 <ul>
-    <li class="classmethod"><i>Receive</i>(< table >, < int >, < string >) : Receives a message and stores it in member <i>last_msg</i>
+    <li class="classmethod" id="msgqobject-receive"><i>Receive</i>(< table >, < int >, < string >) : Receives a message and stores it in member <i>last_msg</i>
          <ul>
 		 	 <li>argument 1 as the <a href="#msgsnd"><i>format</i> table</a></li>
 			 <li>argument 2 as <i>mtype</i></li>
@@ -443,7 +444,7 @@ The supported operations are:</p>
 			 <li>Returns the message read in a <b>table</b></li>
 		 </ul>
 	</li>
-	<li class="classmethod"><i>Send</i>(< table >, < table >, < int >, < string >) : Sends a message
+	<li class="classmethod" id="msgqobject-send"><i>Send</i>(< table >, < table >, < int >, < string >) : Sends a message
          <ul>
 		 	 <li>argument 1 as the <a href="#msgsnd"><i>format</i> table</a></li>
 			 <li>argument 2 as the <a href="#msgsnd"><i>values</i> table</a></li>
@@ -451,7 +452,7 @@ The supported operations are:</p>
 			 <li>argument 4 as <i>flags</i></li>
 		 </ul>
 	</li>
-	<li class="classmethod"><i>GetLast</i>() : Returns the last message received in a <b>table</b></li>
+	<li class="classmethod" id="msgqobject-getlast"><i>GetLast</i>() : Returns the last message received in a <b>table</b></li>
 </ul>
 </div>
 
@@ -599,20 +600,20 @@ The supported operations are:</p>
 
 <h4 ="semaphoreobject-methods">Methods</h4>
 <ul>
-    <li class="classmethod"><i>SetValue</i>(< int >, < int >) : Sets the value of a semaphore
+    <li class="classmethod" id="semaphoreobject-setvalue"><i>SetValue</i>(< int >, < int >) : Sets the value of a semaphore
          <ul>
 		 	 <li>argument 1 is the semaphore number</li>
 			 <li>argument 2 is the new value</li>
 		 </ul>
 	</li>
 	
-	<li class="classmethod"><i>SetAllValue</i>(< table >) : Sets all the values in the set using the table passed as an argument</li>
+	<li class="classmethod" id="semaphoreobject-setallvalue"><i>SetAllValue</i>(< table >) : Sets all the values in the set using the table passed as an argument</li>
 	
-    <li class="classmethod"><i>GetValue</i>(< int >) : Gets the value of the semaphore number given by the argument of the function</li>
+    <li class="classmethod" id="semaphoreobject-getvalue"><i>GetValue</i>(< int >) : Gets the value of the semaphore number given by the argument of the function</li>
 	
-	<li class="classmethod"><i>GetAllValue</i>() : Gets the values of all the semaphores in the set and returns it as a table</li>
+	<li class="classmethod" id="semaphoreobject-getallvalue"><i>GetAllValue</i>() : Gets the values of all the semaphores in the set and returns it as a table</li>
 	
-	 <li class="classmethod"><i>Operate</i>(< table >, < table >) : Operates on the semaphores
+	 <li class="classmethod" id="semaphoreobject-operate"><i>Operate</i>(< table >, < table >) : Operates on the semaphores
          <ul>
 		 	 <li>argument 1 is a table containing the semaphores numbers on which the function will operate</li>
 			 <li>argument 2 is a table with the operations to perform</li>
@@ -839,46 +840,46 @@ The supported operations are:</p>
 
 <h4 ="shmemobject-methods">Methods</h4>
 <ul>
-    <li class="classmethod"><i>RawRead</i>(< int >, < int >) : Performs a <a href="#shmrawread">ShmRawRead</a> on the shared memory segment.
+    <li class="classmethod" id="shmemobject-rawread"><i>RawRead</i>(< int >, < int >) : Performs a <a href="#shmrawread">ShmRawRead</a> on the shared memory segment.
          <ul>
 		 	 <li>argument 1 is the amount of bytes to read.</li>
 			 <li>argument 2 is the offset. If omitted, the default value is 0.</li>
 		 </ul>
 	</li>
 	
-	<li class="classmethod"><i>AutoGet</i>( ) : Automatically performs a readout of the shared memory and returns the result. If no <i>struct</i> member has been set it simply gets the value of <i>buffer</i>. 
+	<li class="classmethod" id="shmemobject-autoget"><i>AutoGet</i>( ) : Automatically performs a readout of the shared memory and returns the result. If no <i>struct</i> member has been set it simply gets the value of <i>buffer</i>. 
 	Otherwise it uses a call to <a href="#shmgetmem">ShmGetMem</a>.</li>
 	
-    <li class="classmethod"><i>AutoSet</i>(< same type as buffer OR table >) : Automatically select how to set values in the shared memory. If no <i>struct</i> member has been set it simply sets the value of <i>buffer</i>.
+    <li class="classmethod" id="shmemobject-autoset"><i>AutoSet</i>(< same type as buffer OR table >) : Automatically select how to set values in the shared memory. If no <i>struct</i> member has been set it simply sets the value of <i>buffer</i>.
 	Otherwise it uses a call to <a href="#shmsetmem">ShmSetMem</a>.</li>
 	
-	<li class="classmethod"><i>GetStepSize</i>() : Returns the size of the type currently used as a <i>buffer</i> (or <i>struct</i> if one has been set).</li>
+	<li class="classmethod" id="shmemobject-getstepsize"><i>GetStepSize</i>() : Returns the size of the type currently used as a <i>buffer</i> (or <i>struct</i> if one has been set).</li>
 	
-	<li class="classmethod" id="shmem-setaddress"><i>SetAddress</i>(< userdata >, < int, 0 >) : Set the member <i>buffer</i> using the first argument.
+	<li class="classmethod" id="shmemobject-setaddress"><i>SetAddress</i>(< userdata >, < int, 0 >) : Set the member <i>buffer</i> using the first argument.
          <ul>
 		 	 <li>argument 1 is a userdata that will be used as a buffer to read the shared memory</li>
 			 <li>argument 2 is the offset. The buffer will be assigned to the beginning of the shared memory + offset</li>
 		 </ul>
 	</li>
 	
-	<li class="classmethod"><i>Read</i>(< int >) : Reads the shared memory at the position given by the argument. That position is the value of the argument * size of the buffer (or equivalent <i>struct</i> if set).</li>
+	<li class="classmethod" id="shmemobject-read"><i>Read</i>(< int >) : Reads the shared memory at the position given by the argument. That position is the value of the argument * size of the buffer (or equivalent <i>struct</i> if set).</li>
 	
-	<li class="classmethod"><i>SetValue</i>(< table >, < int >) : Operates on the semaphores
+	<li class="classmethod" id="shmemobject-setvalue"><i>SetValue</i>(< table >, < int >) : Operates on the semaphores
          <ul>
 		 	 <li>argument 1 is a table containing the values to set (see <a href="#shmsetmem">this part</a> for more details)</li>
 			 <li>argument 2 is the position (value of the argument * size of <i>buffer</i> or <i>struct</i>) where these values should be set.</li>
 		 </ul>
 	</li>
 	
-	<li class="classmethod" id="shm-setstructure"><i>SetStructure</i>(< table >) : A <a href="#shmsetmem">format table</a> that is assign to the member <i>struct</i>.</li>
+	<li class="classmethod" id="shmemobject-setstructure"><i>SetStructure</i>(< table >) : A <a href="#shmsetmem">format table</a> that is assign to the member <i>struct</i>.</li>
 	
-	<li class="classmethod"><i>SetOffset</i>(< int >) : Set the current position in the shared memory segment and assign this offset value to <i>current_offset</i>.</li>
+	<li class="classmethod" id="shmemobject-setoffset"><i>SetOffset</i>(< int >) : Set the current position in the shared memory segment and assign this offset value to <i>current_offset</i>.</li>
 	
-	<li class="classmethod"><i>Advance</i>(< int >) : Shift the address of the buffer by the value passed as an argument. The actual shift is the value of the argument * size of the buffer (or equivalent <i>struct</i> if set).</li>
+	<li class="classmethod" id="shmemobject-advance"><i>Advance</i>(< int >) : Shift the address of the buffer by the value passed as an argument. The actual shift is the value of the argument * size of the buffer (or equivalent <i>struct</i> if set).</li>
 	
-	<li class="classmethod"><i>Next</i>(< table >, < table >) : Shifts the buffer forward for an amount of bytes equal to the size of the buffer</li>
+	<li class="classmethod" id="shmemobject-next"><i>Next</i>(< table >, < table >) : Shifts the buffer forward for an amount of bytes equal to the size of the buffer</li>
 	
-	<li class="classmethod"><i>Previous</i>(< table >, < table >) : Shifts the buffer backward for an amount of bytes equal to the size of the buffer</li>
+	<li class="classmethod" id="shmemobject-previous"><i>Previous</i>(< table >, < table >) : Shifts the buffer backward for an amount of bytes equal to the size of the buffer</li>
 </ul>
 </div>
 
@@ -893,8 +894,8 @@ The supported operations are:</p>
 <i>Return values</i>: <b>ShMemObject</b></p>
 
 <p>Creates a shared memory segment using either a <i>path</i> to a file on disk or directly a <i>key</i>.<br/>
-The second argument can either be the size of the shared memory segment in bytes (a buffer can be attached to it later using <a href="#shmem-setaddress"><i>ShMemObject:SetAddress</i></a> or
- a data structure set using <a href="#shm-setstructure"><i>ShMemObject:SetStructure</i></a>) or directly a buffer (which must be a <b>userdata</b>).<br/>
+The second argument can either be the size of the shared memory segment in bytes (a buffer can be attached to it later using <a href="#shmememobject-setaddress"><i>ShMemObject:SetAddress</i></a> or
+ a data structure set using <a href="#shmmemobject-setstructure"><i>ShMemObject:SetStructure</i></a>) or directly a buffer (which must be a <b>userdata</b>).<br/>
 The <i>flags</i> control how the shared memory segment will be created and can be</p>
 <ul>
 	<li><b>open</b>: the semaphores set will be opened only if it already exists</li>

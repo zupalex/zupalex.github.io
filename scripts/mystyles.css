@@ -44,8 +44,10 @@ header, footer {
     background-image: url("https://wallpaperscraft.com/image/sky_stars_clouds_abstract_103745_1920x1080.jpg");
     clear: left;
     background-repeat: no-repeat;
-    background-position: center; 
+    background-position: center;
 }
+
+.container-full-width a:visited { color: white; }
 
 nav {
     float: left;
@@ -84,4 +86,7 @@ alt-h2 {
    font-weight: bold;
  }
  
- 
+iframe.sidebar {
+ heigth: 300px;
+ border: none;
+}
