@@ -314,6 +314,23 @@ When a variable is declared globally like explained earlier, what is happening i
    print(table.concat(str))    -- will print "Hello World !!"
 </pre>
 
+<h3>Copying table</h3>
+
+<p>In Lua, tables are passed as references and cannot be copied trivialy.</p>
+
+<pre class="prettyprint">
+	 local tbl1 = { 8, true, "Hello", 123.456, "World"}
+	 
+	 local tbl2 = tbl1 -- we actually did not copy tbl1 to tbl2 here, just made a reference
+	 
+	 tbl2[3] = "Goodbye" -- we modify the 3rd field of tbl2 
+	 
+	 print(tbl1[3])      -- will print "Goodbye" and not "Hello" since tbl2 is a reference to tbl1
+	                     -- so by modifying tbl2[3] we modified tbl1[3] as well
+</pre>
+
+<p>To do actual copy of tables, please see <a href="Functionalities#shallowcopy">this section.</p>
+
 <p><a href="#intro">go back to top</a></p>
 
 <hr>
