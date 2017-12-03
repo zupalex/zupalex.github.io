@@ -54,7 +54,7 @@ nav {
     background-color: #EFEFEF;
     position: sticky;
     top: 0;
-    text-indent: 1em;
+    overflow: auto;
 }
 
 nav ul {
