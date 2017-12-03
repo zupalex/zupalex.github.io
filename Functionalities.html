@@ -27,6 +27,25 @@ It has exactly the same functionalities: you can type commands that will be inte
 <p>But in the background, a ROOT <i>TApplication</i> is running. It controls all the display functionalities and is called each time a histogram or a graph needs to be drawn or updated, 
 but also when the user interacts with the <i>TCanvas</i> to zoom in or out, change the binning, or simply move the mouse over the canvas...</p>
 
+
+<h1 id="intro">Index of the Functionalities section:</h1>
+<ul>
+<li><a href ="#the-tapplication"><h3>The TApplication</h3></a></li>
+<li><a href ="#the-userlogon"><h3>The userlogon.lua</h3></a></li>
+<li><a href ="#lua-classes-implementation"><h3>Lua "classes" implementation</h3></a></li>
+  <ul>
+    <li><a href ="#more-about-userdata"><h4>More about the <b>userdata</b> type</h4></a></li>
+	<li><a href ="#userdata-as-classes"><h4><b>userdata</b> as substitutes to C++ classes</h4></a></li>
+  </ul>
+<li><a href ="#system-calls"><h3>System calls binding</h3></a></li>
+<li><a href ="#ipc"><h3>Inter-Process Communication</h3></a></li>
+<li><a href ="#the-root-binders"><h3>The ROOT binders</h3></a></li>
+<li><a href ="#helper-funcs"><h3>Helper functions</h3></a></li>
+<li><a href ="#adding-custom-classes"><h3>Adding custom classes</h3></a></li>
+</ul>
+
+<hr>
+
 <h2 id="the-tapplication">The TApplication (theApp)</h2>
 <p>Only one instance of the <i>TApplication</i> can run for one instance of <b>luaXroot</b>. It is started on a concurrent thread when <b>luaXroot</b> launched.<br/>
 A set of <i>messages</i> and <i>mutexes</i> are put in place to ensure that the user's action in the Lua command interpreter won't interfere with an action the <i>TApplication</i> is currently 
@@ -34,14 +53,170 @@ resolving, effectively putting action requests in a queue until they can be reso
 This <i>TApplication</i> instance can be accessed through calls to <i>theApp</i> either from the Lua command interpreter or from scripts loaded later. You should though never have to call it 
 except for occasional request to manually *Update* the status of the <i>TApplication</i> instance. Basically leave that alone if you are not totally sure that you absolutely need to interact with it.<p>
 
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="the-userlogon">The userlogon.lua</h2>
+<p>When starting <b>luaXroot</b> a bunch of scripts are loaded, the main one being luaXrootlogon.lua<br/>
+The core modules are loaded via calls to <a href="#">require</a> in this luaXrootlogon.lua script, as well as some general functions.<br/>
+At the very end of the loading process, a call to <i>require("userlogon.lua")</i> is made. If such a script is found in the "user" folder of the <b>luaXroot</b> repository 
+(it should exist at the first place but be empty save for a few line of comments. If not it is safe to create it) it is then loaded. this "user/userlogon.lua" is where the user will want to put 
+any additional module that he/she would want to load at startup. Bear in mind these modules will be loaded last.</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="lua-classes-implementation">Lua "classes" implementation</h2>
+<p>Lua doesn't have classes (C++) nor a notion of struct (C). Instead it uses tables to store data of different types inside a unique container. But unlike a C struct, Lua tables are dynamic. Objects
+ can be added or removed from them at anytime.<br/>
+ Concerning table, there is no direct comparison possible. Tables don't offer inheritence nor a direct way to create object from them or call methods. A similar behavior can be achieved though using 
+ a specific type of tables: <a href="https://www.lua.org/pil/13.html"><b>metatables</b></a>.<br/>
+For simplicity sake, let's consider the metatables as the table that will contain our "class" methods and members. They can be used to achieve something similar to what C++ classes do and we won't go
+ into the details of their implementation here as it is not relevant to the end user. For more information: <b>luaXroot</b> "class" implementation is based on the
+  model <a href="http://lua-users.org/wiki/SimpleLuaClasses">presented here</a>.</p>
+
+<p>As <a href="The-Lua-Scripting-Language.html#var-ud">explained previously</a>, <b>userdata</b> are a special type of variables. They are links to C pointer and allow the user to manipulate any type
+ of object. To be able to do anything meanigful, <i>binders</i> have to be created beforehands. A few very simple examples are given below.</p>
+
+<h3 id="more-about-userdata">More about the <b>userdata</b> type</h3>
+ 
+<h4 id="the-new-function">The <i>New</i> function</h4>
+<p>Any userdata in <b>luaXroot</b> can be instantiated using the <i>New</i> function. The type of the userdata is passed as a string in the first argument, and the function takes any number 
+of additional arguments required by the userdata constructor.</p>
+
+<p><b>luaXroot</b> provides binders to a lot of different userdata. We will first treat the simplest of them all: pointers to classic C types. Even though their usefulness won't be obvious 
+in the examples given below, their existence is what makes the binders to more complexe userdata possible.<br/>
+Userdata to the following types of pointers exists</p>
+
+<ul>
+<li>bool</li>
+<li>short</li>
+<li>unsigned short</li>
+<li>int</li>
+<li>unsigned int</li>
+<li>long</li>
+<li>unsigned long</li>
+<li>long long</li>
+<li>unsigned long long</li>
+<li>float</li>
+<li>double</li>
+<li>string</li>
+<li>char</li>
+<li>char*</li>
+<li>const char*</li>
+</ul>
+
+<p>Each of these simple userdata has a metatable associated to it. This table can registere "methods" and "members".<br/>
+If an object possess a metatable, this metatable will act as a proxy. Let's consider a simple case:</p>
+
+<p>Let's assume we have a userdata "d" which is a link to a double* (a pointer to a float). If we just have this userdata as is, we can't do much with it.</p>
+
+<pre class="prettyprint">
+	 d.name = "An amazing double"
+</pre>
+
+<p>would not have much sense (actually no sense at all).But if a metatable is associated to the userdata,any call to the object will actually call the metatable. This metatable can contain whatever 
+we want (as any other table). If we did our job properly, we registered some useful functions in this metatable beforehand. Some function that would for instance allow us to manipulate the value 
+of the double pointed by <i>d</i> or retrieve it. Let's say that we gave sensible names to these methods like <i>Set</i> and <i>Get</i> and we could do</p>
+
+<pre class="prettyprint">
+	 d.name = "An amazing double" -- is actually calling the metatable associated to d. This metatable can contain whatever we want.
+	 
+	 d:Set(5)     -- the <i>Set</i> method has been registered on <i>d</i> metatable beforehand
+	 
+	 print(d.name, "=", d:Get()) -- wil print on screen "An amazing double = 5"
+</pre>
+
+<p>That's right, we now have a double that can have a name, but also a favorite color or movie quote.<br/>
+Every userdata built-in <b>luaXroot</b> possess a metatable with the following registered methods: <i>Set</i>, <i>Get</i>, <i>ShiftAddress</i>, <i>SetAddress</i>, <i>Allocate</i></p>
+
+<p>As a reminder, the colon (:) operator is a shortcut to pass the left side of the operand as the first argument to the function called on the right side. This would be equivalent to</p>
+
+<pre class="prettyprint">
+	 d.name = "An amazing double" -- is actually calling the metatable associated to d. This metatable can contain whatever we want.
+	 
+	 d.Set(d, 5)         -- again, d is calling the metatable associated to <i>d</i>.
+	                     -- This metatable has a function member called Set and that's what we retrieve with <i>d.Set</i>
+	                     -- the first argument of the Set function is the userdata that needs to be modified 
+	                     -- and the second is the new value that we want to apply to this userdata
+	                     -- A careful reader would tell me that the <i>d</i> passed as first argument won't be 
+	                     -- the userdata but the metatable associated to it though. This is true
+	                     -- but with some Lua magic this actually reaches the userdata. Keep in mind everything is 
+	                     -- simplified here and for proper explanations visit the Lua reference website
+	 
+	 print(d.name, "=", d.Get(d)) -- same comment as above
+</pre>
+
+<p>A more detailed explanation/example</p>
+
+<pre class="prettyprint">
+	 -- We could create a userdata which would be the link to an integer pointer
+	 -- To do this, we can use the function <a href="#the-nea-function">New</a>
+	 
+	 local i1 = New("int")
+	 
+	 print(i1) -- A call to print the value of i1 would print on the screen "userdata: 0x1a766f8"
+	 
+	 -- We can then set and get the values of i1 like this
+	 i:Set(7)
+	 
+	 print(i1:Get())     -- would print on screen "7"
+	 
+	 local a = i1:Get()  -- we now have a standard variable with a value = 7
+	 
+	 local i2 = int()    -- userdata with "simple" names (no spaces) can be instantiated directly with their name followed by ()
+	 i2:SetAddress(i1)   -- similarly to a pointer, we set the address of i2 to be the same as i1
+	 
+	 i2:Set(3)
+	 
+	 print(i1:Get() == i2:Get()) -- will print "true"! With standard variables, one would expect this to print "false" (7 =/= 3) but since we are
+	                             -- working with userdata which are pointer and i1 address is the same as i2 address,, by setting i2 to 3, we set i1 to 3
+								 
+	 local i3 = int()
+	 i3:SetAddress(i1, 8)        -- set the address of i3 to be the one of i1 + 8 bytes
+	 
+	 i3:Set(13)
+	 
+	 print(i1:Get() == i3:Get()) -- will print "false" since i1:Get() will currently returns 3 while i3:Get() will returns 13
+	 
+	 i1:ShiftAddress(2)          -- this effectively shift the address of i1 8 bytes forward (2 * size of an integer which is 4)
+	 
+	 print(i1:Get() == i3:Get()) -- will print "true" now since we shifted i1 8 bytes forward which brings it to the same address as i3
+</pre>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h3 id="userdata-as-classes"><b>userdata</b> as substitutes to C++ classes</h3>
+<p>The previous sub-section already demonstrated a behavior very similar to C++ classes. <b>luaXroot</b> provides userdata much more complex than merely links to pointers to classic C types.<br/>
+All the ROOT binders are done using userdata and are discussed in details in <a href="#">this section</a>.</p>
+
+<p><b>luaXroot</b> also allows the creation of "table object" using metatables and providing C++ class like behaviour without userdata. These pure Lua object can be created using the function 
+<i>LuaClass</i>.</p>
+
+<h4 id="the-luaclass-function">The <i>LuaClass</i> function</h4>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
 <h2 id="system-calls">System calls binding</h2>
 <p>Though most system calls could be done through an os.execute([insert system call]) here, some of them cannot and it is sometime more convenient to have binder to Lua functions for them.<br/>
 Please note that I abusively use the term <i>system call</i> for some functions but decided to group them with the actual system calls due to the type of operations they perform.<br/>
-These function are documented in <a href="#">this section</a> and include calls such as <i>open</i>, <i>close</i>, <i>getenv</i>, <i>fork</i>, <i>ftruncate</i>, <i>pipe</i>, ...</p>
+These function are documented in <a href="General-Functions.html#sys-calls-and-basic-funcs">this section</a> and include calls such as <i>open</i>, <i>close</i>, <i>getenv</i>, <i>fork</i>, <i>ftruncate</i>, <i>pipe</i>, ...</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
 
 <h2 id="ipc">Inter-Process Communication (IPC)</h2>
-<p>Most of the tools which allows 2 different processes to communicate together (either on the same machine or on 2 separate machines, over LAN or WAN) are described in <a href="#">this section</a>.<br/>
+<p>Most of the tools which allows 2 different processes to communicate together (either on the same machine or on 2 separate machines, over LAN or WAN) are described in <a href="General-Functions.html#ipc">this section</a>.<br/>
 It includes message queues, semaphores, shared memory, memory mapped files and sockets.</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
 
 <h2 id="the-root-binders">The ROOT binders</h2>
 <p>As you probably guessed from the previous paragraphs, direct calls to C or C++ functions are not how Lua works. It goes the same with all the ROOT functionalities and classes.<br/>
@@ -54,8 +229,13 @@ It includes</p>
 <li><i>TGraphErrors</i> (<i>TGraph</i> is treated as a <i>TGraphErrors</i> in <b>luaXroot</b>)</li>
 <li><i>TH1D</i> (all 1D histograms are treated as TH1D in <b>luaXroot</b>)</li>
 <li><i>TH2D</i> (all 2D histograms are treated as TH2D in <b>luaXroot</b>)</li>
+<li><i>TSpectrum</i></li>
 <li><i>TCutG</i> (to make graphical selection on graphs)</li>
 </ul>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
 
 <h2 id="helper-funcs">Helper functions</h2>
 <p>A set of helper function to make the user's life simpler are provided. These functions goes from simple macros to more complex and effective tools.<br/>
@@ -64,18 +244,16 @@ For this instance, the helper function <i>[StartNewTask]()</i> can be used to cr
 command prompt to perform other operations. This functionality comes with a set of function to communicate with the tasks threads such as <i>[SendSignal]()</i> to send for instance a pause request to 
 that running task.</p>
 
-<h2 id="the-userlogon">The userlogon.lua</h2>
-<p>When starting <b>luaXroot</b> a bunch of scripts are loaded, the main one being luaXrootlogon.lua<br/>
-The core modules are loaded via calls to <a href="#">require</a> in this luaXrootlogon.lua script, as well as some general functions.<br/>
-At the very end of the loading process, a call to <i>require("userlogon.lua")</i> is made. If such a script is found in the "user" folder of the <b>luaXroot</b> repository 
-(it should exist at the first place but be empty save for a few line of comments. If not it is safe to create it) it is then loaded. this "user/userlogon.lua" is where the user will want to put 
-any additional module that he/she would want to load at startup. Bear in mind these modules will be loaded last.</p>
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
 
 <h2 id="adding-custom-classes">Adding custom classes</h2>
 <p>This is an advanced topic and is <a href="#">treated in details here</a>.<br/>
 Tools, helper and wrapper functions are provided to make the process of adding custom classes and interacting with them in Lua as streamlined as possible. A base class <a href="#"><i>LuaUserClass</i></a> 
 is provided and any custom class should inherit from it to be able to benefit from these helpful tools.</p>
 
+<p><a href="#intro">go back to top</a></p>
 
 </article>
 </div>

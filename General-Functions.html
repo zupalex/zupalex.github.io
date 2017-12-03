@@ -19,54 +19,77 @@
 
 <article>
 
-
+<hr>
 
 <h2 id="intro"><a href="#sys-calls-and-basic-funcs">System calls and basic functions</a><h2>
 <ul>
   <li><a href="#lua-libraries">Lua libraries</a></li>
-  <li><a href="#luaxroot-additions"><b>luaXroot</b></a>
+  <li><a href="#luaxroot-additions"><b>luaXroot additions</b></a>
   		 <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
     <ul>
-    <li><a href="#sysopen">SysOpen</a></li>
-    <li><a href="#sysclose">SysClose</a></li>
-    <li><a href="#sysftruncate">SysFtruncate</a></li>
-    <li><a href="#sysread">SysRead</a></li>
-    <li><a href="#syswrite">SysWrite</a></li>
-    <li><a href="#sysdup">SysDup</a></li>
-    <li><a href="#sysdup2">SysDup2</a></li>
-    <li><a href="#makepipe">MakePipe</a></li>
-    <li><a href="#makefifo">MakeFifo</a></li>
-    <li><a href="#sysftok">SysFtok</a></li>
-    <li><a href="#sysselect">SysSelect</a></li>
-    <li><a href="#sysexec">SysExec</a></li>
-    <li><a href="#sysfork">SysFork</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#sysopen">SysOpen</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#sysclose">SysClose</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#sysftruncate">SysFtruncate</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#sysread">SysRead</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#syswrite">SysWrite</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#sysdup">SysDup</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#sysdup2">SysDup2</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#makepipe">MakePipe</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#makefifo">MakeFifo</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#sysftok">SysFtok</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#sysselect">SysSelect</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#sysexec">SysExec</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#sysfork">SysFork</a></li>
     </ul></details></li>
 </ul>
-  
+
 <h2><a href="#ipc">Inter-Process Communications</a><h2>
 <ul>
   <li><a href="#messagesqueues">Message Queues</a>
   	  <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
     <ul>
-    <li><a href="#msgget">MsgGet</a></li>
-    <li><a href="#msgsnd">MsgSnd</a></li>
-    <li><a href="#msgrcv">MsgRcv</a></li>
-    <li><a href="#msgclt">MsgCtl</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#msgget">MsgGet</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#msgsnd">MsgSnd</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#msgrcv">MsgRcv</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#msgclt">MsgCtl</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#msgqobject">MsgqObject</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#msgq-createmsgq">msgq.CreateMsgq</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#msgq-getmsgq">msgq.GetMsgq</a></li>
     </ul></details></li>
   <li><a href="#semaphores">Semaphores</a>
       <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
     <ul>
-    <li><a href=""></a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#semget">SemGet</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#semctl">SemCtl</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#semop">SemOp</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#semaphoreobject">SemaphoreObject</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#sem-createsemset">sem.CreateSemSet</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#sem-getsemset">sem.GetSemSet</a></li>
     </ul></details></li>
   <li><a href="#sharedmemorysegments">Shared Memory Segments</a>
   	  <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
     <ul>
-    <li><a href=""></a></li>
-    </ul></details></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#shmget">ShmGet</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#shmat">ShmAt</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#shmctl">ShmCtl</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#shmdt">ShmDt</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#assignshmem">AssignShmem</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#shmsetmem">ShmSetMem</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#shmgetmem">ShmGetMem</a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#shmrawread">ShmRawRead</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#shmemobject">ShMemObject</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#shmem-createshmem">shmem.CreateShMem</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#shmem-getshmem">shmem.GetShMem</a></li>
+	</ul></details></li>
   <li><a href="#memorymappedfiles">Memory Mapped Files</a>
       <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
     <ul>
-    <li><a href=""></a></li>
+    <li style="font-weight: normal;font-size: 100%"><a href="#newmmap">NewMMap</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#assignmmap">AssignMMap</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#mmaprawread">MMapRawRead</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#mmapobject">MMapObject</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#mmap-createmmap">mmap.CreateMMap</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#mmap-getmmap">mmap.GetMMap</a></li>
     </ul></details></li>
   <li><a href="#sockets">Sockets</a>
       <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
@@ -74,6 +97,8 @@
     <li><a href=""></a></li>
     </ul></details></li>
 </ul>
+
+<hr>
 
 <h2 id="sys-calls-and-basic-funcs">System calls and basic functions</h2>
 <h3 id="lua-libraries">Lua libraries</h3>
@@ -98,6 +123,8 @@ functions (<a href="#">more about this here</a>).
 
 <p><a href="#intro">go back to top</a></p>
 
+<hr>
+
 <h2 id="luaxroot-additions"><b>luaXroot</b> additions</h2>
 
 <p><b>luaXroot</b> also offers binders to most of these system calls and basic functions.<br/>
@@ -111,6 +138,7 @@ Below are a list of these functions with a description and their arguments list.
 calling the function. The advantage of arguments tables is that optional arguments can be omitted completely when calling the function, and passed in any order.</p></li>
 </ul>
 
+<div class="funcfield1">
 <h3 id="sysopen"><i>SysOpen</i></h3>
 <p>({<b>name</b>=< string >, <i>[o]</i> <b>flags</b>=< string, "O_RDONLY | O_NONBLOCK" >, <i>[p]</i> <b>mode</b>=< string, "0666" >})<br/>
 <i>Return values</i>: <b>int</b></p>
@@ -125,90 +153,110 @@ You might want to use this function instead of the <i>io.open</i> if you want mo
 are possible (e.g. "O_RDONLY | O_NONBLOCK"). See [this page](https://linux.die.net/man/3/open) for the different flags.</li>
 <li><i>mode</i>: permission on the file given as a string (default "0666")</li>
 </ul>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield2">
 <h3 id="sysclose"><i>SysClose</i></h3>
 <p>(< int >)<br/>
 <i>Return values</i>: <b>nil</b></p>
 
 Closes the file associated to the file descriptor passed as the first argument.
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield1">
 <h3 id="sysftruncate"><i>SysFtruncate</i></h3>
-({<b>fd</b>=< int >, <b>size</b>=< int >})  
+({<b>fd</b>=< int >, <b>size</b>=< int >})<br/>
 <i>Return values</i>: <b>nil</b>
 
 <p>Causes the file associated to the file descriptor <i>fd</i> to be truncated to exactly the size specified by <i>size</i>.<br/>  
 It If the file previously was larger than this size, the extra data is lost. If the file previously was shorter, it is extended, and the extended part reads as null bytes ('\0').<br/>
 The file offset is not changed.<br/>
 <a href="https://linux.die.net/man/2/ftruncate">more information</a></p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield2">
 <h3 id="sysread"><i>SysRead</i></h3>
 <p>({<b>fd</b>=< int >, <i>[o]</i> <b>size</b>=< int >})<br/>
-<i>Return value</i>*: <b>string</b>, <b>int</b></p>
+<i>Return value</i>: <b>string</b>, <b>int</b></p>
 
 <p>Read <i>size</i> bytes from the file corresponding to the file descriptor <i>fd</i>. If <i>size</i> is not specified, read all the available data.<br/>
 It returns the read data as a string, followed by the amount of bytes read.</p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield1">
 <h3 id="syswrite"><i>SysWrite</i></h3>
 <p>({<b>fd</b>=< int >, <b>data</b>=< string >, <i>[o]</i> <b>size</b>=< int >})<br/>
 <i>Return values</i>: <b>int</b></p>
 
 <p>Write <i>size</i> bytes from the string <i>data</i> to the file associated to the file descriptor <i>fd</i>. If <i>size</i> is not specified, it writes all the available data.<br/>
 It returns the amount of bytes written.</p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield2">
 <h3 id="sysdup"><i>SysDup</i></h3>
 <p>(< int >)<br/>
 <i>Return values</i>: <b>int</b></p>
 
 <p>Creates a copy of the file descriptor given as the first argument using the lowest-numbered unused file descriptor.<br/>
 It returns that new file descriptor.</p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield1">
 <h3 id="sysdup2"><i>SysDup2</i></h3>
 <p>(< int >, < int >)<br/>
 <i>Return values</i>: <b>nil</b></p>
 
 <p>Performs the same operation as <a href="#sysdup"><i>SysDup</i></a> but using the file descriptor provided as second argument instead of the lowest-numbered unused one.</p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield2">
 <h3 id="makepipe"><i>MakePipe</i></h3>
 <p>( )<br/>
 <i>Return values</i>: <b>int</b>, <b>int</b></p>
 
 <p>Creates a pipe between 2 file descriptors and returns them (the first one is the input of the pipe, the second one is the ouput).</p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield1">
 <h3 id="makefifo"><i>MakeFifo</i></h3>
-<p>({<b>name</b>=< string >, <i>[o]</i> <b>mode</b>=< string, "0777" >})  
+<p>({<b>name</b>=< string >, <i>[o]</i> <b>mode</b>=< string, "0777" >})<br/>
 <i>Return values</i>: <b>nil</b></p>
 
 <p>Create a FiFo using the <i>name</i> argument.<br/>
 <i>mode</i> is the permission to use to create the FiFo.</p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield2">
 <h3 id="sysftok"><i>SysFtok</i></h3>
-<p>({<b>pathname</b>=< string >, <i>[o]</i> <b>id</b>=< int, 90 >})  <br/>
+<p>({<b>pathname</b>=< string >, <i>[o]</i> <b>id</b>=< int, 90 >})<br/>
 <i>Return values</i>: <b>int</b></p>
 
 <p>Generates a key using the <i>pathname</i> argument. This key is used to initiate <a href="#semaphores">Semaphores</a>, 
 <a href="#messagesqueues">Messages Queues</a> or <a href="#sharedmemorysegments">Shared Memory Segments</a>.<br/>
 <i>id</i> is used only if more than 1 key need to be generated using the same file.</p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield1">
 <h3 id = "sysselect"><i>SysSelect</i></h3>
 <p>({<i>[o]</i> <b>read</b>=< table >, <i>[o]</i> <b>write</b>=< table >, <i>[o]</i> <b>exception</b>=< table >})<br/>
 <i>Return values</i>: <b>table</b>, <b>table</b>, <b>table</b></p>
@@ -218,9 +266,11 @@ The file descriptors you wish to monitor should be placed in tables and passed i
 When <i>SysSelect</i> returns, it returns 3 <b>tables</b>/<b>nil</b> values. The first value is either <b>nil</b> (if no file descriptor was ready to be read or if none were being monitored for 
 read operation) or a table containing all the file descriptors ready to be read. The second value return is the same for the write operation and the third is for the exception operation.<br/>
 For a detailed description of the <i>select</i> C function, <a href="http://man7.org/linux/man-pages/man2/select.2.html">click here</a>.</p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield2">
 <h3 id="sysexec"><i>SysExec</i></h3>
 <p>({<b>file</b>=< string >, <b>args</b>=< table >, <i>[o]</i> <b>env</b>=< table >})<br/>
 <i>Return values</i>: <b>nil</b></p>
@@ -235,9 +285,11 @@ For instance, one could run the <i>echo</i> command inside a Lua script<br/>
    -- this will display on screen "Hello World" 
    -- and terminate the process
 </pre>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield1">
 <h3 id="sysfork"><i>SysFork</i></h3>
 <p>({<b>fn</b>=< function >, <i>[o]</i> <b>args</b>=< table >, <i>[o]</i> <b>preinit</b>=< function >})<br/>
 <i>Return values</i>: <b>nil</b></p>
@@ -259,18 +311,18 @@ to start a new background task.</p>
    -- The cloned process will execute the command *echo "Hello World"* 
    -- and terminate while the master process whill keep on running.
 </pre>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<hr>
+
 <h2 id="ipc">Inter-Process Communications</h2>
 
-<p><b>luaXroot</b> offer binders for the different inter-process communication tools</p>
+<p><b>luaXroot</b> provides "raw" binders for the different inter-process communication tools as well as wrapper and helper functions to manipulate them</p>
 
-<h3 id="messagesqueues">Messages Queues</h3>
-<b>luaXroot</b> provides "raw" bindings for the Messages Queues functions as well as wrapper and helper functions.<br/>
-The "raw" binders are presented first: <a href="#msgget"><i>MsgGet</i></a>, <a href="#msgsnd"><i>MsgSnd</i></a>, 
-<a href="#msgrcv"><i>MsgRcv</i></a>, <a href="#msgctl"><i>MsgCtl</i></a>.
-
+<alt-h2 id="messagesqueues"><i>Messages Queues</i></alt-h2>
+<div class="funcfield2">
 <h3 id="msgget"><i>MsgGet</i></h3>
 <p>({<b>key</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "IPC_CREAT | IPC_EXCL | 0666" >})<br/>
 <i>Return values</i>: <b>int</b></p>
@@ -278,9 +330,11 @@ The "raw" binders are presented first: <a href="#msgget"><i>MsgGet</i></a>, <a h
 <p>Create or retrieve a message queue using the key provided by the argument <i>key</i> and returns its ID. 
 The fact that the message queue is created or not depends on the <i>flags</i> specified. 
 See this link for a <a href="http://pubs.opengroup.org/onlinepubs/7908799/xsh/sysipc.h.html">list of the possible flags</a>.</p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield1">
 <h3 id="msgsnd"><i>MsgSnd</i></h3>
 <p>({<b>msgid</b>=< int >, <b>data</b>=< table >, <i>[o]</i> <b>mtype</b>=< int, 0 >, <i>[o]</i> <b>flags</b>=< string >})<br/>
 <i>Return values</i>: <b>nil</b></p>
@@ -309,9 +363,11 @@ The <i>data</i> argument is a table containing itself 2 subtables:</p>
 </pre>
 
 <p>For an explanation about <i>mtype</i> and <i>flags</i> (optionnal arguments) see <a href="http://man7.org/linux/man-pages/man2/msgop.2.html">this link</a>.</p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield2">
 <h3 id="msgrcv"><i>MsgRcv</i></h3>
 <p>({<b>msgid</b>=< int >, <b>format</b>=< table >, <i>[o]</i> <b>mtype</b>=< int, 0 >, <i>[o]</i> <b>flags</b>=< string >})<br/>
 <i>Return values</i>: <b>table</b>, <b>bool</b></p>
@@ -320,9 +376,11 @@ The <i>data</i> argument is a table containing itself 2 subtables:</p>
 to the <a href="#msgsnd">MsgSnd</a> function.</p>
 
 <p>For an explanation about <i>mtype</i> and <i>flags</i> (optionnal arguments) see <a href="http://man7.org/linux/man-pages/man2/msgop.2.html">this link</a>.</p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield1">
 <h3 id="msgctl"><i>MsgCtl</i></h3>
 <p>({<b>msgid</b>=< int >, <b>cmd</b>=< int >})<br/>  
 <i>Return values</i>: <b>nil</b> OR <b>table</b> (depending on <i>cmd</i> argument)</p>
@@ -333,24 +391,34 @@ The supported operations are:</p>
 <li>IPC_RMID: mark the message queue for deletion</li></ul>
 
 <p>These operations are described <a href="http://man7.org/linux/man-pages/man2/msgctl.2.html">here</a>.</p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
 
-<h2 id="helpers-and-wrappers">Helpers and Wrappers</h2>
+<alt-h2 id="helpers-and-wrappers">Helpers and Wrappers</alt-h2>
 <p>Most of these functions are registered in the <b>global</b> table <i>mgsq</i></p>
 
+<div class="funcfield2">
 <h3 id="printmessagesqueueshelp"><i>PrintMessagesQueuesHelp</i></h3>
 <p>( )<br/>
 <i>Return values</i>: <b>nil</b></p>
 
 <p>Display help on creating or getting a message queue.</p>
+</div>
 
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
 <h3 id="msgq-listactivemsgqs"><i>msgq.ListActiveMsgqs</i></h3>
 <p>( )<br/>
 <i>Return values</i>: <b>nil</b></p>
 
 <p>Print a list of the active messages queues and provide statistics.</p>
+</div>
 
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
 <h3 id="msgqobject"><i>MsgqObject</i></h3>
 <p>A Lua Class used to manipulate more easily messages queues.</p>
 
@@ -362,34 +430,501 @@ The supported operations are:</p>
 <li><i>id</i>: identifier of the message queue.</li>
 <li><i>size</i>: size in bytes of the messages sent and received.</li>
 <li><i>owner</i>: whether or not the MsgqObject is the owner of the message queue.</li>
+<li><i>last_msg</i>: last message received.</li>
 </ul>
 
 <h4 ="msgqobject-methods">Methods</h4>
 <ul>
-    <li><i>Receive</i>(< table >, < int >, < string >) : Receive a message
+    <li class="classmethod"><i>Receive</i>(< table >, < int >, < string >) : Receives a message and stores it in member <i>last_msg</i>
          <ul>
 		 	 <li>argument 1 as the <a href="#msgsnd"><i>format</i> table</a></li>
 			 <li>argument 2 as <i>mtype</i></li>
 			 <li>argument 3 as <i>flags</i></li>
+			 <li>Returns the message read in a <b>table</b></li>
+		 </ul>
+	</li>
+	<li class="classmethod"><i>Send</i>(< table >, < table >, < int >, < string >) : Sends a message
+         <ul>
+		 	 <li>argument 1 as the <a href="#msgsnd"><i>format</i> table</a></li>
+			 <li>argument 2 as the <a href="#msgsnd"><i>values</i> table</a></li>
+			 <li>argument 3 as <i>mtype</i></li>
+			 <li>argument 4 as <i>flags</i></li>
+		 </ul>
+	</li>
+	<li class="classmethod"><i>GetLast</i>() : Returns the last message received in a <b>table</b></li>
+</ul>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="msgq-createmsgq"><i>msgq.CreateMsgq</i></h3>
+<p>( <b>path</b>=< string >, <b>flags</b>=< string, "recreate" >)<br/>
+( <b>key</b>=< int >, <b>flags</b>=< string, "recreate" >)<br/>
+<i>Return values</i>: <b>MsgqObject</b></p>
+
+<p>Creates a messages queue using either a <i>path</i> to a file on disk or directly a <i>key</i>.<br/>
+The <i>flags</i> control how the messages queue will be created and can be</p>
+<ul>
+	<li><b>open</b>: the messages queue will be opened only if it already exists</li>
+	<li><b>protected</b>: the messages queue will be created only if it doesn't already exists. If it already exists the function fails.</li>
+	<li><b>recreate</b>: the messages queue will be created. If it already exists, it deletes it first.</li>
+</ul>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="msgq-getmsgq"><i>msgq.GetMsgq</i></h3>
+<p>( <b>path</b>=< string >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
+<p>( <b>key</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
+<i>Return values</i>: <b>MsgqObject</b></p>
+
+<p>Gets a messages queue using either a <i>path</i> to a file on disk or directly a <i>key</i>.<br/>
+The <i>flags</i> control how the messages queue will be created and can be</p>
+<ul>
+	<li><b>open</b>: the messages queue will be opened only if it already exists</li>
+	<li><b>protected</b>: the messages queue will be created only if it doesn't already exists. If it already exists the function fails.</li>
+	<li><b>recreate</b>: the messages queue will be created. If it already exists, it deletes it first.</li>
+</ul>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="semaphores">Semaphores</h2>
+<div class="funcfield1">
+<h3 id="semget"><i>SemGet</i></h3>
+<p>({<b>key</b>=< int >, <i>[o]</i> <b>nsem</b>=< int, 0 >, <i>[o]</i> <b>flags</b>=< string, "IPC_CREAT | IPC_EXCL | 0666" >})<br/>  
+<i>Return values</i>: <b>int</b></p>
+
+<p>Get the Semaphores set associated with <i>key</i> and returns its id.<br/>
+<i>flags</i> describe how to get that Semaphores set (see <a href="http://man7.org/linux/man-pages/man2/shmget.2.html">this link</a> for the different flags)</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="semctl"><i>SemCtl</i></h3>
+<p>({<b>semid</b>=< int >, <i>[o]</i> <b>semnum</b>=< int >, <b>cmd</b>=< int >, <i>[o]</i> <b>val</b>=< int or table >})<br/>  
+<i>Return values</i>: <b>nil</b> OR <b>int</b> OR <b>table</b> (depending on <i>cmd</i> argument)</p>
+
+<p>Perform the operation identified by <i>cmd</i> on the semaphores set identified by <i>semid</i>.<br/>
+The supported operations are:</p>
+<ul><li>SETVAL: in this case <i>val</i> is required to be an <i>int</i>. Set <i>val</i> as the value for semaphore number <i>semnum</i> in the semaphores set indentified by <i>semid</i>.</li>
+<li>SETALL: in this case <i>val</i> is required to ba a <i>table</i>. Set the values of the semaphores in the set identified by <i>semid</i> using the values contained in the table <i>val</i>.</li>
+<li>GETVAL: Returns the current value of semaphore number <i>semnum</i> from the set identified by <i>semid</i></li>
+<li>GETALL: Returns the values (in a <i>table</i>) of all the semaphores in the set identified by <i>semid</i></li>
+<li>GETNCNT: Returns the number of processes waiting for an increase of the value of the semaphore number <i>semnum</i> in the set identified by <i>semid</i></li>
+<li>GETZCNT: Returns the number of processes waiting for the value of the semaphore number <i>semnum</i>, in the set identified by <i>semid</i>, to become zero</li>
+<li>IPC_STAT: get statistics about the semaphores set and returns them in a table</li>
+<li>IPC_RMID: mark the semaphores set for deletion</li>
+</ul>
+
+<p><b>Example:</b></p>
+
+<pre class="prettyprint">
+	 [ ... Assuming a key <i>skey</i> has been generated for a semaphore set containing 3 semaphores ... ]
+	 
+	 SemCtl({semid=sid, semnum=2, cmd=SETVAL, val=8})
+	 -- After this operation, the semaphore number 2 in the set <b>sid</b> is set to 8 
+	 
+	local sem_vals = SemCtl({semid=sid, cmd=GETALL})
+	 -- After this operation, sem_vals is a table containing the values fo the 3 semaphores in the set <i>sid</i> 
+</pre>
+
+<p>These operations are described <a href="http://man7.org/linux/man-pages/man2/semctl.2.html">here</a>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="semop"><i>SemOp</i></h3>
+<p>({<b>semid</b>=< int >, <b>semnum</b>=< table >, <b>sop</b>=< table >})<br/>  
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Perform the operations contained in the table <i>sop</i> to the corresponding semaphores (given in the  table <i>semnum</i>) in the set identified by <i>semid</i>.</p>
+
+<p><b>Example:</b></p>
+
+<pre class="prettyprint">
+	 [ ... Assuming an id <i>sid</i> has been obtained for a semaphore set containing 3 semaphores ... ]
+	 
+	 SemOp({semid=sid, semnum={1, 3}, sop={-2, 4}})
+	 -- After this operation, the semaphore number 1 is decreased by 2, 
+	 --                       the semaphore number 2 is untouched 
+	 --                       and the semaphore number 3 is increased by 4
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<alt-h2 id="helpers-and-wrappers">Helpers and Wrappers</alt-h2>
+<p>Most of these functions are registered in the <b>global</b> table <i>sem</i></p>
+
+<div class="funcfield2">
+<h3 id="printsemaphoreshelp"><i>PrintSemaphoresHelp</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Display help on creating or getting a semaphores set.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="msgq-listactivemsgqs"><i>msgq.ListActiveSemaphores</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Print a list of the active semaphores sets and provide statistics.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="semaphoreobject"><i>SemaphoreObject</i></h3>
+<p>A Lua Class used to manipulate more easily semaphores sets.</p>
+
+<h4 ="semaphoreobject-members">Members</h4>
+<ul>
+<li><i>path</i>: path to the semaphores set file (if any).</li>
+<li><i>fd</i>: file descriptor of the semaphores set file (if any).</li>
+<li><i>key</i>: key used to open the semaphores set.</li>
+<li><i>id</i>: id of the semaphores set.</li>
+<li><i>nsem</i>: how many semaphores in the set.</li>
+<li><i>owner</i>: whether or not the SemaphoreObject is the owner of the set.</li>
+</ul>
+
+<h4 ="semaphoreobject-methods">Methods</h4>
+<ul>
+    <li class="classmethod"><i>SetValue</i>(< int >, < int >) : Sets the value of a semaphore
+         <ul>
+		 	 <li>argument 1 is the semaphore number</li>
+			 <li>argument 2 is the new value</li>
+		 </ul>
+	</li>
+	
+	<li class="classmethod"><i>SetAllValue</i>(< table >) : Sets all the values in the set using the table passed as an argument</li>
+	
+    <li class="classmethod"><i>GetValue</i>(< int >) : Gets the value of the semaphore number given by the argument of the function</li>
+	
+	<li class="classmethod"><i>GetAllValue</i>() : Gets the values of all the semaphores in the set and returns it as a table</li>
+	
+	 <li class="classmethod"><i>Operate</i>(< table >, < table >) : Operates on the semaphores
+         <ul>
+		 	 <li>argument 1 is a table containing the semaphores numbers on which the function will operate</li>
+			 <li>argument 2 is a table with the operations to perform</li>
 		 </ul>
 	</li>
 </ul>
-
-<h3 id="msgq-createmsgq"><i>msgq.CreateMsgq</i></h3>
-<p>( )<br/>
-<i>Return values</i>: <b>MsgqObject</b></p>
-
-<h2 id="semaphores">Semaphores</h2>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="sem-createsemset"><i>sem.CreateSemSet</i></h3>
+<p>( <b>path</b>=< string >, <b>nsem</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
+<p>( <b>key</b>=< int >, <b>nsem</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
+<i>Return values</i>: <b>SemaphoreObject</b></p>
+
+<p>Creates a semaphores set using either a <i>path</i> to a file on disk or directly a <i>key</i>.<br/>
+The <i>flags</i> control how the semaphores set will be created and can be</p>
+<ul>
+	<li><b>open</b>: the semaphores set will be opened only if it already exists</li>
+	<li><b>protected</b>: the semaphores set will be created only if it doesn't already exists. If it already exists the function fails.</li>
+	<li><b>recreate</b>: the semaphores set will be created. If it already exists, it deletes it first.</li>
+</ul>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="sem-getsemset"><i>sem.GetSemSet</i></h3>
+<p>( <b>path</b>=< string >)<br/>
+<p>( <b>key</b>=< int >)<br/>
+<i>Return values</i>: <b>SemaphoreObject</b></p>
+
+<p>Gets a semaphores set using either a <i>path</i> to a file on disk or directly a <i>key</i>.<br/>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
 
 <h2 id="sharedmemorysegments">Shared Memory Segments</h2>
+<div class="funcfield1">
+<h3 id="shmget"><i>ShmGet</i></h3>
+<p>({<b>key</b>=< int >, <b>size</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "IPC_CREAT | IPC_EXCL | 0666" >})<br/>  
+<i>Return values</i>: <b>int</b></p>
+
+<p>Get the Shared Memory Segment associated to <i>key</i> and returns its id.<br/>
+<i>flags</i> describe how to get that Shared Memory Segment (see <a href="http://man7.org/linux/man-pages/man2/shmget.2.html">this link</a> for the different flags)</p>
+</div>
 
 <p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="shmat"><i>ShmAt</i></h3>
+<p>({<b>shmid</b>=< int >, <i>[o]</i> <b>buffer</b>=< userdata >, <i>[o]</i> <b>flags</b>=< string, "IPC_CREAT | IPC_EXCL | 0666" >})<br/>  
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Assign an address to the shared memory segment. Attach <i>buffer</i> to the shared memory segment identified by <i>shmid</i> if specified.<br/>
+<i>flags</i> are described <a href="https://linux.die.net/man/2/shmat">here</a>.</p>
+
+<p><b>Example:</b></p>
+
+<pre class="prettyprint">
+	 -- [ ... assuming we have a shared memory segment with id <i>shid</i> ... ]
+	 
+	 local buf = int()
+	 
+	 ShmAt({shmid=shid, buffer=buf})
+	 
+	 buf:Get() -- this will get whatever is the current integer value at the beginning of the shared memory segment
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="shmctl"><i>ShmCtl</i></h3>
+<p>({<b>shmid</b>=< int >, <b>cmd</b>=< int >})<br/>  
+<i>Return values</i>: <b>nil</b> OR <b>table</b> (depending on <i>cmd</i> argument)</p>
+
+<p>Perform the operation identified by <i>cmd</i> on the shared memory segment identified by <i>shmid</i>.<br/>
+The supported operations are:</p>
+<ul>
+<li>IPC_STAT: get statistics about the shared memory segment and returns them in a table</li>
+<li>IPC_RMID: mark the shared memory segment set for deletion</li>
+</ul>
+
+<p>These operations are described <a href="http://man7.org/linux/man-pages/man2/shmctl.2.html">here</a>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="shmdt"><i>ShmDt</i></h3>
+<p>(< int >)<br/>  
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Detach the shared memory segment identified by <i>shmid</i>.<br/>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="assignshm"><i>AssignShm</i></h3>
+<p>({<b>shmid</b> = < int >, <b>buffer</b>=< userdata >, <i>[o]</i> <b>offset</b>=< int >})<br/>  
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Assign <i>buffer</i> to the shared memory segment identified by <i>shmid</i>. If <i>offset</i> is specified, the buffer is attached at the beginning of the shareed memory segment + offset.</p>
+
+<p><b>Example:</b></p>
+
+<pre class="prettyprint">
+	 -- [ ... assuming we have a shared memory segment with id <i>shid</i> ... ]
+	 
+	 ShmAt({shmid=shid}) -- we assign an address to the shared memory segment
+	 
+	 local buf = float() -- we create a userdata of type float
+	 
+	 AssignShm({shmid=shid, buffer=buf, offset=6})
+	 
+	 buf:Get() -- this will get whatever is the current float value at the beginning of the shared memory segment + 6 bytes
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="shmsetmem"><i>ShmSetMem</i></h3>
+<p>({<b>shmid</b> = < int >, <b>input</b>=< table >, <b>format</b>=< table >})<br/>  
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the memory block assigned to the shared memory segment identified by <i>shmid</i> using the tables <i>input</i> and <i>format</i></p>
+
+<p><b>Example:</b></p>
+
+<pre class="prettyprint">
+	 -- [ ... assuming we have an assigned shared memory segment with id <i>shid</i> ... ]
+	 	 
+	 local setblock = { 5.6, true, 9, "Hello World" }
+	 local fmt_tbl = { "float", "bool", "int", "string" }
+	 
+	 ShmSetMem({shmid=shid, input=setblock, format=fmt_tbl})
+	 -- The shared memory segment now contains the following
+	 --  address [ 0 -> 3 ] [  4 ] [ 5 -> 8 ] [    9 -> 19    ] 
+	 --          [   5.6  ] [true] [    9   ] [ "Hello World" ]
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="shmgetmem"><i>ShmGetMem</i></h3>
+<p>({<b>shmid</b> = < int >, <b>format</b>=< table >})<br/>  
+<i>Return values</i>: <b>table</b></p>
+
+<p>Get the memory block assigned to the shared memory segment identified by <i>shmid</i> using the tables <i>format</i></p>
+
+<p><b>Example:</b></p>
+
+<pre class="prettyprint">
+	 -- assuming we have an assigned shared memory segment with id <i>shid</i>
+	 -- and the shared memory segment currently contains the following
+	 --  address [ 0 -> 3 ] [  4 ] [ 5 -> 8 ] [    9 -> 19    ] 
+	 --          [   5.6  ] [true] [    9   ] [ "Hello World" ]
+	 	 
+	 local fmt_tbl = { "float", "bool", "int", "string" }
+	 
+	 local output = ShmGetMem({shmid=shid, format=fmt_tbl})
+	 -- output contains { 5.6, true, 9, "Hello World"}
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="shmrawread"><i>ShmRawRead</i></h3>
+<p>({<b>shmid</b> = < int >, <b>size</b>=< int >, <i>[o]</i> <b>offset</b>=< int >})<br/>  
+<i>Return values</i>: <b>string</b></p>
+
+<p>Read <i>size</i> bytes from the shared memory segment identified by <i>shmid</i>. If <i>offset</i> is specified, it will read from the beginning of the memory block + offset</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<alt-h2 id="helpers-and-wrappers">Helpers and Wrappers</alt-h2>
+<p>Most of these functions are registered in the <b>global</b> table <i>sem</i></p>
+
+<div class="funcfield1">
+<h3 id="printsharedmemoryhelp"><i>PrintSharedMemoryHelp</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Display help on creating or getting shared memory segments.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="shmem-listactiveshmem"><i>shmem.ListActiveShMem</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Print a list of the active shared memory segments and provide statistics.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="shmemobject"><i>ShMemObject</i></h3>
+<p>A Lua Class used to manipulate more easily shared memory segments.</p>
+
+<h4 ="shmemobject-members">Members</h4>
+<ul>
+<li><i>path</i>: path to the shared memory segment file (if any).</li>
+<li><i>fd</i>: file descriptor of the shared memory segment (if any).</li>
+<li><i>key</i>: key used to open the shared memory segment.</li>
+<li><i>id</i>: id of the shared memory segment.</li>
+<li><i>size</i>: size of the shared memory segment.</li>
+<li><i>buffer</i>: buffer attached to the shared memory segment (if any).</li>
+<li><i>struct</i>: table giving the structure of the shared memory segment (if any).</li>
+<li><i>current_offset</i>: current position in the shared memory segment.</li>
+<li><i>owner</i>: whether or not the ShMemObject is the owner of the shared memory segment.</li>
+</ul>
+
+<h4 ="shmemobject-methods">Methods</h4>
+<ul>
+    <li class="classmethod"><i>RawRead</i>(< int >, < int >) : Performs a <a href="#shmrawread">ShmRawRead</a> on the shared memory segment.
+         <ul>
+		 	 <li>argument 1 is the amount of bytes to read.</li>
+			 <li>argument 2 is the offset. If omitted, the default value is 0.</li>
+		 </ul>
+	</li>
+	
+	<li class="classmethod"><i>AutoGet</i>( ) : Automatically performs a readout of the shared memory and returns the result. If no <i>struct</i> member has been set it simply gets the value of <i>buffer</i>. 
+	Otherwise it uses a call to <a href="#shmgetmem">ShmGetMem</a>.</li>
+	
+    <li class="classmethod"><i>AutoSet</i>(< same type as buffer OR table >) : Automatically select how to set values in the shared memory. If no <i>struct</i> member has been set it simply sets the value of <i>buffer</i>.
+	Otherwise it uses a call to <a href="#shmsetmem">ShmSetMem</a>.</li>
+	
+	<li class="classmethod"><i>GetStepSize</i>() : Returns the size of the type currently used as a <i>buffer</i> (or <i>struct</i> if one has been set).</li>
+	
+	<li class="classmethod" id="shmem-setaddress"><i>SetAddress</i>(< userdata >, < int, 0 >) : Set the member <i>buffer</i> using the first argument.
+         <ul>
+		 	 <li>argument 1 is a userdata that will be used as a buffer to read the shared memory</li>
+			 <li>argument 2 is the offset. The buffer will be assigned to the beginning of the shared memory + offset</li>
+		 </ul>
+	</li>
+	
+	<li class="classmethod"><i>Read</i>(< int >) : Reads the shared memory at the position given by the argument. That position is the value of the argument * size of the buffer (or equivalent <i>struct</i> if set).</li>
+	
+	<li class="classmethod"><i>SetValue</i>(< table >, < int >) : Operates on the semaphores
+         <ul>
+		 	 <li>argument 1 is a table containing the values to set (see <a href="#shmsetmem">this part</a> for more details)</li>
+			 <li>argument 2 is the position (value of the argument * size of <i>buffer</i> or <i>struct</i>) where these values should be set.</li>
+		 </ul>
+	</li>
+	
+	<li class="classmethod" id="shm-setstructure"><i>SetStructure</i>(< table >) : A <a href="#shmsetmem">format table</a> that is assign to the member <i>struct</i>.</li>
+	
+	<li class="classmethod"><i>SetOffset</i>(< int >) : Set the current position in the shared memory segment and assign this offset value to <i>current_offset</i>.</li>
+	
+	<li class="classmethod"><i>Advance</i>(< int >) : Shift the address of the buffer by the value passed as an argument. The actual shift is the value of the argument * size of the buffer (or equivalent <i>struct</i> if set).</li>
+	
+	<li class="classmethod"><i>Next</i>(< table >, < table >) : Shifts the buffer forward for an amount of bytes equal to the size of the buffer</li>
+	
+	<li class="classmethod"><i>Previous</i>(< table >, < table >) : Shifts the buffer backward for an amount of bytes equal to the size of the buffer</li>
+</ul>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="shmem-createshmem"><i>shmem.CreateShMem</i></h3>
+<p>( <b>path</b>=< string >, <b>buffer</b>=< userdata >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
+<p>( <b>path</b>=< string >, <b>size</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
+<p>( <b>key</b>=< int >, <b>buffer</b>=< userdata >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
+<p>( <b>key</b>=< int >, <b>size</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
+<i>Return values</i>: <b>ShMemObject</b></p>
+
+<p>Creates a shared memory segment using either a <i>path</i> to a file on disk or directly a <i>key</i>.<br/>
+The second argument can either be the size of the shared memory segment in bytes (a buffer can be attached to it later using <a href="#shmem-setaddress"><i>ShMemObject:SetAddress</i></a> or
+ a data structure set using <a href="#shm-setstructure"><i>ShMemObject:SetStructure</i></a>) or directly a buffer (which must be a <b>userdata</b>).<br/>
+The <i>flags</i> control how the shared memory segment will be created and can be</p>
+<ul>
+	<li><b>open</b>: the semaphores set will be opened only if it already exists</li>
+	<li><b>protected</b>: the semaphores set will be created only if it doesn't already exists. If it already exists the function fails.</li>
+	<li><b>recreate</b>: the semaphores set will be created. If it already exists, it deletes it first.</li>
+</ul>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="shmem-getshmem"><i>shmem.GetShMem</i></h3>
+<p>( <b>path</b>=< string >, <b>buffer</b>=< userdata >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
+<p>( <b>path</b>=< string >, <b>size</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
+<p>( <b>key</b>=< int >, <b>buffer</b>=< userdata >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
+<p>( <b>key</b>=< int >, <b>size</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
+<i>Return values</i>: <b>ShMemObject</b></p>
+
+<p>Same as <a href="#shmem-createshmem"> but won't create or set up the shared memory segment if it doesn't already exists.<br/>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
 
 <h2 id="memorymappedfiles">Memory Mapped Files</h2>
 
 <p><a href="#intro">go back to top</a></p>
+
+<hr>
 
 <h2 id="sockets">Sockets</h2>
 

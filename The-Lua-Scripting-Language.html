@@ -64,6 +64,8 @@ It is also <i>dynamic</i> which means that you can modify it while the program i
 	<li><a href="#mods-and-packs">Modules and Packages</a></li>
 </ul>
 
+<hr>
+
 <h2 id="var-and-types">Variables and types</h2>
 
 <p>Unlike a language like C, Lua variables do not *need* to be declared nor typed. For instance in C you would need to write the following to assign 3 variables to respectively integer, 
@@ -137,6 +139,8 @@ More about the userdata later.</p>
 
 <p><a href="#intro">go back to top</a></p>
 
+<hr>
+
 <h2 id="the-env">The Environment</h2>
 
 <p>Variables are scoped in Lua as they are in other languages. For instance a C snippet that would be</p>
@@ -203,6 +207,8 @@ end                                    -- message2 falls out of scope here
 </pre>
 
 <p><a href="#intro">go back to top</a></p>
+
+<hr>
 
 <h2 id="tables">Tables</h2>
 <p>The tables are one of the main tool for any Lua script. They can be used as C arrays or vectors, or as some kind of dynamic structures.</p>
@@ -309,6 +315,8 @@ When a variable is declared globally like explained earlier, what is happening i
 </pre>
 
 <p><a href="#intro">go back to top</a></p>
+
+<hr>
 
 <h2 id="ops-and-statements">Operators and Statements</h2>
 
@@ -590,6 +598,8 @@ The step could also be negative</p>
 
 <p><a href="#intro">go back to top</a></p>
 
+<hr>
+
 <h2 id="reading-tables">Reading tables</h2>
 </p>The content of a table can be read in different ways.</p>
 
@@ -658,6 +668,8 @@ the order in which they are processed is random.<br/>
 Note also that this time we are calling *pairs* and not *ipairs*. The keys are not integers anymore.</p>
 
 <p><a href="#intro">go back to top</a></p>
+
+<hr>
 
 <h2 id="funcs">Functions<h2>
 <h3 id="funcs-defs">Function Definition</h3>
@@ -733,7 +745,7 @@ and would like it to be retroactive on all the scripts using it, even the ones c
    end
 </pre>
 
-<p>What the function *AddNumbers* is now doing is calling the old value of this function (merly adding together a and b) only if a is biger than b, and doing nothing otherwise. 
+<p>What the function <i>AddNumbers</i> is now doing is calling the old value of this function (merly adding together a and b) only if a is biger than b, and doing nothing otherwise. 
 As long as this override happens after the original <i>AddNumbers</i> function is loaded, any call to this function will now call our overridden version, even calls outside of our script(s).</p>
 
 <p><a href="#intro">go back to top</a></p>
@@ -783,11 +795,13 @@ You will notice it is not a very elegant syntax. Lua has a nice way of dealing w
 </pre>
 
 <p>The colon (:) instead of the dot (.) when calling a function is actually implicitly passing what is on the left of the ':' as the first argument of the function without having to specify it. 
-It is easy here to follow that the table *detecotr* will then be passed as the first argument in the function <i>GetEnCal</i>.  
+It is easy here to follow that the table <i>detector</i> will then be passed as the first argument in the function <i>GetEnCal</i>.  
 This table actually starts to look like a the equivalent of a C++ class with its own methods. There would still be some more job to do to have a class-like behaviors with this table but that's not 
 the subject here (but it is the subject of <a href="#">this section</a>).
 
 <p><a href="#intro">go back to top</a></p>
+
+<hr>
 
 <h2 id="mods-and-packs">Modules and Packages</h2>
 

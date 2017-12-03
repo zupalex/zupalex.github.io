@@ -21,6 +21,23 @@ div.container-content {
     position: relative;
 }
 
+div.funcfield1 {
+    padding: 5px;
+    background-color: #EBF5FB;
+ }
+
+div.funcfield2 {
+    padding: 5px;
+    background-color: #F5EEF8;
+ }
+ 
+ li.classmethod{
+    padding: 5px;
+    border-style: groove;
+    border-width: 1px;
+    margin-bottom: 8px
+ }
+ 
 header, footer {
     padding: 1em;
     color: white;
@@ -60,3 +77,11 @@ article {
 table, th, tr {
     border: 1px solid black;
 }
+
+alt-h2 {
+   font-size: 140%;
+   font-style: italic;
+   font-weight: bold;
+ }
+ 
+ 
