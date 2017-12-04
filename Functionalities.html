@@ -88,6 +88,15 @@ any additional module that he/she would want to load at startup. Bear in mind th
 <h2 id="helper-funcs">Helper functions</h2>
 <p>A set of helper function to make the user's life simpler are provided. These functions goes from simple macros to more complex and effective tools.</p>
 
+<p>Reminders:</p>
+<ul>
+<li>Each argument is specified using the following nomenclature: < type, default value if any ><br/>
+<b>Examples:</b>  <integer >, < float, 3.14157 >, < string, "O_RDONLY | O_NONBLOCK" >, ...<br/></li>
+<li>A <i>[o]</i> in front of an argument means that it's optional.<br/></li>
+<li>Some functions takes an arguments table. In this case the arguments are enclosed with <i>{ ... }</i>. Each argument inside the table has a name that <b>MUST</b> be specified when 
+calling the function. The advantage of arguments tables is that optional arguments can be omitted completely when calling the function, and passed in any order.</p></li>
+</ul>
+
 <div class="funcfield1">
 <h3 id="getclocktime">GetClockTime</h3>
 <p>(<i>[o]</i> <b>clockid</b>=< int, CLOCK_REALTIME >)<br/>

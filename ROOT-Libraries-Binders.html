@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="scripts/mystyles.css">
+<script src="global_funcs.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="container-master">
+<div class="container-full-width">
+<header>
+   <h1>luaXroot Wiki</h1>
+</header>
+</div>
+
+<div class="container-content">
+<nav>
+<iframe src="sidebar.html" style="border:none;" onload="SetSidebarHeight(this);"></iframe>
+</nav>
+
+<article>
+<p>This section present the binders to the ROOT classes natively supported by <b>luaXroot</b>.</p>
+<p>It is possible for the user to add custom binders to other ROOT classes or extend the ones provided. This is the subject of <a href="#">this section</a>.</p>
+
+<p id="#intro">Reminders:</p>
+<ul>
+<li>Each argument is specified using the following nomenclature: < type, default value if any ><br/>
+<b>Examples:</b>  <integer >, < float, 3.14157 >, < string, "O_RDONLY | O_NONBLOCK" >, ...<br/></li>
+<li>A <i>[o]</i> in front of an argument means that it's optional.<br/></li>
+<li>Some functions takes an arguments table. In this case the arguments are enclosed with <i>{ ... }</i>. Each argument inside the table has a name that <b>MUST</b> be specified when 
+calling the function. The advantage of arguments tables is that optional arguments can be omitted completely when calling the function, and passed in any order.</p></li>
+</ul>
+
+<h1>Index of the ROOT libraries binders section:</h1>
+<ul>
+
+<li><h2><a href ="#general-binder">General binders</a>
+		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
+		   <ul>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#general-listcurrentdir"><i>ListCurrentDir</i></a></li>
+  		   <li style="font-weight: normal;font-size: 70%"><a href ="#general-getobject"><i>GetObject</a></i></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#general-setname"><i>TObject.SetName</a></i></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#general-getname"><i>TObject.GetName</a></i></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#general-write"><i>TObject.Write</a></i></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#general-draw"><i>TObject.Draw</a></i></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#general-update"><i>TObject.Update</a></i></li>
+  		   </ul></h2></li>
+
+<li><h2><a href ="#tfile-binder">TFile</a>
+		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
+		   <ul>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-constructor0"><i>TFile</i> (constructor no arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#ttfile-constructor2"><i>TFile</i> (constructor 2 arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#ttfile-constructor-table"><i>TFile</i> (constructor arguments table)</a></li>
+  		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-ls"><i>TFile.ls</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-cd"><i>TFile.cd</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-open"><i>TFile.Open</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-close"><i>TFile.Close</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-getobject"><i>TFile.GetObject</i></a></li>
+  		   </ul></h2></li>
+		   
+<li><h2><a href ="#tf1-binder">TF1</a>
+		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
+		   <ul>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-constructor0"><i>TF1</i> (constructor no arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-constructor2"><i>TF1</i> (constructor 2 arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-constructor4"><i>TF1</i> (constructor 4 arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-constructor5"><i>TF1</i> (constructor 5 arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-constructor6"><i>TF1</i> (constructor 6 arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-constructor-table"><i>TF1</i> (constructor no arguments)</a></li>
+  		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-setparameter"><i>TF1.SetParameter</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-setparameters"><i>TF1.SetParameters</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-getparameter"><i>TF1.GetParameter</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-getparameters"><i>TF1.GetParameters</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-getchi2"><i>TF1.GetChi2</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-eval"><i>TF1.Eval</i></a></li>
+  		   </ul></h2></li>
+
+<li><h2><a href ="#tgraph-binder">TGraphErrors</a>
+		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
+		   <ul>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-constructor0"><i>TGraph</i> (constructor no arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-constructor1"><i>TGraph</i> (constructor 1 argument)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-constructor3"><i>TGraph</i> (constructor 3 arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-constructor5"><i>TGraph</i> (constructor 5 arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-constructor-table"><i>TGraph</i> (constructor arguments table)</a></li>
+  		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-settitle"><i>TGraph.SetTitle</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-gettitle"><i>TGraph.GetTitle</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-getmaxsize"><i>TGraph.GetMaxSize</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-getpoint"><i>TGraph.GetPoint</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-getpointerror"><i>TGraph.GetPointError</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-setnpoint"><i>TGraph.SetNPoint</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-setpoint"><i>TGraph.SetPoint</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-setpointerror"><i>TGraph.SetPointError</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-removepoint"><i>TGraph.RemovePoint</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-eval"><i>TGraph.Eval</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-fit"><i>TGraph.Fit</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tgraph-clone"><i>TGraph.Clone</i></a></li>
+  		   </ul></h2></li>
+		   
+<li><h2><a href ="#th1d-binder">TH1D</a>
+		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
+		   <ul>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-constructor0"><i>TH1D</i> (constructor no arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-constructor5"><i>TH1D</i> (constructor 5 arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-constructor-table"><i>TH1D</i> (constructor arguments table)</a></li>
+  		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-settitle"><i>TH1D.SetTitle</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-gettitle"><i>TH1D.GetTitle</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-fill"><i>TH1D.Fill</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-reset"><i>TH1D.Reset</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-rebuild"><i>TH1D.Rebuild</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-scale"><i>TH1D.Scale</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-setrangeuserx"><i>TH1D.SetRangeUserX</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-setrangeusery"><i>TH1D.SetRangeUserY</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-setxproperties"><i>TH1D.SetXProperties</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-getxproperties"><i>TH1D.GetXProperties</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-getcontent"><i>TH1D.GetContent</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-fit"><i>TH1D.Fit</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-clone"><i>TH1D.Clone</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-add"><i>TH1D.Add</i></a></li>
+  		   </ul></h2></li>
+
+<li><h2><a href ="#th2d-binder">TH2D</a>
+		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
+		   <ul>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-constructor0"><i>TH2D</i> (constructor no arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-constructor7"><i>TH2D</i> (constructor 7 arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-constructor-table"><i>TH2D</i> (constructor arguments table)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-fill"><i>TH2D.Fill</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-projectx"><i>TH2D.ProjectX</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-projecty"><i>TH2D.ProjectY</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-getprojectionx"><i>TH2D.GetProjectionX</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-getprojectiony"><i>TH2D.GetProjectionY</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-setyproperties"><i>TH2D.SetYProperties</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-getyproperties"><i>TH2D.GetYProperties</i></a></li>
+  		   </ul></h2></li>
+		   
+<li><h2><a href ="#tspectrum-binder">TSpectrum</a>
+		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
+		   <ul>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tspectrum-constructor0"><i>TSpectrum</i> (constructor no arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tspectrum-constructor1"><i>TSpectrum</i> (constructor 1 argument)</a></li>
+  		   <li style="font-weight: normal;font-size: 70%"><a href ="#tspectrum-background"><i>TSpectrum.Background</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tspectrum-drawbackground"><i>TSpectrum.DrawBackground</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tspectrum-getbackground"><i>TSpectrum.GetBackground</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tspectrum-search"><i>TSpectrum.Search</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tspectrum-getnpeaks"><i>TSpectrum.GetNPeaks</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tspectrum-getpositionx"><i>TSpectrum.GetPositionX</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tspectrum-getpositiony"><i>TSpectrum.GetPositionY</i></a></li>
+  		   </ul><h2></li>
+		  
+<li><h2><a href ="#tcutg-binder">TCutG</a>
+		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
+		   <ul>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcutg-constructor0"><i>TCutG</i> (constructor no arguments)</a></li>
+  		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcutg-isinside"><i>TCutG.IsInside</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcutg-clone"><i>TCutG.Clone</i></a></li>
+  		   </ul></h2></li>
+		   		   
+<li><h2><a href ="#ttree-binder">TTree</a>
+		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
+		   <ul>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#ttree-constructor0"><i>TTree</i> (constructor no arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#ttree-constructor2"><i>TTree</i> (constructor 2 arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#ttree-constructor-table"><i>TTree</i> (constructor arguments table)</a></li>
+  		   <li style="font-weight: normal;font-size: 70%"><a href ="#ttree-getentries"><i>TTree.GetEntries</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#ttree-getentry"><i>TTree.GetEntry</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#ttree-fill"><i>TTree.Fill</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#ttree-newbranch"><i>TTree.NewBranch</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#ttree-getbranch"><i>TTree.GetBranch</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#ttree-draw"><i>TTree.Draw</i></a></li>
+  		   </ul></h2></li>
+		   
+<hr>
+
+<h2 id="general-binder">General binders</h2>
+
+<div class="funcfield1">
+<h3 id="general-listcurrentdirectory"><i>ListCurrentDirectory</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Display the list of the object in the active directory.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="general-getobject"><i>GetObject</i></h3>
+<p>( <b>type</b>=< string >, <b>name</b>=< string > )<br/>
+<i>Return values</i>: <b>requested type</b></p>
+
+<p>Search the active directory for a ROOT object with named <i>name</i> and with the type <i>type</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="general-setname"><i>TObject.SetName</i></h3>
+<p>( <b>name</b>=< string > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the <i>name</i> as the name of <i>object</i>. The name cannot contain any space or special character. This function is a common method to all ROOT objects. It is a method and need an object to 
+be called.</p>
+
+<p>Example</p>
+
+<pre class="prettyprint">
+	 local hist = TH1()
+	 
+	 hist:SetName("new_histogram_name")
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="general-getname"><i>TObject.GetName</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>string</b></p>
+
+<p>Retrieve the name of <i>object</i>. This function is a common method to all ROOT objects. It is a method and need an object to be called.</p>
+
+<p>Example</p>
+
+<pre class="prettyprint">
+	 local hist = TH1()
+	 
+	 hist:GetName()
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="general-write"><i>TObject.Write</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Writes <i>object</i> to the current active directory or file. This function is a common method to all ROOT objects. It is a method and need an object to be called.</p>
+
+<p>Example</p>
+
+<pre class="prettyprint">
+	 local file = TFile("myfile.root", "recreate")
+	 local hist = TH1()
+	 
+	 file:cd()
+	 hist:Write()
+	 file:Close()
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="general-draw"><i>TObject.Draw</i></h3>
+<p>( <b>opts</b>=< string, "" > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Send a request to <i>theApp</i> to display and update this object.</p>
+
+<p>Example</p>
+
+<pre class="prettyprint">
+	 local hist = TH1()
+	 
+	 hist:Fill(4)
+		 
+	 hist:Draw()
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="general-update"><i>TObject.Update</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Send a request to the <i>theApp</i> to update this object. If an histogram has recently been filled or the range changed, this will notify <i>theApp</i> that the object should be updated.<br/> 
+This function is a common method to all ROOT objects. It is a method and need an object to be called.</p>
+
+<p>Example</p>
+
+<pre class="prettyprint">
+	 local hist = TH1()
+	 
+	 hist:Draw()
+	 
+	 hist:Fill(4)   -- the histogram will still appear empty on the screen
+	 hist:Update()  -- the histogram request an update, theApp will process it and update the display on screen 
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="tfile-binder">TFile</h2>
+
+<div class="funcfield1">
+<h3 id="tfile-constructor0"><i>TFile</i> (constructor no arguments)</h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TFile</b></p>
+
+<p>Creates a new object of type TFile.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tfile-constructor2"><i>TFile</i> (constructor 2 arguments)</h3>
+<p>( <b>name</b>=< string >, <b>opts</b>= < string > )<br/>
+<i>Return values</i>: <b>TFile</b></p>
+
+<p>Creates a new object of type TFile and opens it using argument <i>name</i>.</p>
+<p><i>opts</i> are:</p>
+
+<ul>
+<li><i>read</i> : open the file to be read only.</li>
+<li><i>update</i> : open the file and keep any previous content. The file is created if it did not exist before.</li>
+<li><i>recreate</i> : create the file and erase any previous content if the file already existed.</li>
+</ul>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tfile-constructor-table"><i>TFile</i> (constructor arguments table)</h3>
+<p>( { <b>name</b>=< string >, <b>mode</b>=< string > } )<br/>
+<i>Return values</i>: <b>TFile</b></p>
+
+<p>Creates a new object of type TFile and opens it using argument <i>name</i>.</p>
+<p><i>mode</i> can be:</p>
+
+<ul>
+<li><i>read</i> : open the file to be read only.</li>
+<li><i>update</i> : open the file and keep any previous content. The file is created if it did not exist before.</li>
+<li><i>recreate</i> : create the file and erase any previous content if the file already existed.</li>
+</ul>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tfile-ls"><i>TFile.ls</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>List the content of a file and print it on the screen.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tfile-cd"><i>TFile.cd</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set this TFile to be the active file.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tfile-open"><i>TFile.Open</i></h3>
+<p>( <b>name</b>=< string >, <b>opts</b>= < string > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Open a file using argument <i>name</i>.</p>
+<p><i>opts</i> are:</p>
+
+<ul>
+<li><i>read</i> : open the file to be read only.</li>
+<li><i>update</i> : open the file and keep any previous content. The file is created if it did not exist before.</li>
+<li><i>recreate</i> : create the file and erase any previous content if the file already existed.</li>
+</ul>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tfile-close"><i>TFile.Close</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Closes the file.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tfile-getobject"><i>TFile.GetObject</i></h3>
+<p>( <b>type</b>=< string >, <b>name</b>=< string >)<br/>
+<i>Return values</i>: <b>type of the object</b> OR <b>nil</b> if no object is found</p>
+
+<p>Performs the same operation as the static <a href="#general-getobject">GetObject</a> but does not require that this file is the current active file.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="tf1-binder">TF1</h2>
+
+<div class="funcfield1">
+<h3 id="tf1-constructor0"><i>TF1</i> (constructor no arguments)</h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TF1</b></p>
+
+<p>Creates a new object of type TF1</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tf1-constructor2"><i>TF1</i> (constructor 2 arguments)</h3>
+<p>( { <b>name</b>=< string >, <b>formula</b>=< string > } )<br/>
+<i>Return values</i>: <b>TF1</b></p>
+
+<p>Creates a new object of type TF1 and set its name to <i>name</i>.</p>
+<p><i>formula</i> must be a string specifying a predefined ROOT function or a simple formula</p>
+
+<p>Example</p>
+<pre class="prettyprint">
+	 local f1 = TF1("func1", "gaus")         -- will create a gaussian function
+	 
+	 local f2 = TF1("func2", "[0]*x + [1]")  -- will create a simple polynomial function of order 1
+</pre>
+
+<p>See <a href="https://root.cern.ch/doc/master/classTF1.html">this link</a> for more infos.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tf1-constructor4"><i>TF1</i> (constructor 4 arguments)</h3>
+<p>( { <b>name</b>=< string >, <b>formula</b>=< string >, <b>xmin</b>=< double >, <b>xmax</b>=< double > } )<br/>
+<i>Return values</i>: <b>TF1</b></p>
+
+<p>Creates a TF1 similarly to <a href="#tf1-constructor2"><i>TF1</i> with 2 arguments</a>. The additionnal <i>xmin</i> and <i>xmax</i> arguments set the boundaries of the function.</p>
+
+<p>See <a href="https://root.cern.ch/doc/master/classTF1.html">this link</a> for more infos.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tf1-constructor5"><i>TF1</i> (constructor 5 arguments)</h3>
+<p>( { <b>name</b>=< string >, <b>formula</b>=< function >, <b>xmin</b>=< double >, <b>xmax</b>=< double >, <b>npars</b>=< int > } )<br/>
+<i>Return values</i>: <b>TF1</b></p>
+
+<p>Creates a new object of type TF1 and set its name to <i>name</i>, while <i>xmin</i> and <i>xmax</i> arguments set the boundaries of the function</p>
+<p><i>formula</i> must be a Lua function and <i>npars</i> the number of <b>parameters</b> in the function.</p>
+
+<p>Example</p>
+<pre class="prettyprint">
+	 local function poly1(x, a, b)
+	 	   return a*x + b
+  	 end
+	 
+	 local f2 = TF1("func2", poly1, -5, 5, 2)  -- the number of parameters of poly1 MUST be specified. 
+                                               	  -- It is equal to 2 here as <i>x</i> is NOT a parameter
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tf1-constructor6"><i>TF1</i> (constructor 6 arguments)</h3>
+<p>( { <b>name</b>=< string >, <b>formula</b>=< function >, <b>xmin</b>=< double >, <b>xmax</b>=< double >, <b>npars</b>=< int >, <b>ndim</b>=< int > } )<br/>
+<i>Return values</i>: <b>TF1</b></p>
+
+<p>Creates a new object of type TF1 similarly to <a href="#tf1-constructor2"><i>TF1</i> with 5 arguments</a>. The additional <i>ndim</i> arguments specify the dimension of the function.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tf1-constructor-table"><i>TF1</i> (constructor arguments table)</h3>
+<p>( { <b>name</b>=< string >, <i>[o]</i> <b>formula</b>=< string >, <i>[o]</i> <b>fn</b>=< function >, <i>[o]</i> <b>xmin</b>=< double>, <i>[o]</i> <b>xmax</b>=< double >, 
+<i>[o]</i> <b>npars</b>=< int >, <i>[o]</i> <b>ndim</b>=< int > } )<br/>
+<i>Return values</i>: <b>TF1</b></p>
+
+<p>Creates a new object of type TF1 and sets its name to <i>name</i>.</p>
+<p>The arguments are exactly the same as for the previously discussed constructors. The <i>formula</i> OR <i>fn</i> field must be provided. Only 1 of the 2 can be specified.</p>
+<p>If <i>fn</i> is specified, it must be a function and <i>xmin</i>, <i>xmax</i> and <i>npars</i> are required.</p>
+
+<p>Example</p>
+<pre class="prettyprint">
+	 local function poly1(x, a, b)
+	 	   return a*x + b
+  	 end
+	 
+	 local f1 = TF1({ name = "func1", fn = poly1, xmin = -5, xmax = 5, npars = 2)
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tf1-setparameter"><i>TF1.SetParameter</i></h3>
+<p>( <b>parn</b>=< int >, <b>val</b>=< double >)<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set value parameter number <i>parn</i> using <i>value</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tf1-setparameters"><i>TF1.SetParameters</i></h3>
+<p>( <b>vals</b>=< double >)<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the values of all the parameters using the table <i>vals</i>.</p>
+
+<p>Example</p>
+<pre class="prettyprint">
+	 local function poly2(x, a, b, c)
+	 	   return a*x^2 + b*x +c
+  	 end
+	 
+	 local f1 = TF1({ name = "my_pol2", fn = poly2, xmin = -5, xmax = 5, npars = 3)
+	 
+	 f1:SetParameters( { 2, 6, -4 } )  -- this will set a to 2, b to 6 and c to -4
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tf1-getparameter"><i>TF1.GetParameter</i></h3>
+<p>( <b>parn</b>=< int >)<br/>
+<i>Return values</i>: <b>double</b></p>
+
+<p>Retrieve the value of parameter number <i>parn</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tf1-getparameters"><i>TF1.GetParameters</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>table</b></p>
+
+<p>Retrieve the value of all the parameters and returns them in a table.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tf1-getchi2"><i>TF1.GetChi2</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>double</b></p>
+
+<p>Retrieve the value of all the Chi2 associated to the last performed fit using this function (see <a href="#tgraph-fit">TGraph.Fit</a> or <a href="#th1d-fit">TH1D.Fit</a>).</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tf1-eval"><i>TF1.Eval</i></h3>
+<p>( <b>x</b=< double >> )<br/>
+<i>Return values</i>: <b>double</b></p>
+
+<p>Evaluate the coordinate for the abscissa x.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="tgraph-binder">TGraphErrors</h2>
+
+<div class="funcfield1">
+<h3 id="tgraph-constructor0"><i>TGraph</i> (constructor no arguments)</h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TGraph</b></p>
+
+<p>Creates a new object of type TGraph.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tgraph-constructor1"><i>TGraph</i> (constructor 1 argument)</h3>
+<p>( <b>npoints</b>=< int > } )<br/>
+<i>Return values</i>: <b>TGraph</b></p>
+
+<p>Creates a new object of type TGraph and sets its amount of points to <i>npoints</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tgraph-constructor3"><i>TGraph</i> (constructor 3 arguments)</h3>
+<p>( <b>npoints</b>=< int >, <b>xs</b>=< table >, <b>ys</b>=< table > } )<br/>
+<i>Return values</i>: <b>TGraph</b></p>
+
+<p>Creates a new object of type TGraph and sets its amount of points to <i>npoints</i>.</p>
+<p>It then uses the tables <i>xs</i> and <i>ys</i> to set the values of these points. The size of <i>xs</i> and <i>ys</i> must be <i>npoints</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tgraph-constructor5"><i>TGraph</i> (constructor 3 arguments)</h3>
+<p>( <b>npoints</b>=< int >, <b>xs</b>=< table >, <b>ys</b>=< table >, <b>errxs</b>=< table >, <b>errys</b>=< table > } )<br/>
+<i>Return values</i>: <b>TGraph</b></p>
+
+<p>Creates a new object of type TGraph and sets its amount of points to <i>npoints</i>.</p>
+<p>It then uses the tables <i>xs</i> and <i>ys</i> to set the values of these points and <i>errxs</i> and <i>errys</i> to set the errors respectively. 
+The size of <i>xs</i>, <i>ys</i>, <i>errxs</i> and <i>errys</i> must be <i>npoints</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tgraph-constructor-table"><i>TGraph</i> (constructor arguments table)</h3>
+<p>( { <b>npoints</b>=< int >, <i>[o]</i> <b>xs</b>=< table >, <i>[o]</i> <b>ys</b>=< table >, <i>[o]</i> <b>errxs</b>=< table>, <i>[o]</i> <b>errys</b>=< table > } )<br/>
+<i>Return values</i>: <b>TGaph</b></p>
+
+<p>Creates a new object of type TGraph and sets its amount of points to <i>npoints</i>.</p>
+<p>If <i>xs</i> is specified, then <i>ys</i> is required as well. Same goes for <i>errxs</i> and <i>errys</i>.</p>
+<p>The meaning of <i>xs</i>, <i>ys</i>, <i>errxs</i> and <i>errys</i> is the same as in the previous constructors.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tgraph-settitle"><i>TGraph.SetTitle</i></h3>
+<p>( <b>title</b>=< string > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the title of the TGraph using <i>title</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tgraph-gettitle"><i>TGraph.GetTitle</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>string</b></p>
+
+<p>Retrieve the title of the TGraph.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tgraph-getmaxsize"><i>TGraph.GetMaxSize</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>int</b></p>
+
+<p>Retrieve the maximum amount of points in the TGraph.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tgraph-getpoint"><i>TGraph.GetPoint</i></h3>
+<p>( <b>n</b>=< int > )<br/>
+<i>Return values</i>: <b>table</b></p>
+
+<p>Retrieve the x and y value of point <i>n</i> and returns them in a table as</p>
+
+<pre class="prettyprint">
+	 {
+	   [1] = x,
+	   [2] = y
+	 }
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tgraph-getpointerror"><i>TGraph.GetPointError</i></h3>
+<p>( <b>n</b>=< int > )<br/>
+<i>Return values</i>: <b>table</b></p>
+
+<p>Retrieve the errors associated to x and y for the point <i>n</i> and returns them in a table as</p>
+
+<pre class="prettyprint">
+	 {
+	   [1] = errx,
+	   [2] = erry
+	 }
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tgraph-setnpoint"><i>TGraph.SetNPoint</i></h3>
+<p>( <b>n</b>=< int > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Modify the maximum number of point in the TGraph and set it to <i>n</i>. If <i>n</i> is smaller than the previous size, any extra points are discarded. If <i>n</i> is smaller than the previous 
+the new points are initialized at ( 0 , 0).</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tgraph-setpoint"><i>TGraph.SetPoint</i></h3>
+<p>( <b>n</b>=< int >, <b>x</b>=<double>, <b>y</b>=< double > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the x and y values of point <i>n</i> using <i>x</i> and <i>y</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tgraph-setpointerror"><i>TGraph.SetPointError</i></h3>
+<p>( <b>n</b>=< int >, <b>errx</b>=<double>, <b>erry</b>=< double > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the errors on the x and y values of point <i>n</i> using <i>errx</i> and <i>erry</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tgraph-removepoint"><i>TGraph.RemovePoint</i></h3>
+<p>( <b>n</b>=< int > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Removes point number <i>n</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tgraph-eval"><i>TGraph.Eval</i></h3>
+<p>( <b>x</b>=< double > )<br/>
+<i>Return values</i>: <b>double</b></p>
+
+<p>Evaluates the coordinate associated to the abscissa <i>x</i> using interpolation.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tgraph-fit"><i>TGraph.Fit</i></h3>
+<p>( { <b>fn</b>=< TF1 >, <i>[o]</i> <b>xmin</b>=< double >, <i>[o]</i> <b>xmax</b>=< double >, <i>[o]</i> <b>opts</b>=< string > } )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Fit the TGraph using the function <i>fn</i>. If <i>xmin</i> and <i>xmax</i> are specified, the fit will consider only that range.</p>
+<p><i>opts</i> is a string specifying options for the fit. See <a href="https://root.cern.ch/doc/master/classTGraph.html#aa978c8ee0162e661eae795f6f3a35589">this link</a> for more information.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tgraph-clone"><i>TGraph.Clone</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TGraph</b></p>
+
+<p>Creates a clone of this TGraph.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="th1d-binder">TH1D</h2>
+
+<div class="funcfield1">
+<h3 id="th1d-constructor0"><i>TH1</i> (constructor no arguments)</h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TH1</b></p>
+
+<p>Creates a new object of type TH1.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="th1d-constructor5"><i>TH1</i> (constructor 5 arguments)</h3>
+<p>( <b>name</b>=< string >, <b>title</b>=< string >, <b>nbinsx</b>=< int >, <b>xmin</b>=< double>, <b>xmax</b>=< double > )<br/>
+<i>Return values</i>: <b>TH1</b></p>
+
+<p>Creates a new object of type TH1 and sets its name and title to <i>name</i> and <i>title</i> respectively.</p>
+<p>The TH1 will be created with <i>nbinsx</i> for a the range <i>xmin</i> to <i>xmax</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="th1d-constructor-table"><i>TH1</i> (constructor arguments table)</h3>
+<p>( { <b>name</b>=< string >, <b>title</b>=< string >, <b>nbinsx</b>=< int >, <b>xmin</b>=< double>, <b>xmax</b>=< double > } )<br/>
+<i>Return values</i>: <b>TH1</b></p>
+
+<p>Same as <a href="#th1d-constructor5">above</a> but with the arguments passed inside a table instead.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="th1d-settitle"><i>TH1.SetTitle</i></h3>
+<p>( <b>title</b>=< string > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the title of the TH1 to <i>title</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="th1d-gettitle"><i>TH1.GetTitle</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>string</b></p>
+
+<p>Retrieves the title of the TH1.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="th1d-fill"><i>TH1.Fill</i></h3>
+<p>( <b>x</b>=< double>, <i>[o]</i> <b>weight</b>=< int, 1 > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Increment the bin containing the abscissa <i>x</i> by <i>weight</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="th1d-reset"><i>TH1.Reset</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Reset the histogram, deleting all its content.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="th1d-rebuild"><i>TH1.Rebuild</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Recompute the arrays for contents and errors.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="th1d-scale"><i>TH1.Scale</i></h3>
+<p>( <b>s</b>=< double > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Rescale the histogram by a factor of <i>s</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="th1d-setrangeuserx"><i>TH1.SetRangeUserX</i></h3>
+<p>( <b>xmin</b>=< double >, <b>xmax</b>=< double > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the range of the X axis using user values. This means that <i>xmin</i> and <i>xmax</i> should be the actual value on the X axis and not bin numbers.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="th1d-setrangeusery"><i>TH1.SetRangeUserY</i></h3>
+<p>( <b>ymin</b>=< double >, <b>ymax</b>=< double > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the range of the Y axis using user values. This means that <i>ymin</i> and <i>ymax</i> should be the actual value on the Y axis and not bin numbers.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="th1d-setxproperties"><i>TH1.SetXProperties</i></h3>
+<p>( <b>nbinsx</b>=< int>, <b>xmin</b>=< double >, <b>xmax</b>=< double > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Change the properties of the X axis allowing to effectively expand the X axis further than when originally set.</p>
+<p>Unlike the ROOT function <a href="https://root.cern.ch/doc/master/classTH1.html#aec7b0a0dfcecb6ed6d24d58428d0a8a9"><i>SetBins</i></a> which shifts the content of the histograms, this function 
+leaves it untouched. The downside is that it can be be a heavy computation when dealing with large histograms.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="th1d-getxproperties"><i>TH1.GetXProperties</i></h3>
+<p>(  )<br/>
+<i>Return values</i>: <b>table</b></p>
+
+<p>Retrieve the current properties of the X axis and returns them in a table:</p>
+
+<pre class="prettyprint">
+	 {
+	   [1] = nbinsx,
+	   [2] = xmin,
+	   [3] = xmax
+	 }
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="th1d-getcontent"><i>TH1.GetContent</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>table</b></p>
+
+<p>Retrieve the content of the histograms and returns it as a table:</p>
+
+<pre class="prettyprint">
+	 {
+	   [1] = table containing the bins with a content > 0,
+	   [2] = table containing the content of the bins stored in [1]
+	 }
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="th1d-fit"><i>TH1.Fit</i></h3>
+<p>( { <b>fn</b>=< TF1 >, <i>[o]</i> <b>xmin</b>=< double >, <i>[o]</i> <b>xmax</b>=< double >, <i>[o]</i> <b>opts</b>=< string > } )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Fit the TH1 using the function <i>fn</i>. If <i>xmin</i> and <i>xmax</i> are specified, the fit will consider only that range.</p>
+<p><i>opts</i> is a string specifying options for the fit. See <a href="https://root.cern.ch/doc/master/classTGraph.html#aa978c8ee0162e661eae795f6f3a35589">this link</a> for more information.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="th1d-clone"><i>TH1.Clone</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TH1</b></p>
+
+<p>Returns a clone of the TH1.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="th1d-add"><i>TH1.Clone</i></h3>
+<p>( <b>hist</b>=< TH1 >, <i>[o]</i> s=< double >)<br/>
+<i>Return values</i>: <b>TH1</b></p>
+
+<p>Add the histogram <i>hist</i> to the TH1 using the scale <i>s</i>. A scale of -1 would perform a substraction of the 2 histograms.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="th2d-binder">TH2D</h2>
+
+<p style="color:red;"><b>TH2 objects have the same methods as TH1 and are not repeated here. Only the methods exclusive to TH2 or the ones which share a same name but are different are explicitely described.</b></p>
+
+<div class="funcfield1">
+<h3 id="th2d-constructor0"><i>TH2</i> (constructor no arguments)</h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TH2</b></p>
+
+<p>Creates a new object of type TH2.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="th2d-constructor7"><i>TH2</i> (constructor 7 arguments)</h3>
+<p>( <b>name</b>=< string >, <b>title</b>=< string >, <b>nbinsx</b>=< int >, <b>xmin</b>=< double>, <b>xmax</b>=< double >, 
+<b>nbinsy</b>=< int >, <b>ymin</b>=< double>, <b>ymax</b>=< double > )<br/>
+<i>Return values</i>: <b>TH2</b></p>
+
+<p>Creates a new object of type TH2 and sets its name and title to <i>name</i> and <i>title</i> respectively.</p>
+<p>The TH2 will be created with:</p> 
+<ul>
+<li><i>nbinsx</i> for a the range <i>xmin</i> to <i>xmax</i> for the X axis.</li>
+<li><i>nbinsy</i> for a the range <i>ymin</i> to <i>ymax</i> for the Y axis.</li>
+</ul>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="th2d-constructor-table"><i>TH2</i> (constructor arguments table)</h3>
+<p>( { <b>name</b>=< string >, <b>title</b>=< string >, <b>nbinsx</b>=< int >, <b>xmin</b>=< double>, <b>xmax</b>=< double >, 
+<b>nbinsy</b>=< int >, <b>ymin</b>=< double>, <b>ymax</b>=< double >  } )<br/>
+<i>Return values</i>: <b>TH2</b></p>
+
+<p>Same as <a href="#th2d-constructor7">above</a> but with the arguments passed inside a table instead.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="th2d-fill"><i>TH2.Fill</i></h3>
+<p>( <b>x</b>=< double>, <b>y</b>=< double>, <i>[o]</i> <b>weight</b>=< int, 1 > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Increment the bin containing the abscissa <i>x</i> and the coordinate <i>y</i> by <i>weight</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="th2d-projectx"><i>TH2.ProjectX</i></h3>
+<p>( <b>ymin</b>=< double>, <b>ymax</b>=< double> )<br/>
+<i>Return values</i>: <b>TH1</b></p>
+
+<p>Returns the projection on the X axis of the range <i>ymin</i> to <i>ymax</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="th2d-projecty"><i>TH2.ProjectY</i></h3>
+<p>( <b>xmin</b>=< double>, <b>xmax</b>=< double> )<br/>
+<i>Return values</i>: <b>TH1</b></p>
+
+<p>Returns the projection on the Y axis of the range <i>xmin</i> to <i>xmax</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="th2d-getprojectionx"><i>TH2.GetProjectionX</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TH1</b></p>
+
+<p>Returns the last projection performed on the X axis.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="th2d-getprojectiony"><i>TH2.GetProjectionY</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TH1</b></p>
+
+<p>Returns the last projection performed on the Y axis.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="th2d-setyproperties"><i>TH2.SetYProperties</i></h3>
+<p>( <b>nbinsy</b>=< int>, <b>ymin</b>=< double >, <b>ymax</b>=< double > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Change the properties of the Y axis allowing to effectively expand the Y axis further than when originally set.</p>
+<p>Unlike the ROOT function <a href="https://root.cern.ch/doc/master/classTH1.html#aec7b0a0dfcecb6ed6d24d58428d0a8a9"><i>SetBins</i></a> which shifts the content of the histograms, this function 
+leaves it untouched. The downside is that it can be be a heavy computation when dealing with large histograms.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="th2d-getyproperties"><i>TH2.GetYProperties</i></h3>
+<p>(  )<br/>
+<i>Return values</i>: <b>table</b></p>
+
+<p>Retrieve the current properties of the Y axis and returns them in a table:</p>
+
+<pre class="prettyprint">
+	 {
+	   [1] = nbinsy,
+	   [2] = ymin,
+	   [3] = ymax
+	 }
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="tspectrum-binder">TSpectrum</h2>
+
+<div class="funcfield1">
+<h3 id="tspectrum-constructor0"><i>TSpectrum</i> (constructor no arguments)</h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TSpectrum</b></p>
+
+<p>Creates a new object of type TSpectrum.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tspectrum-constructor1"><i>TSpectrum</i> (constructor no arguments)</h3>
+<p>( <b>npeaks</b>=< int > )<br/>
+<i>Return values</i>: <b>TSpectrum</b></p>
+
+<p>Creates a new object of type TSpectrum and set the amount of peaks to use when performing a <a href="tspectrum-search">Search</a>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tspectrum-background"><i>TSpectrum.Background</i></h3>
+<p>( <b>histname</b>=< string >, <b>niter</b>=< int >, <i>[o]</i> <b>opts</b>=< string, "" > )<br/>
+<i>Return values</i>: <b>TH1</b></p>
+
+<p>Evaluate the background and returns it as a TH1. More information on the process can be <a href="https://root.cern.ch/doc/v608/classTSpectrum.html#a56e15d1c36c7557b17d5f6d68fa315a7">found here</a>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tspectrum-drawbackground"><i>TSpectrum.DrawBackground</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Draw the result of the last background estimation.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tspectrum-getbackground"><i>TSpectrum.GetBackground</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TH1</b></p>
+
+<p>Returns the result of the last background estimation. If no background estimation has been performed yet, it retusn <b>nil</b>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tspectrum-search"><i>TSpectrum.Search</i></h3>
+<p>( <b>histname</b>=< string >, <b>sigma</b>=< double >, <b>opts</b>=< string >, <b>threshold</b>=< double > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Performs a peak search in the histogram identified by <i>histname</i>. The parameter <i>npeaks</i> used when constructing the TSpectrum is used as the maximum number of peaks that can be found.</p>
+<p><i>sigma</i> is the expected sigma of the peaks that the function should find.</p>
+<p><i>threshold</i> is setting the minimum amplitude that a peak needs to have to be considered in the search. This threshold is set as a percentage of the peak with the biggest amplitude.</p>
+<p><i>opts</i> are options <a href="https://root.cern.ch/doc/v608/classTSpectrum.html#a5f8b7b208f813670259b51a8bcdcbfc5">described here</a>. If none is required, set this argument to "".</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tspectrum-getnpeaks"><i>TSpectrum.GetNPeaks</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>int</b></p>
+
+<p>Returns the amount of peaks found during the last <a href="tspectrum-search">Search</a>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tspectrum-getpositionx"><i>TSpectrum.GetPositionX</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>table</b></p>
+
+<p>Returns the positions of the peaks found during the last <a href="tspectrum-search">Search</a> and returns them in a table.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tspectrum-getpositiony"><i>TSpectrum.GetPositionY</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>table</b></p>
+
+<p>Returns the amplitude of peaks found during the last <a href="tspectrum-search">Search</a> and returns them in a table. The ordering of these amplitudes corresponds to the ordering of the 
+peaks position returned by <a href="tspectrum-getpositionx">GetPositionX</a>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="tcutg-binder">TCutG</h2>
+
+<div class="funcfield1">
+<h3 id="tcutg-constructor0"><i>TCutG</i> (constructor no arguments)</h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TCutG</b></p>
+
+<p>Creates a new object of type TCutG.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tcutg-isinside"><i>TCutG.IsInside</i></h3>
+<p>( <b>x</b>=< double >, <b>y</b>=< double > )<br/>
+<i>Return values</i>: <b>bool</b></p>
+
+<p>Check wether or not the point with the coordinates ( x, y ) is inside the graphical cut defined by TCutG.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tcutg-clone"><i>TCutG.Clone</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TCutG</b></p>
+
+<p>Creates clone of the TCutG.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="ttree-binder">TTree</h2>
+
+<div class="funcfield1">
+<h3 id="ttree-constructor0"><i>TTree</i> (constructor no arguments)</h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TTree</b></p>
+
+<p>Creates a new object of type TTree.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="ttree-constructor2"><i>TTree</i> (constructor 2 arguments)</h3>
+<p>( <b>name</b>=< string >, <b>title</b>=< string > )<br/>
+<i>Return values</i>: <b>TTree</b></p>
+
+<p>Creates a new object of type TTree and set its name and title to <i>name</i> and <i>title</i> respectively.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="ttree-constructor-table"><i>TTree</i> (constructor arguments table)</h3>
+<p>( { <b>name</b>=< string >, <b>title</b>=< string > } )<br/>
+<i>Return values</i>: <b>TTree</b></p>
+
+<p>Creates a new object of type TTree and set its name and title to <i>name</i> and <i>title</i> respectively.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="ttree-getentries"><i>TTree.GetEntries</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>unsigned long long int</b></p>
+
+<p>Returns the total number of entries in the TTree.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="ttree-getentry"><i>TTree.GetEntry</i></h3>
+<p>( <b>n</b>=< unsigned long long int > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Retrieves the values of the branches of the TTree for the entry number <i>n</i> and accordingly sets the values of the variables that attached to these branches ( see 
+<a href="ttree-newbranch"><i>TTree.NewBranch</i></a> and <a href="ttree-getbranch"><i>TTree.GetBranch</i></a>). Entry numbers starts from 0.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="ttree-fill"><i>TTree.Fill</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Uses the values of the variables that are attached to the branches of the TTree ( see <a href="ttree-newbranch"><i>TTree.NewBranch</i></a> and <a href="ttree-getbranch"><i>TTree.GetBranch</i></a>) 
+to create a new entry.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="ttree-newbranch"><i>TTree.NewBranch</i></h3>
+<p>( { <b>type</b>=< string >, <b>name</b>=< string > } )<br/>
+<i>Return values</i>: <b>userdata of type specified by <i>type</i></b></p>
+
+<p>Creates a new branch for the TTree of type <i>type</i>. This function returns an <b>object</b> of type <i>type</i> that can be used to either set the value of the branch or reads from it. 
+It means that if the type specified for the branch is "int", it won't return a plain integer but a userdata associated to an <i>int</i> as 
+<a href="Functionality.html#more-about-userdata">discussed here</a>.</p>
+
+<p>Example:</p>
+
+<pre class="prettyprint">
+	 local tree = TTree("mytree", "a example of tree")
+	 
+	 local b1 = tree:NewBranch( { name="branch1", type="int"} )
+	 
+	 b1:Set(6)
+	 tree:Fill()  -- the tree now contains one entry for which the value of branch1 is 6
+	 
+	 b1:Set(17)
+	 tree:Fill()  -- the tree contains now 2 entries. First one has a value of 6 for branch1
+	              -- the second one has a value of 17 for branch 1.
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="ttree-getbranch"><i>TTree.GetBranch</i></h3>
+<p>( { <b>name</b>=< string > } )<br/>
+<i>Return values</i>: <b>userdata of type of the branch with the name <i>name</i></b></p>
+
+<p>Retrieves an existing branch of the TTree with name <i>name</i>. This function returns an <b>object</b> which will act as a link to this branch.</p>
+
+<p>Example:</p>
+
+<pre class="prettyprint">
+	 -- [ ... assuming we have the TTree created in the example of <a href="#ttree-newbranch">TTree.NewBranch</a> ... ]
+	 
+	 local br = tree:GetBranch( { name="branch1" } )
+	 
+	 tree:GetEntry(1)
+	 print(br:Get())   -- will print 17 as the value of branch1 for the second entry was 17
+	 
+	 tree:GetEntry(0)
+	 print(br:Get())   -- will print 6 as the value of branch1 for the first entry was 6
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="ttree-draw"><i>TTree.Draw</i></h3>
+<p>( <b>varexp</b>=< string >, <i>[o]</i> <b>cond</b>=< string >, <i>[o]</i> <b>opts</b>=< string >, <i>[o]</i> <b>nentries</b>=< unsigned long long >, 
+<i>[o]</i> <b>firstentry</b>=< unsigned long long > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Calls the standard Draw command for a TTree. A <a href="https://root.cern.ch/doc/v608/classTTree.html">detailed documentation</a> of this function can be found here.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+</ul>
+
+</article>
+</div>
+
+<div class="container-full-width">
+<footer><a href="https://github.com/zupalex/luaXroot">https://github.com/zupalex/luaXroot</a></footer>
+</div>
+</div>
+
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</body>
+</html>
