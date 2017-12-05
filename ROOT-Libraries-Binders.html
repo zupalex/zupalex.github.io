@@ -46,6 +46,17 @@ calling the function. The advantage of arguments tables is that optional argumen
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#general-update"><i>TObject.Update</a></i></li>
   		   </ul></h2></li>
 
+<li><h2><a href ="#tcanvas-binder">TCanvas</a>
+		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
+		   <ul>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-constructor0"><i>TCanvas</i> (constructor no arguments)</a></li>
+  		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-divide"><i>TCanvas.Divide</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-draw"><i>TCanvas.Draw</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-update"><i>TCanvas.Update</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-clear"><i>TCanvas.Clear</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-close"><i>TCanvas.Close</i></a></li>
+  		   </ul></h2></li>
+		   
 <li><h2><a href ="#tfile-binder">TFile</a>
 		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
 		   <ul>
@@ -291,6 +302,72 @@ This function is a common method to all ROOT objects. It is a method and need an
 	 hist:Fill(4)   -- the histogram will still appear empty on the screen
 	 hist:Update()  -- the histogram request an update, theApp will process it and update the display on screen 
 </pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="tcanvas-binder">TCanvas</h2>
+
+<div class="funcfield1">
+<h3 id="tcanvas-constructor0"><i>TCanvas</i> (constructor no arguments)</h3>
+<p>( )<br/>
+<i>Return values</i>: <b>TCanvas</b></p>
+
+<p>Creates a new object of type TCanvas.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tcanvas-divide"><i>TCanvas.Divide</i> (constructor no arguments)</h3>
+<p>( <b>nrow</b>=< int >, <b>ncol</b>=< int > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Divide the TCanvas into <i>nrow</i> rows and <i>ncol</i> columns, creating as many sub-canvas.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tcanvas-draw"><i>TCanvas.Draw</i></h3>
+<p>( <b>root_obj</b>=< any drawable ROOT object >, <b>draw_opts</b>=< string >, <b>nrow</b>=< int >, <b>ncol</b>=< int > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Draw <i>root_obj</i> with the options <i>draw_opts</i> in the sub-canvas of the canvas (<i>nrow</i>, <i>ncol</i>).</p>
+
+<img src="images/luaXroot-canvasdivide.png" alt="luaXroot-canvasdivide" style="max-width:100%;">
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tcanvas-update"><i>TCanvas.Update</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Refresh the canvas and all its sub-canvas.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tcanvas-clear"><i>TCanvas.Clear</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Clears the content of the canvas, deleting all its sub-canvas.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tcanvas-close"><i>TCanvas.Close</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Closes the canvas.</p>
 </div>
 
 <p><a href="#intro">go back to top</a></p>

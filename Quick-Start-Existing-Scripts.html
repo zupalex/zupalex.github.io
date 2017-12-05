@@ -160,6 +160,32 @@ luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepai
 
 <p><a href="#intro">go back to top</a></p>
 
+<p><b>Dividing a canvas into sub-canvas:</b></p>
+<pre class="prettyprint"> 
+Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
+ROOT 6.11/03   http://root.cern.ch   The ROOT Team
+luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepailleur@gmail.com)
+------------------------------------------------------------------------------------------------
+
+> can = TCanvas()
+> 
+> h1 = TH1("test", "test hist", 10, 0, 10)
+> h1:Fill(4)
+> 
+> h2 = TH1("test2", "test hist 2", 10, 0, 10)
+> h2:Fill(7)
+> 
+> can:Divide(1, 2)           <= Divides the canvas into 1 row and 2 columns
+> 
+> can:Draw(h1, "", 1, 1)
+> can:Draw(h2, "", 1, 2)
+> 
+</pre>
+
+<img src="images/luaXroot-dividecanvas.png" alt="luaXroot-dividecanvas" style="max-width:100%;">
+
+<p><a href="#intro">go back to top</a></p>
+
 <p><b>Zooming or changing the binning:</b></p>
 
 <p>First, let's enable the "editor"</p>
