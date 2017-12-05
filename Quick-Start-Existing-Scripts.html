@@ -306,6 +306,15 @@ For this instance, the helper function <a href="Helper-Functions#startnewtask"><
 user can still user the Lua command prompt to perform other operations. This functionality comes with a set of function to communicate with the tasks threads such as 
 <a href="Helper-Functions#sendsignal"><i>SendSignal</i></a> to send for instance a pause request to that running task.</p>
 
+<p>By default, 3 signals will always be implemented when starting a new task:</p>
+<ul>
+<li><b>wait</b> signal will pause the execution of the task.</li>
+<li><b>resume</b> signal will resume the execution of a paused task.</li>
+<li><b>stop</b> signal will terminate the execution of the task.</li>
+</ul>
+
+<p>More signals can be implemented with <a href="Helper-Functions#addsignal"><i>AddSignal</i></a> and any script might implement additional signals with their own functionalities.</p>
+
 <pre class="prettyprint">
 	 -- This is in a user script called "monitor_sx3.lua" 
 	 --
@@ -333,6 +342,14 @@ luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepai
 > 
 > SendSignal("task1", "Display", "h_sx3_12")  <= This line send a signal to the background task
                                                  requesting the display of the histogram h_sx3_12
+>
+> SendSignal("task1", "wait")                 <= The execution of task1 is now paused
+>
+      [ ... The user can perform operations here ... ]
+>
+> SendSignal("task1", "resume")               <= task1 is resumed
+>
+> SendSignal("task1", "stop")                 <= task1 is stopped. It cannot receive any other signal after this point.
 </pre>
 
 <p><a href="#intro">go back to top</a></p>
