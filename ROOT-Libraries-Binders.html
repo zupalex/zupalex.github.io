@@ -50,11 +50,15 @@ calling the function. The advantage of arguments tables is that optional argumen
 		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
 		   <ul>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-constructor0"><i>TCanvas</i> (constructor no arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-settitle"><i>TCanvas.SetTitle</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-gettitle"><i>TCanvas.GetTitle</i></a></li>
   		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-divide"><i>TCanvas.Divide</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-draw"><i>TCanvas.Draw</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-update"><i>TCanvas.Update</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-clear"><i>TCanvas.Clear</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-close"><i>TCanvas.Close</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-setsize"><i>TCanvas.SetSize</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-setwindowsize"><i>TCanvas.SetWindowSize</i></a></li>
   		   </ul></h2></li>
 		   
 <li><h2><a href ="#tfile-binder">TFile</a>
@@ -321,7 +325,27 @@ This function is a common method to all ROOT objects. It is a method and need an
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="tcanvas-divide"><i>TCanvas.Divide</i> (constructor no arguments)</h3>
+<h3 id="tcanvas-settitle"><i>TCanvas.SetTitle</i></h3>
+<p>( <b>title</b>=< string > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the title of the canvas to <i>title</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tcanvas-gettitle"><i>TCanvas.GetTitle</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>string</b></p>
+
+<p>Returns the title of the canvas.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tcanvas-divide"><i>TCanvas.Divide</i></h3>
 <p>( <b>nrow</b>=< int >, <b>ncol</b>=< int > )<br/>
 <i>Return values</i>: <b>nil</b></p>
 
@@ -368,6 +392,27 @@ This function is a common method to all ROOT objects. It is a method and need an
 <i>Return values</i>: <b>nil</b></p>
 
 <p>Closes the canvas.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tcanvas-setsize"><i>TCanvas.SetSize</i></h3>
+<p>( <b>cw</b>=< int >, <b>ch</b>=< int > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Resize the canvas, setting its width to <i>cw</i> and its height to <i>ch</i>.</p>
+<p style="color:red;">This does not resize the window, ONLY the canvas.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tcanvas-setwindowsize"><i>TCanvas.SetWindowSize</i></h3>
+<p>( <b>ww</b>=< int >, <b>wh</b>=< int > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Resize the window containing the canvas, setting its width to <i>ww</i> and its height to <i>wh</i>.</p>
 </div>
 
 <p><a href="#intro">go back to top</a></p>
