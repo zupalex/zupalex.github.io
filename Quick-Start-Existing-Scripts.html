@@ -73,7 +73,7 @@ luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepai
 
 </pre>
 
-<p>Finally functions can be defined directly from the command interpreter. The Lua command interpreter evaluates each lines and detects if the command is actually not complete. In this case it offers a 
+<p>Finally functions can be defined directly from the command interpreter. The Lua command interpreter evaluates each lines and detects if a command is incomplete. In this case it offers a 
 double prompt on the next line to allow the user to finish that command:</p>
 
 <img src="images/luaXroot-functiondef.png" alt="luaXroot-functiondef" style="max-width:100%;">
@@ -115,10 +115,10 @@ luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepai
 
 </pre>
 
-<p>There is actually a 3rd way to execute a script. One can specify a script to load on startup when starting <b>luaXroot</b></p>
+<p>There is actually a 3rd way to execute a script. One can specify a script to load on startup</p>
 
 <pre class="prettyprint">
-	 luaXroot -e "/home/evildrpain/luascripts/MonitorTimeDrift.lua"
+   luaXroot -e "/home/evildrpain/luascripts/MonitorTimeDrift.lua"
 </pre>
 
 <p>In this case, the script is simply loaded by an automatic call to <i>dofile</i> once <b>luaXroot</b> has finish its startup tasks.</p>
@@ -132,8 +132,8 @@ luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepai
 <p><b>luaXroot</b> provides "binders" to several ROOT classes, among which TGraphErrors, TH1D and TH2D. The full documentation for these binders can be <a href="ROOT-Libraries-Binders.html">found 
 here</a>.</p>
 
-<p>TGraphErrors, for displaying graph with or without error bars can be manipulating using the Lua binder <i>TGraph</i>.<br/>
-1D and 2D histograms are handled by TH1D and TH2D object. The Lua binders for these objects are <i>TH1</i> and <i>TH2</i>.</p>
+<p>TGraphErrors, for displaying graph with or without error bars can be manipulated using the Lua binder <i>TGraph</i>.<br/>
+1D and 2D histograms are handled by TH1D and TH2D objects. The Lua binders for these objects are <i>TH1</i> and <i>TH2</i>.</p>
 
 <p>The examples below gives the basic functionalities of these binders</p>
 
@@ -144,7 +144,7 @@ ROOT 6.11/03   http://root.cern.ch   The ROOT Team
 luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepailleur@gmail.com)
 ------------------------------------------------------------------------------------------------
 
-> gr = TGraph(5)
+> gr = TGraph(5)   <= the argument is the amount of points in our graph
 > 
 > gr:SetPoint(1, 5, 7)
 > gr:SetPoint(2, 8, 12)
@@ -152,7 +152,7 @@ luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepai
 > gr:SetPoint(4, 15, 29)
 > gr:SetPoint(5, 21, 38)
 > 
-> gr:Draw("AP")
+> gr:Draw("AP")    <= "AP" are options requesting that the graph is display with points
 > 
 </pre>
 
@@ -205,9 +205,8 @@ luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepai
 
 <img src="images/luaXroot-fitgraph.png" alt="luaXroot-fitgraph" style="max-width:100%;">
 
-<p>In this example we define the function in the Lua interpreter. This is not the most efficient way to do things though. It would be better to define that function in a script that would be loaded 
-at startup.<br/>
-Please also note that the most useful and simple functions are already defined. They can be accessed using their names:</p>
+<p>In this example we define the function in the Lua interpreter. This is not the most efficient way to do things though. It would be better to define that function in a script loaded at launch.<br/>
+Please also note that the commonly used functions are already defined. They can be accessed using their names:</p>
 
 <pre class="prettyprint"> 
 Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
@@ -231,7 +230,7 @@ luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepai
 >
 </pre>
 
-<p>The names for polynomial functions are simple "poln" where <i>n</i> has to be replaced by the order of the polynome.<br/>
+<p>The names for polynomial functions are simply "poln" where <i>n</i> has to be replaced by the order of the polynome.<br/>
 The name for a gaussian function is "gauss".</p>
 
 <p><a href="#intro">go back to top</a></p>
@@ -245,7 +244,7 @@ The user will interact with this ROOT class using the <b>luaXroot</b> binder wit
 <p>Graphical cut can be drawn directly on a 2D histogram and saved in a file. The gif below shows the process step by step. The final commands to type in the command interpreter to retrieved the 
 cut after drawing it are given below the gif.</p>
 
-<img src="images/luaXroot-graphicalcut.png" alt="luaXroot-graphicalcut" style="max-width:100%;">
+<img src="images/luaXroot-graphicalcut.gif" alt="luaXroot-graphicalcut" style="max-width:100%;">
 
 <p>This cut can be saved to a file:</p>
 
@@ -266,7 +265,7 @@ luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepai
 > 
 </pre>
 
-<p>This cut can later be retrieved in a script or the command line the following way:</p>
+<p>This cut can later be retrieved in a script or using the command line:</p>
 
 <pre class="prettyprint"> 
 Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
