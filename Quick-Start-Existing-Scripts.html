@@ -254,7 +254,12 @@ ROOT 6.11/03   http://root.cern.ch   The ROOT Team
 luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepailleur@gmail.com)
 ------------------------------------------------------------------------------------------------
 
-> 
+>
+
+   [ ... do stuffs to produce some histograms ... ]
+   
+> h_123456_resisitive_3:Draw("colz")      <= When drawing a 2D histogram, specify "colz" to plot it with colors
+>
 > cut1 = GetObject("TCutG", "lower_band")
 > 
 > cutfile = TFile("mycuts.root", "recreate")
@@ -336,7 +341,7 @@ luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepai
 
 <h2 id="exiting-the-process">Exiting the process</h2>
 
-<p>To exit <b>luaXroot</b> the user can either</p>.
+<p>To exit <b>luaXroot</b> the user can either.</p>
 
 <ul>
 <li>type <i>q()</i> or <i>exit()</i>. This makes sure that the clean-up tasks are triggererd.</li>
