@@ -59,6 +59,7 @@ calling the function. The advantage of arguments tables is that optional argumen
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-close"><i>TCanvas.Close</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-setsize"><i>TCanvas.SetSize</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-setwindowsize"><i>TCanvas.SetWindowSize</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcanvas-setlogscale"><i>TCanvas.SetLogScale</i></a></li>
   		   </ul></h2></li>
 		   
 <li><h2><a href ="#tfile-binder">TFile</a>
@@ -116,38 +117,39 @@ calling the function. The advantage of arguments tables is that optional argumen
 <li><h2><a href ="#th1d-binder">TH1D</a>
 		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
 		   <ul>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-constructor0"><i>TH1D</i> (constructor no arguments)</a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-constructor5"><i>TH1D</i> (constructor 5 arguments)</a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-constructor-table"><i>TH1D</i> (constructor arguments table)</a></li>
-  		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-settitle"><i>TH1D.SetTitle</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-gettitle"><i>TH1D.GetTitle</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-fill"><i>TH1D.Fill</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-reset"><i>TH1D.Reset</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-rebuild"><i>TH1D.Rebuild</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-scale"><i>TH1D.Scale</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-setrangeuserx"><i>TH1D.SetRangeUserX</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-setrangeusery"><i>TH1D.SetRangeUserY</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-setxproperties"><i>TH1D.SetXProperties</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-getxproperties"><i>TH1D.GetXProperties</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-getcontent"><i>TH1D.GetContent</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-fit"><i>TH1D.Fit</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-clone"><i>TH1D.Clone</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-add"><i>TH1D.Add</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-constructor0"><i>TH1</i> (constructor no arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-constructor5"><i>TH1</i> (constructor 5 arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-constructor-table"><i>TH1</i> (constructor arguments table)</a></li>
+  		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-settitle"><i>TH1.SetTitle</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-gettitle"><i>TH1.GetTitle</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-fill"><i>TH1.Fill</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-reset"><i>TH1.Reset</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-rebuild"><i>TH1.Rebuild</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-scale"><i>TH1.Scale</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-setrangeuserx"><i>TH1.SetRangeUserX</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-setrangeusery"><i>TH1.SetRangeUserY</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-setxproperties"><i>TH1.SetXProperties</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-getxproperties"><i>TH1.GetXProperties</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-getcontent"><i>TH1.GetContent</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-fit"><i>TH1.Fit</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-clone"><i>TH1.Clone</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-add"><i>TH1.Add</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-setlogscale"><i>TH1.SetLogScale</i></a></li>
   		   </ul></h2></li>
 
 <li><h2><a href ="#th2d-binder">TH2D</a>
 		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
 		   <ul>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-constructor0"><i>TH2D</i> (constructor no arguments)</a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-constructor7"><i>TH2D</i> (constructor 7 arguments)</a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-constructor-table"><i>TH2D</i> (constructor arguments table)</a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-fill"><i>TH2D.Fill</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-projectx"><i>TH2D.ProjectX</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-projecty"><i>TH2D.ProjectY</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-getprojectionx"><i>TH2D.GetProjectionX</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-getprojectiony"><i>TH2D.GetProjectionY</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-setyproperties"><i>TH2D.SetYProperties</i></a></li>
-		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-getyproperties"><i>TH2D.GetYProperties</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-constructor0"><i>TH2</i> (constructor no arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-constructor7"><i>TH2</i> (constructor 7 arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-constructor-table"><i>TH2</i> (constructor arguments table)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-fill"><i>TH2.Fill</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-projectx"><i>TH2.ProjectX</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-projecty"><i>TH2.ProjectY</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-getprojectionx"><i>TH2.GetProjectionX</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-getprojectiony"><i>TH2.GetProjectionY</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-setyproperties"><i>TH2.SetYProperties</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-getyproperties"><i>TH2.GetYProperties</i></a></li>
   		   </ul></h2></li>
 		   
 <li><h2><a href ="#tspectrum-binder">TSpectrum</a>
@@ -413,6 +415,18 @@ This function is a common method to all ROOT objects. It is a method and need an
 <i>Return values</i>: <b>nil</b></p>
 
 <p>Resize the window containing the canvas, setting its width to <i>ww</i> and its height to <i>wh</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tcanvas-setlogscale"><i>TCanvas.SetLogScale</i></h3>
+<p>( <b>axis</b>=< string >, <b>val</b>=< bool > )<br/>
+<p>( <b>row</b>=< int >, <b>col</b>=< int >, <b>axis</b>=< string >, <b>val</b>=< bool > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Switch the axis specified by the argument <i>axis</i> to logscale if <i>val</i> is <b>true</b>, and revert it back to linear if <b>false</b>.</p>
+<p>If the canvas is divided, an axis of a sub-canvas can be set to logscale/linear by specifying first the row and column of that sub-canvas.</p>
 </div>
 
 <p><a href="#intro">go back to top</a></p>
@@ -1071,11 +1085,21 @@ leaves it untouched. The downside is that it can be be a heavy computation when 
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="th1d-add"><i>TH1.Clone</i></h3>
+<h3 id="th1d-add"><i>TH1.Add</i></h3>
 <p>( <b>hist</b>=< TH1 >, <i>[o]</i> s=< double >)<br/>
-<i>Return values</i>: <b>TH1</b></p>
+<i>Return values</i>: <b>nil</b></p>
 
 <p>Add the histogram <i>hist</i> to the TH1 using the scale <i>s</i>. A scale of -1 would perform a substraction of the 2 histograms.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="th1d-setlogscale"><i>TH1.SetLogScale</i></h3>
+<p>( <b>axis</b>=< string >, <b>val</b>=< bool > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Switch the axis specified by the argument <i>axis</i> to logscale if <i>val</i> is <b>true</b>, and revert it back to linear if <b>false</b>.</p>
 </div>
 
 <p><a href="#intro">go back to top</a></p>
