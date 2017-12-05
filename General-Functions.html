@@ -297,7 +297,7 @@ For instance, one could run the <i>echo</i> command inside a Lua script<br/>
 
 <a href="http://man7.org/linux/man-pages/man2/fork.2.html">Fork</a> the process and execute the function <i>fn</i> with the arguments <i>args</i> in the child process.<br/>
 This can be used to start a new task in the background. Note that this function duplicates the process and does not create a new thread. It's usage is very 
-specific and does not allow further communication with the forked process from the master process. <a href="#startnewtask">StartNewTask</a> should be the preferred method when one wants 
+specific and does not allow further communication with the forked process from the master process. <a href="Helper-Functions.html#startnewtask">StartNewTask</a> should be the preferred method when one wants 
 to start a new background task.</p>
 
 <p>Example</p>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="scripts/mystyles.css">
+<script src="global_funcs.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="container-master">
+<div class="container-full-width">
+<header>
+   <h1>luaXroot Wiki</h1>
+</header>
+</div>
+
+<div class="container-content">
+<nav>
+<iframe src="sidebar.html"  style="border:none;"  onload="SetSidebarHeight(this);"></iframe>
+</nav>
+
+<article>
+
+
+<p>Lua doesn't have classes (C++) nor a notion of struct (C). Instead it uses tables to store data of different types inside a unique container. But unlike a C struct, Lua tables are dynamic. Objects
+ can be added or removed from them at anytime.<br/>
+ Concerning table, there is no direct comparison possible. Tables don't offer inheritence nor a direct way to create object from them or call methods. A similar behavior can be achieved though using 
+ a specific type of tables: <a href="https://www.lua.org/pil/13.html"><b>metatables</b></a>.<br/>
+For simplicity sake, let's consider the metatables as the table that will contain our "class" methods and members. They can be used to achieve something similar to what C++ classes do and we won't go
+ into the details of their implementation here as it is not relevant to the end user. For more information: <b>luaXroot</b> "class" implementation is based on the
+  model <a href="http://lua-users.org/wiki/SimpleLuaClasses">presented here</a>.</p>
+
+<p>As <a href="The-Lua-Scripting-Language.html#var-ud">explained previously</a>, <b>userdata</b> are a special type of variables. They are links to C pointer and allow the user to manipulate any type
+ of object. To be able to do anything meanigful, <i>binders</i> have to be created beforehands. A few very simple examples are given below.</p>
+
+<h1 id="intro">Index of this section:</h1>
+
+  <ul>
+    <li><h3><a href ="#more-about-userdata">More about the <b>userdata</b> type</a></h3></li>
+	<li><h3><a href ="#userdata-as-classes"><b>userdata</b> as substitutes to C++ classes</a></h3></li>
+	<li><h3><a href ="#editing-existing-classes">Editing existing Lua classes with <i>AddPostInit</i></a></h3></li>
+	<li><h3><a href ="#derived-classes">Derived classes</a></h3></li>
+  </ul>
+
+<hr>
+
+<h3 id="more-about-userdata">More about the <b>userdata</b> type</h3>
+ 
+<h4 id="the-new-function">The <i>New</i> function</h4>
+<p>Any userdata in <b>luaXroot</b> can be instantiated using the <i>New</i> function. The type of the userdata is passed as a string in the first argument, and the function takes any number 
+of additional arguments required by the userdata constructor.</p>
+
+<p><b>luaXroot</b> provides binders to a lot of different userdata. We will first treat the simplest of them all: pointers to classic C types. Even though their usefulness won't be obvious 
+in the examples given below, their existence is what makes the binders to more complexe userdata possible.<br/>
+Userdata to the following types of pointers exists</p>
+
+<ul>
+<li>bool</li>
+<li>short</li>
+<li>unsigned short</li>
+<li>int</li>
+<li>unsigned int</li>
+<li>long</li>
+<li>unsigned long</li>
+<li>long long</li>
+<li>unsigned long long</li>
+<li>float</li>
+<li>double</li>
+<li>string</li>
+<li>char</li>
+<li>char*</li>
+<li>const char*</li>
+</ul>
+
+<p>Each of these simple userdata has a metatable associated to it. This table can registere "methods" and "members".<br/>
+If an object possess a metatable, this metatable will act as a proxy. Let's consider a simple case:</p>
+
+<p>Let's assume we have a userdata "d" which is a link to a double* (a pointer to a float). If we just have this userdata as is, we can't do much with it.</p>
+
+<pre class="prettyprint">
+	 d.name = "An amazing double"
+</pre>
+
+<p>would not have much sense (actually no sense at all).But if a metatable is associated to the userdata,any call to the object will actually call the metatable. This metatable can contain whatever 
+we want (as any other table). If we did our job properly, we registered some useful functions in this metatable beforehand. Some function that would for instance allow us to manipulate the value 
+of the double pointed by <i>d</i> or retrieve it. Let's say that we gave sensible names to these methods like <i>Set</i> and <i>Get</i> and we could do</p>
+
+<pre class="prettyprint">
+	 d.name = "An amazing double" -- is actually calling the metatable associated to d. This metatable can contain whatever we want.
+	 
+	 d:Set(5)     -- the <i>Set</i> method has been registered on <i>d</i> metatable beforehand
+	 
+	 print(d.name, "=", d:Get()) -- wil print on screen "An amazing double = 5"
+</pre>
+
+<p>That's right, we now have a double that can have a name, but also a favorite color or movie quote.<br/>
+Every userdata built-in <b>luaXroot</b> possess a metatable with the following registered methods: <i>Set</i>, <i>Get</i>, <i>ShiftAddress</i>, <i>SetAddress</i>, <i>Allocate</i></p>
+
+<p>As a reminder, the colon (:) operator is a shortcut to pass the left side of the operand as the first argument to the function called on the right side. This would be equivalent to</p>
+
+<pre class="prettyprint">
+	 d.name = "An amazing double" -- is actually calling the metatable associated to d. This metatable can contain whatever we want.
+	 
+	 d.Set(d, 5)         -- again, d is calling the metatable associated to <i>d</i>.
+	                     -- This metatable has a function member called Set and that's what we retrieve with <i>d.Set</i>
+	                     -- the first argument of the Set function is the userdata that needs to be modified 
+	                     -- and the second is the new value that we want to apply to this userdata
+	                     -- A careful reader would tell me that the <i>d</i> passed as first argument won't be 
+	                     -- the userdata but the metatable associated to it though. This is true
+	                     -- but with some Lua magic this actually reaches the userdata. Keep in mind everything is 
+	                     -- simplified here and for proper explanations visit the Lua reference website
+	 
+	 print(d.name, "=", d.Get(d)) -- same comment as above
+</pre>
+
+<p>A more detailed explanation/example</p>
+
+<pre class="prettyprint">
+	 -- We could create a userdata which would be the link to an integer pointer
+	 -- To do this, we can use the function <a href="#the-nea-function">New</a>
+	 
+	 local i1 = New("int")
+	 
+	 print(i1) -- A call to print the value of i1 would print on the screen "userdata: 0x1a766f8"
+	 
+	 -- We can then set and get the values of i1 like this
+	 i:Set(7)
+	 
+	 print(i1:Get())     -- would print on screen "7"
+	 
+	 local a = i1:Get()  -- we now have a standard variable with a value = 7
+	 
+	 local i2 = int()    -- userdata with "simple" names (no spaces) can be instantiated directly with their name followed by ()
+	 i2:SetAddress(i1)   -- similarly to a pointer, we set the address of i2 to be the same as i1
+	 
+	 i2:Set(3)
+	 
+	 print(i1:Get() == i2:Get()) -- will print "true"! With standard variables, one would expect this to print "false" (7 =/= 3) but since we are
+	                             -- working with userdata which are pointer and i1 address is the same as i2 address,, by setting i2 to 3, we set i1 to 3
+								 
+	 local i3 = int()
+	 i3:SetAddress(i1, 8)        -- set the address of i3 to be the one of i1 + 8 bytes
+	 
+	 i3:Set(13)
+	 
+	 print(i1:Get() == i3:Get()) -- will print "false" since i1:Get() will currently returns 3 while i3:Get() will returns 13
+	 
+	 i1:ShiftAddress(2)          -- this effectively shift the address of i1 8 bytes forward (2 * size of an integer which is 4)
+	 
+	 print(i1:Get() == i3:Get()) -- will print "true" now since we shifted i1 8 bytes forward which brings it to the same address as i3
+</pre>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h3 id="userdata-as-classes"><b>userdata</b> as substitutes to C++ classes</h3>
+<p>The previous sub-section already demonstrated a behavior very similar to C++ classes. <b>luaXroot</b> provides userdata much more complex than merely links to pointers to classic C types.<br/>
+All the ROOT binders are done using userdata and are discussed in details in <a href="#">this section</a>.</p>
+
+<p><b>luaXroot</b> also allows the creation of "table object" using metatables and providing C++ class like behaviour without userdata. These pure Lua object can be created using the function 
+<i>LuaClass</i>.</p>
+
+<h4 id="the-luaclass-function">The <i>LuaClass</i> function</h4>
+<p>A "pure Lua class" can be created using the <i>LuaClass</i>. This function takes 2 mandatory arguments and 2 optionnal ones.<br/>
+Let's first consider the simplest case: a Lua class whithout any dependency:</p>
+
+<pre class="prettyprint">
+	 local Detector = LuaClass("Detector", function(self, init)
+	 	   self.serial_number = init.serial_number or 0
+		   self.id = init.id or 0
+		   self.type = init.type or ""
+	 end)
+</pre>
+
+<p>If we break down what's happening here we call the function <i>LuaClass</i> with 2 arguments.<br/>
+The first argument is simply the name of our class. Using this name we will be able to construct object of this type later on.<br/>
+The second argument might seem curious. This is a function which takes 2 arguments.</p>
+<ul>
+<li>The first argument represents the object that will be constructed. It is advised to call this argument "self" as this is a keyword and has a specific meaning when defining 
+functions in Lua (<a href="#">this is discussed here</a>).</li>
+<li>The second argument is a table containing initialization parameters. It is called "init" here but the name doesn't matter.</li>
+</ul>
+
+<p>This function passed as a second argument in <i>LuaClass</i> will actually be called right after the object is created and is our initializer. One could see it as the equivalent to a 
+c++ constructor. In the case showed here, our new "Detector" object will be initialized with 3 fields: <i>serial_number</i>, <i>id</i> and <i>type</i>.<br/>
+Note the syntax <i>A <b>or</b> B</i>. This means that if the first expression <i>A</i> does not exist, then the assignment will fall back to using <i>B</i>. This syntax allows to create optional 
+initializer parameters.</p>
+
+<p>We could now create objects using our new Lua class like this:</p>
+
+<pre class="prettyprint">
+	 local det1 = New("Detector", {serial_number = 012345, id = 1, type = "SuperX3"})
+	 
+	 -- since the class name is "simple" (no space) we can also call it directly
+	 local det2 = Detector({serial_number = 678910, id = 2, type = "Silicon Detector"})
+	 
+	 -- since we made all the initialization parameter optionals, we can omit some
+	 local det3 = Detector({id = 3, type = "Ion Chamber"})
+</pre>
+
+<h4 id="adding-methods-to-lua-class">Adding methods to a Lua class</h4>
+<p>The next thing we will want to do with our Lua class is to add methods to it. These methods will be added in the initializer function</p>
+
+<pre class="prettyprint">
+	 local Detector = LuaClass("Detector", function(self, init)
+	 	   self.serial_number = init.serial_number or 0
+		   self.id = init.id or 0
+		   self.type = init.type or ""
+		   
+		   self.energies = {}
+		   
+		   function self:GetEnergy(strip)
+		   		return self.energies[strip]
+		   end
+		   
+		   function self:SumEnergies()
+		   		local energy_sum = 0
+				
+				for strip, energy in pairs(self.energies) do
+					energy_sum = energy_sum + energy
+				end
+				
+				return energy_sum
+		   end
+	 end)
+	 
+	 
+	 local det1 = Detector({type="SuperX3"})
+	 local det2 = Detector({type="QQQ5"})
+	 
+	 det1.energies[1] = 149.54     -- we registered Detector.energies as being a table.
+	 det1.energies[3] = 468.12     -- the key of this tables are used here as strip numbers
+	 
+	 det2.energies[15] = 561.71
+	 det2.energies[16] = 149.22
+	 det2.energies[17] = 317.94
+	 
+	 print(det1:GetEnergy(3))     -- will print 468.12
+	 
+	 print(det2:SumEnergies())    -- will print 1030.87 (561.71+149.22+317.94)
+</pre>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h3 id="editing-existing-classes">Editing existing Lua classes with <i>AddPostInit</i></h3>
+
+<p>At any time, a method or member can be added to an existing class</p>
+
+<pre class="prettyprint">
+	 -- In module Detector.lua
+	 
+	 local Detector = LuaClass("Detector", function(self, init)
+	 	   self.serial_number = init.serial_number or 0
+		   self.id = init.id or 0
+		   self.type = init.type or ""
+		   
+		   self.energies = {}
+		   
+		   function self:GetEnergy(strip)
+		   		return self.energies[strip]
+		   end
+		   
+		   function self:SumEnergies()
+		   		local energy_sum = 0
+				
+				for strip, energy in pairs(self.energies) do
+					energy_sum = energy_sum + energy
+				end
+				
+				return energy_sum
+		   end
+	 end)
+	 
+	 --------------------------------
+	 -- In a user script
+	 
+	 AddPostInit("Detector", function(self)
+	 	function self:GetMaxStrip()
+			local max_en, max_strip = 0, nil
+		
+			for strip, energy in pairs(self.energies) do
+				if energy > max_en then
+				   max_en = energy
+				   max_strip = strip
+				end
+			end
+			
+			return max_strip
+		end
+	 end)
+	 
+	 local det = Detector({type="QQQ5"})
+	 
+	 det.energies[15] = 561.71
+	 det.energies[16] = 149.22
+	 det.energies[17] = 317.94
+	 
+	 print(det1:GetMaxStrip())     -- will print 15
+</pre>
+
+<p>We added here a method to an existing class. Something which is absoluetly not possible in C++.</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<h3 id="derived-classes">Derived classes</h3>
+
+<p>Lua classescan also derived from another class. To do this we just use a different veriosn of the <i>LuaClass</i> function:</p>
+
+<pre class="prettyprint">
+	 -- In module Detector.lua
+	 
+	 local Detector = LuaClass("Detector", function(self, init)
+	 	   self.serial_number = init.serial_number or 0
+		   self.id = init.id or 0
+		   self.type = init.type or ""
+		   
+		   self.energies = {}
+		   
+		   function self:GetEnergy(strip)
+		   		return self.energies[strip]
+		   end
+		   
+		   function self:SumEnergies()
+		   		local energy_sum = 0
+				
+				for strip, energy in pairs(self.energies) do
+					energy_sum = energy_sum + energy
+				end
+				
+				return energy_sum
+		   end
+	 end)
+	 
+	 --------------------------------
+	 -- In a user script
+	 
+	 local SuperX3 = LuaClass("SuperX3", "Detector", function(self, data)
+	 	   self:GetPosition()
+		         pos = [ ... code to computes position ... ]
+				 
+		         return pos
+		   end
+	 end)
+	 
+	 local det = SuperX3({type="Silicon Detector"})
+</pre>
+
+<p>We now have a class SuperX3 which inherits all the members and methods from Detector and has its own methods available only to SuperX3 objects. This is similar to a C++ dependency.</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+</article>
+</div>
+
+<div class="container-full-width">
+<footer><a href="https://github.com/zupalex/luaXroot">https://github.com/zupalex/luaXroot</a></footer>
+</div>
+</div>
+
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</body>
+</html>

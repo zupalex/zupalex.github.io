@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="scripts/mystyles.css">
+<script src="global_funcs.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="container-master">
+<div class="container-full-width">
+<header>
+   <h1>luaXroot Wiki</h1>
+</header>
+</div>
+
+<div class="container-content">
+<nav>
+<iframe src="sidebar.html" style="border:none;" onload="SetSidebarHeight(this);"></iframe>
+</nav>
+
+<article>
+
+<p>This section assume that you already have cloned, built and installed <b>luaXroot</b> using the <a href="https://github.com/zupalex/luaXroot#luaxroot">instructions provided by the README.md</a>.</p>
+
+<h1 id="intro">Index of the Quick Start section:</h1>
+	<ul>
+  		  <li><h3><a href ="#the-command-interpreter">The command interpreter</a></h3></li>
+		  <li><h3><a href ="#loading-a-script">Loading a script</a></h3></li>
+		  <li><h3><a href ="#displaying-histograms-and-graphs">Displaying histograms and graphs</a></h3></li>
+		  <li><h3><a href ="#graphical-cut">Graphical cut</a></h3></li>
+		  <li><h3><a href ="#interacting-with-a-running-task">Interacting with a running task</a></h3></li>
+		  <li><h3><a href ="#exiting-the-process">Exiting the process</a></h3></li>
+	</ul>
+
+<hr>
+
+<h2 id="the-command-interpreter">The command interpreter</h2>
+
+<b>luaXroot</b> can be started very easily from anywhere (assuming you followed the few steps described in the 
+<a href="https://github.com/zupalex/luaXroot#luaxroot">instructions provided by the README.md</a>). To start it, simple type in the terminal</p>
+
+<pre class="prettyprint">
+	 luaXroot
+</pre>
+
+<p>This will start the Lua command interpreter, start the background task loading the ROOT TApplication that will take care of the display events, and load and setup all the standard <b>luaXroot</b> 
+libraries and packages. You should see something like that:</p>
+
+<img src="images/luaXroot-startup.png" alt="luaXroot-startup" style="max-width:100%;">
+
+<p>The command interpreter supports moving the prompt with the left and right arrow keys.</p>
+
+<p><b>luaXroot</b> also offers a command history using the <a href="https://tiswww.case.edu/php/chet/readline/rltop.html">readline libraries</a>. The history can be navigated using the up and down arrow 
+keys.</p>
+
+<p>Another useful feature is the autocompletion using the tab key. Similarly to a shell autocompletion, if the user starts to type a command and press the Tab key, that command will be autocompleted if 
+only one match is found. If several commands match the user input, pressing Tab a second time will display the list of all the possibilities.</p>
+
+<p>The interpreter can be used to perform basic operations like additions, multiplications, bit masking, bit shifting, ...</p>
+
+<pre class="prettyprint">
+Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
+ROOT 6.11/03   http://root.cern.ch   The ROOT Team
+luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepailleur@gmail.com)
+------------------------------------------------------------------------------------------------
+
+> 5 + 9
+14
+> 3^2
+6
+> 15%4
+3
+
+</pre>
+
+<p>Finally functions can be defined directly from the command interpreter. The Lua command interpreter evaluates each lines and detects if the command is actually not complete. In this case it offers a 
+double prompt on the next line to allow the user to finish that command:</p>
+
+<img src="images/luaXroot-functiondef.png" alt="luaXroot-functiondef" style="max-width:100%;">
+
+<hr>
+
+<h2 id="loading-a-script">Loading a script</h2>
+
+<p>Loading a script can be done in 2 different ways. The preffered way is to call <i>require</i>. The other way is to call <i>dofile</i>. More details 
+<a href="The-Lua-Scripting-Language.html#mods-and-packs">available here</a>.</p>
+
+<h4>require</h4>
+<p><i>require</i> will look for a script with the requested name in specific locations and try to load it. Scripts loaded this way are tracked and any subsequent calls to <i>require</i> the same 
+script won't load it again. This is the safest way to load a script but it requires that the script is placed in a location known by <b>luaXroot</b>. Locations can be added to the search path though. 
+This is <a href="Functionalities.html#the-userlogon">discussed here</a>.</p>
+
+<pre class="prettyprint">
+[  assuming we have a script MonitorTimeDrift.lua in a known location ]
+	 
+Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
+ROOT 6.11/03   http://root.cern.ch   The ROOT Team
+luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepailleur@gmail.com)
+------------------------------------------------------------------------------------------------
+
+> require("MonitorTimeDrift")
+
+</pre>
+
+<h4>dofile</h4>
+<p><i>dofile</i> will execute the script passed as an argument. Unlike <i>require</i>, <i>dofile</i> does not have any search location and it just uses the path given.</p>
+
+<pre class="prettyprint"> 
+Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
+ROOT 6.11/03   http://root.cern.ch   The ROOT Team
+luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepailleur@gmail.com)
+------------------------------------------------------------------------------------------------
+
+> dofile("/home/evildrpain/luascripts/MonitorTimeDrift.lua")
+
+</pre>
+
+<p>There is actually a 3rd way to execute a script. One can specify a script to load on startup when starting <b>luaXroot</b></p>
+
+<pre class="prettyprint">
+	 luaXroot -e "/home/evildrpain/luascripts/MonitorTimeDrift.lua"
+</pre>
+
+<p>In this case, the script is simply loaded by an automatic call to <i>dofile</i> once <b>luaXroot</b> has finish its startup tasks.</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="displaying-histograms-and-graphs">Displaying histograms and graphs</h2>
+
+<p><b>luaXroot</b> provides "binders" to several ROOT classes, among which TGraphErrors, TH1D and TH2D. The full documentation for these binders can be <a href="ROOT-Libraries-Binders.html">found 
+here</a>.</p>
+
+<p>TGraphErrors, for displaying graph with or without error bars can be manipulating using the Lua binder <i>TGraph</i>.<br/>
+1D and 2D histograms are handled by TH1D and TH2D object. The Lua binders for these objects are <i>TH1</i> and <i>TH2</i>.</p>
+
+<p>The examples below gives the basic functionalities of these binders</p>
+
+<p><b>Creating a graph and displaying it:</b></p>
+<pre class="prettyprint"> 
+Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
+ROOT 6.11/03   http://root.cern.ch   The ROOT Team
+luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepailleur@gmail.com)
+------------------------------------------------------------------------------------------------
+
+> gr = TGraph(5)
+> 
+> gr:SetPoint(1, 5, 7)
+> gr:SetPoint(2, 8, 12)
+> gr:SetPoint(3, 13, 24)
+> gr:SetPoint(4, 15, 29)
+> gr:SetPoint(5, 21, 38)
+> 
+> gr:Draw("AP")
+> 
+</pre>
+
+<img src="images/luaXroot-creategraph.png" alt="luaXroot-creategraph" style="max-width:100%;">
+
+<p><a href="#intro">go back to top</a></p>
+
+<p><b>Zooming or changing the binning:</b></p>
+
+<p>First, let's enable the "editor"</p>
+<img src="images/luaXroot-enableeditor.gif" alt="luaXroot-enableeditor" style="max-width:100%;">
+
+<p>We can switch to logscale like this</p>
+<img src="images/luaXroot-logscale.gif" alt="luaXroot-logscale" style="max-width:100%;">
+
+<p>We can rebin the histogram</p>
+<img src="images/luaXroot-rebin.gif" alt="luaXroot-rebin" style="max-width:100%;">
+
+<p>We can zoom on the X or Y axis</p>
+<img src="images/luaXroot-zoom.gif" alt="luaXroot-zoom" style="max-width:100%;">
+
+<p><a href="#intro">go back to top</a></p>
+
+<p><b>Fitting a graph:</b></p>
+<pre class="prettyprint"> 
+Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
+ROOT 6.11/03   http://root.cern.ch   The ROOT Team
+luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepailleur@gmail.com)
+------------------------------------------------------------------------------------------------
+
+> gr = TGraph(5)
+> 
+> gr:SetPoint(1, 5, 7)
+> gr:SetPoint(2, 8, 12)
+> gr:SetPoint(3, 13, 24)
+> gr:SetPoint(4, 15, 29)
+> gr:SetPoint(5, 21, 38)
+> 
+> gr:Draw("AP")
+> 
+> poly1 = function(x, a, b)
+>> return a*x+b
+>> end
+> 
+> fitfunc = TF1("fitfunc", poly1, 0, 30, 2)
+> 
+> gr:Fit({fn=fitfunc})
+>
+</pre>
+
+<img src="images/luaXroot-fitgraph.png" alt="luaXroot-fitgraph" style="max-width:100%;">
+
+<p>In this example we define the function in the Lua interpreter. This is not the most efficient way to do things though. It would be better to define that function in a script that would be loaded 
+at startup.<br/>
+Please also note that the most useful and simple functions are already defined. They can be accessed using their names:</p>
+
+<pre class="prettyprint"> 
+Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
+ROOT 6.11/03   http://root.cern.ch   The ROOT Team
+luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepailleur@gmail.com)
+------------------------------------------------------------------------------------------------
+
+> gr = TGraph(5)
+> 
+> gr:SetPoint(1, 5, 7)
+> gr:SetPoint(2, 8, 12)
+> gr:SetPoint(3, 13, 24)
+> gr:SetPoint(4, 15, 29)
+> gr:SetPoint(5, 21, 38)
+> 
+> gr:Draw("AP")
+> 
+> fitfunc = TF1("fitfunc", "pol1", 0, 30, 2)
+> 
+> gr:Fit({fn=fitfunc})
+>
+</pre>
+
+<p>The names for polynomial functions are simple "poln" where <i>n</i> has to be replaced by the order of the polynome.<br/>
+The name for a gaussian function is "gauss".</p>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="graphical-cut">Graphical cuts</h2>
+<p>It is often useful to create a selection from a 2D plot and use it to constrains the data used to populate an histogram. ROOT provides a class for this type of operations: TCutG.<br/>
+The user will interact with this ROOT class using the <b>luaXroot</b> binder with the same name <a href="ROOT-Libraries-Binders.html#tcutg"><i>TCutG</i></a>.</p>
+
+<p>Graphical cut can be drawn directly on a 2D histogram and saved in a file. The gif below shows the process step by step. The final commands to type in the command interpreter to retrieved the 
+cut after drawing it are given below the gif.</p>
+
+<img src="images/luaXroot-graphicalcut.png" alt="luaXroot-graphicalcut" style="max-width:100%;">
+
+<p>This cut can be saved to a file:</p>
+
+<pre class="prettyprint"> 
+Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
+ROOT 6.11/03   http://root.cern.ch   The ROOT Team
+luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepailleur@gmail.com)
+------------------------------------------------------------------------------------------------
+
+> 
+> cut1 = GetObject("TCutG", "lower_band")
+> 
+> cutfile = TFile("mycuts.root", "recreate")
+> 
+> cut1:Write()
+> 
+> cutfile:Close()
+> 
+</pre>
+
+<p>This cut can later be retrieved in a script or the command line the following way:</p>
+
+<pre class="prettyprint"> 
+Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
+ROOT 6.11/03   http://root.cern.ch   The ROOT Team
+luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepailleur@gmail.com)
+------------------------------------------------------------------------------------------------
+
+> 
+> file = TFile("mycuts.root", "read")
+> 
+> cut1 = file:GetObject("TCutG", "lower_band")
+> 
+</pre>
+
+<p>If the user wants to fill a histogram with values <i>val</i> only when <i>x</i> and <i>y</i> are inside this cut, simply check</p>
+
+<pre class="prettyprint">
+	 -- [ ... assuming a histogram <i>hist</i> has been defined earlier in the script ... ]
+	 
+	 if cut1:IsInside(x, y) then
+	 	hist:Fill(val)
+	 end
+</pre>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+<h2 id="interacting-with-a-running-task">Interacting with a running task</h2>
+
+<p>Often the user will want to start a task without losing the ability the interact with the <b>luaXroot</b> session and would rather run it in the background instead. 
+For this instance, the helper function <a href="Helper-Functions#startnewtask"><i>StartNewTask</i></a> can be used to create a new thread that will run the requested task in the background while the 
+user can still user the Lua command prompt to perform other operations. This functionality comes with a set of function to communicate with the tasks threads such as 
+<a href="Helper-Functions#sendsignal"><i>SendSignal</i></a> to send for instance a pause request to that running task.</p>
+
+<pre class="prettyprint">
+	 -- This is in a user script called "monitor_sx3.lua" 
+	 --
+	 -- [ ... assuming we loaded a script implementing a signal "Display" ... ]
+	 
+	 function MonitorSX3(sx3_ids)
+	 	-- [ ... do stuffs in this function to monitor the energy gathered by the 
+		-- SuperX3 detectors with IDs matching the ones provided in the table sx3_ids ]
+		-- we will fill histograms with the names "h_sx3_X" where the last X is the SuperX3 ID.
+	 end
+	 
+	 -- This function will start a new background task to monitor SuperX3 number 0, 1, 5, 12 and 19
+	 StartNewTask("task1", "Monitor", { 0, 1, 5, 12, 19 })
+</pre>
+
+<pre class="prettyprint"> 
+Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
+ROOT 6.11/03   http://root.cern.ch   The ROOT Team
+luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepailleur@gmail.com)
+------------------------------------------------------------------------------------------------
+
+> 
+> dofile("./monitor_sx3.lua")                 <= the <i>Monitor</i> function is running in the background.
+                                                 Our script is done and we now return to interpreter mode.
+> 
+> SendSignal("task1", "Display", "h_sx3_12")  <= This line send a signal to the background task
+                                                 requesting the display of the histogram h_sx3_12
+</pre>
+
+<p><a href="#intro">go back to top</a></p>
+	 
+<hr>
+
+<h2 id="exiting-the-process">Exiting the process</h2>
+
+<p>To exit <b>luaXroot</b> the user can either</p>.
+
+<ul>
+<li>type <i>q()</i> or <i>exit()</i>. This makes sure that the clean-up tasks are triggererd.</li>
+<li>issue a CTRL+C input. This method is not very elegant but should still trigger the clean-up tasks. The user should prefer the first method and use this one only if stuck in loops or needs to 
+terminate a process which runs on the main thread, effectively blocking the command interpreter from receiving user input.</li>
+</ul>
+
+<p><a href="#intro">go back to top</a></p>
+
+<hr>
+
+
+
+
+</article>
+</div>
+
+<div class="container-full-width">
+<footer><a href="https://github.com/zupalex/luaXroot">https://github.com/zupalex/luaXroot</a></footer>
+</div>
+</div>
+
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</body>
+</html>

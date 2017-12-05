@@ -90,3 +90,7 @@ iframe.sidebar {
  heigth: 300px;
  border: none;
 }
+
+pre {
+  white-space: pre-wrap;
+}
