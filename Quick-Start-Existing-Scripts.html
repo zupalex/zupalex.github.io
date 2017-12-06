@@ -87,8 +87,17 @@ double prompt on the next line to allow the user to finish that command:</p>
 
 <h4>require</h4>
 <p><i>require</i> will look for a script with the requested name in specific locations and try to load it. Scripts loaded this way are tracked and any subsequent calls to <i>require</i> the same 
-script won't load it again. This is the safest way to load a script but it requires that the script is placed in a location known by <b>luaXroot</b>. Locations can be added to the search path though. 
-This is <a href="Functionalities.html#the-userlogon">discussed here</a>.</p>
+script won't load it again. This is the safest way to load a script but it requires that the script is placed in a location known by <b>luaXroot</b>. These known locations are by default</p>
+
+<ul>
+	<li><i>< path/to/luaXroot ></i>/scripts</li>
+	<li><i>< path/to/luaXroot ></i>/scripts/lua_modules</li>
+	<li><i>< path/to/luaXroot ></i>/user</li>
+</ul>
+
+<p>The user should not add scripts in the first 2 paths. The \"user\" folder is here for that.</p>
+
+<p>Locations can be added to the search path though. This is <a href="Functionalities.html#the-userlogon">discussed here</a>.</p>
 
 <pre class="prettyprint">
 [  assuming we have a script MonitorTimeDrift.lua in a known location ]
@@ -115,13 +124,26 @@ luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepai
 
 </pre>
 
-<p>There is actually a 3rd way to execute a script. One can specify a script to load on startup</p>
+<p>It is also possible to specify a script or a command to execute on startup</p>
 
 <pre class="prettyprint">
-   luaXroot -e "/home/evildrpain/luascripts/MonitorTimeDrift.lua"
+    luaXroot "/home/evildrpain/luascripts/MonitorTimeDrift.lua"
 </pre>
 
 <p>In this case, the script is simply loaded by an automatic call to <i>dofile</i> once <b>luaXroot</b> has finish its startup tasks.</p>
+
+<pre class="prettyprint">
+    luaXroot -l MonitorTimeDrift
+</pre>
+
+<p>In this case, the script is loaded by an automatic call to <i>require</i> once <b>luaXroot</b> has finish its startup tasks. It implies that the script has to be in one of <b>luaXroot</b> known 
+location.</p>
+
+<pre class="prettyprint">
+    luaXroot -e "require('MonitorTimeDrift'); StartMonitoring();"
+</pre>
+
+<p>In this case, the command specified inside the quotation marks is executed once <b>luaXroot</b> has finish its startup tasks.</p>
 
 <p><a href="#intro">go back to top</a></p>
 

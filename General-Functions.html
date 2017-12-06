@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="scripts/mystyles.css">
-
+<script src="global_funcs.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -140,7 +140,7 @@ calling the function. The advantage of arguments tables is that optional argumen
 </ul>
 
 <div class="funcfield1">
-<h3 id="sysopen"><i>SysOpen</i></h3>
+<h3 id="sysopen">SysOpen</h3>
 <p>({<b>name</b>=< string >, <i>[o]</i> <b>flags</b>=< string, "O_RDONLY | O_NONBLOCK" >, <i>[p]</i> <b>mode</b>=< string, "0666" >})<br/>
 <i>Return values</i>: <b>int</b></p>
 
@@ -159,7 +159,7 @@ are possible (e.g. "O_RDONLY | O_NONBLOCK"). See [this page](https://linux.die.n
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="sysclose"><i>SysClose</i></h3>
+<h3 id="sysclose">SysClose</h3>
 <p>(< int >)<br/>
 <i>Return values</i>: <b>nil</b></p>
 
@@ -169,7 +169,7 @@ Closes the file associated to the file descriptor passed as the first argument.
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="sysftruncate"><i>SysFtruncate</i></h3>
+<h3 id="sysftruncate">SysFtruncate</h3>
 ({<b>fd</b>=< int >, <b>size</b>=< int >})<br/>
 <i>Return values</i>: <b>nil</b>
 
@@ -182,7 +182,7 @@ The file offset is not changed.<br/>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="sysread"><i>SysRead</i></h3>
+<h3 id="sysread">SysRead</h3>
 <p>({<b>fd</b>=< int >, <i>[o]</i> <b>size</b>=< int >})<br/>
 <i>Return value</i>: <b>string</b>, <b>int</b></p>
 
@@ -193,7 +193,7 @@ It returns the read data as a string, followed by the amount of bytes read.</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="syswrite"><i>SysWrite</i></h3>
+<h3 id="syswrite">SysWrite</h3>
 <p>({<b>fd</b>=< int >, <b>data</b>=< string >, <i>[o]</i> <b>size</b>=< int >})<br/>
 <i>Return values</i>: <b>int</b></p>
 
@@ -204,7 +204,7 @@ It returns the amount of bytes written.</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="sysdup"><i>SysDup</i></h3>
+<h3 id="sysdup">SysDup</h3>
 <p>(< int >)<br/>
 <i>Return values</i>: <b>int</b></p>
 
@@ -215,7 +215,7 @@ It returns that new file descriptor.</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="sysdup2"><i>SysDup2</i></h3>
+<h3 id="sysdup2">SysDup2</h3>
 <p>(< int >, < int >)<br/>
 <i>Return values</i>: <b>nil</b></p>
 
@@ -225,7 +225,7 @@ It returns that new file descriptor.</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="makepipe"><i>MakePipe</i></h3>
+<h3 id="makepipe">MakePipe</h3>
 <p>( )<br/>
 <i>Return values</i>: <b>int</b>, <b>int</b></p>
 
@@ -235,7 +235,7 @@ It returns that new file descriptor.</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="makefifo"><i>MakeFifo</i></h3>
+<h3 id="makefifo">MakeFifo</h3>
 <p>({<b>name</b>=< string >, <i>[o]</i> <b>mode</b>=< string, "0777" >})<br/>
 <i>Return values</i>: <b>nil</b></p>
 
@@ -246,7 +246,7 @@ It returns that new file descriptor.</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="sysftok"><i>SysFtok</i></h3>
+<h3 id="sysftok">SysFtok</h3>
 <p>({<b>pathname</b>=< string >, <i>[o]</i> <b>id</b>=< int, 90 >})<br/>
 <i>Return values</i>: <b>int</b></p>
 
@@ -258,7 +258,7 @@ It returns that new file descriptor.</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id = "sysselect"><i>SysSelect</i></h3>
+<h3 id = "sysselect">SysSelect</h3>
 <p>({<i>[o]</i> <b>read</b>=< table >, <i>[o]</i> <b>write</b>=< table >, <i>[o]</i> <b>exception</b>=< table >})<br/>
 <i>Return values</i>: <b>table</b>, <b>table</b>, <b>table</b></p>
 
@@ -272,7 +272,7 @@ For a detailed description of the <i>select</i> C function, <a href="http://man7
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="sysexec"><i>SysExec</i></h3>
+<h3 id="sysexec">SysExec</h3>
 <p>({<b>file</b>=< string >, <b>args</b>=< table >, <i>[o]</i> <b>env</b>=< table >})<br/>
 <i>Return values</i>: <b>nil</b></p>
 
@@ -291,7 +291,7 @@ For instance, one could run the <i>echo</i> command inside a Lua script<br/>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="sysfork"><i>SysFork</i></h3>
+<h3 id="sysfork">SysFork</h3>
 <p>({<b>fn</b>=< function >, <i>[o]</i> <b>args</b>=< table >, <i>[o]</i> <b>preinit</b>=< function >})<br/>
 <i>Return values</i>: <b>nil</b></p>
 
@@ -322,9 +322,9 @@ to start a new background task.</p>
 
 <p><b>luaXroot</b> provides "raw" binders for the different inter-process communication tools as well as wrapper and helper functions to manipulate them</p>
 
-<alt-h2 id="messagesqueues"><i>Messages Queues</i></alt-h2>
+<alt-h2 id="messagesqueues">Messages Queues</alt-h2>
 <div class="funcfield2">
-<h3 id="msgget"><i>MsgGet</i></h3>
+<h3 id="msgget">MsgGet</h3>
 <p>({<b>key</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "IPC_CREAT | IPC_EXCL | 0666" >})<br/>
 <i>Return values</i>: <b>int</b></p>
 
@@ -336,7 +336,7 @@ See this link for a <a href="http://pubs.opengroup.org/onlinepubs/7908799/xsh/sy
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="msgsnd"><i>MsgSnd</i></h3>
+<h3 id="msgsnd">MsgSnd</h3>
 <p>({<b>msgid</b>=< int >, <b>data</b>=< table >, <i>[o]</i> <b>mtype</b>=< int, 0 >, <i>[o]</i> <b>flags</b>=< string >})<br/>
 <i>Return values</i>: <b>nil</b></p>
 
@@ -369,7 +369,7 @@ The <i>data</i> argument is a table containing itself 2 subtables:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="msgrcv"><i>MsgRcv</i></h3>
+<h3 id="msgrcv">MsgRcv</h3>
 <p>({<b>msgid</b>=< int >, <b>format</b>=< table >, <i>[o]</i> <b>mtype</b>=< int, 0 >, <i>[o]</i> <b>flags</b>=< string >})<br/>
 <i>Return values</i>: <b>table</b>, <b>bool</b></p>
 
@@ -382,7 +382,7 @@ to the <a href="#msgsnd">MsgSnd</a> function.</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="msgctl"><i>MsgCtl</i></h3>
+<h3 id="msgctl">MsgCtl</h3>
 <p>({<b>msgid</b>=< int >, <b>cmd</b>=< int >})<br/>  
 <i>Return values</i>: <b>nil</b> OR <b>table</b> (depending on <i>cmd</i> argument)</p>
 
@@ -400,7 +400,7 @@ The supported operations are:</p>
 <p>Most of these functions are registered in the <b>global</b> table <i>mgsq</i></p>
 
 <div class="funcfield2">
-<h3 id="printmessagesqueueshelp"><i>PrintMessagesQueuesHelp</i></h3>
+<h3 id="printmessagesqueueshelp">PrintMessagesQueuesHelp</h3>
 <p>( )<br/>
 <i>Return values</i>: <b>nil</b></p>
 
@@ -410,7 +410,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="msgq-listactivemsgqs"><i>msgq.ListActiveMsgqs</i></h3>
+<h3 id="msgq-listactivemsgqs">msgq.ListActiveMsgqs</h3>
 <p>( )<br/>
 <i>Return values</i>: <b>nil</b></p>
 
@@ -420,7 +420,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="msgqobject"><i>MsgqObject</i></h3>
+<h3 id="msgqobject">MsgqObject</h3>
 <p>A Lua Class used to manipulate more easily messages queues.</p>
 
 <h4 ="msgqobject-members">Members</h4>
@@ -459,7 +459,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="msgq-createmsgq"><i>msgq.CreateMsgq</i></h3>
+<h3 id="msgq-createmsgq">msgq.CreateMsgq</h3>
 <p>( <b>path</b>=< string >, <b>flags</b>=< string, "recreate" >)<br/>
 ( <b>key</b>=< int >, <b>flags</b>=< string, "recreate" >)<br/>
 <i>Return values</i>: <b>MsgqObject</b></p>
@@ -476,7 +476,7 @@ The <i>flags</i> control how the messages queue will be created and can be</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="msgq-getmsgq"><i>msgq.GetMsgq</i></h3>
+<h3 id="msgq-getmsgq">msgq.GetMsgq</h3>
 <p>( <b>path</b>=< string >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
 <p>( <b>key</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
 <i>Return values</i>: <b>MsgqObject</b></p>
@@ -496,7 +496,7 @@ The <i>flags</i> control how the messages queue will be created and can be</p>
 
 <h2 id="semaphores">Semaphores</h2>
 <div class="funcfield1">
-<h3 id="semget"><i>SemGet</i></h3>
+<h3 id="semget">SemGet</h3>
 <p>({<b>key</b>=< int >, <i>[o]</i> <b>nsem</b>=< int, 0 >, <i>[o]</i> <b>flags</b>=< string, "IPC_CREAT | IPC_EXCL | 0666" >})<br/>  
 <i>Return values</i>: <b>int</b></p>
 
@@ -507,7 +507,7 @@ The <i>flags</i> control how the messages queue will be created and can be</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="semctl"><i>SemCtl</i></h3>
+<h3 id="semctl">SemCtl</h3>
 <p>({<b>semid</b>=< int >, <i>[o]</i> <b>semnum</b>=< int >, <b>cmd</b>=< int >, <i>[o]</i> <b>val</b>=< int or table >})<br/>  
 <i>Return values</i>: <b>nil</b> OR <b>int</b> OR <b>table</b> (depending on <i>cmd</i> argument)</p>
 
@@ -541,7 +541,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="semop"><i>SemOp</i></h3>
+<h3 id="semop">SemOp</h3>
 <p>({<b>semid</b>=< int >, <b>semnum</b>=< table >, <b>sop</b>=< table >})<br/>  
 <i>Return values</i>: <b>nil</b></p>
 
@@ -565,7 +565,7 @@ The supported operations are:</p>
 <p>Most of these functions are registered in the <b>global</b> table <i>sem</i></p>
 
 <div class="funcfield2">
-<h3 id="printsemaphoreshelp"><i>PrintSemaphoresHelp</i></h3>
+<h3 id="printsemaphoreshelp">PrintSemaphoresHelp</h3>
 <p>( )<br/>
 <i>Return values</i>: <b>nil</b></p>
 
@@ -575,7 +575,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="msgq-listactivemsgqs"><i>msgq.ListActiveSemaphores</i></h3>
+<h3 id="msgq-listactivemsgqs">msgq.ListActiveSemaphores</h3>
 <p>( )<br/>
 <i>Return values</i>: <b>nil</b></p>
 
@@ -585,7 +585,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="semaphoreobject"><i>SemaphoreObject</i></h3>
+<h3 id="semaphoreobject">SemaphoreObject</h3>
 <p>A Lua Class used to manipulate more easily semaphores sets.</p>
 
 <h4 ="semaphoreobject-members">Members</h4>
@@ -625,7 +625,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="sem-createsemset"><i>sem.CreateSemSet</i></h3>
+<h3 id="sem-createsemset">sem.CreateSemSet</h3>
 <p>( <b>path</b>=< string >, <b>nsem</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
 <p>( <b>key</b>=< int >, <b>nsem</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
 <i>Return values</i>: <b>SemaphoreObject</b></p>
@@ -642,7 +642,7 @@ The <i>flags</i> control how the semaphores set will be created and can be</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="sem-getsemset"><i>sem.GetSemSet</i></h3>
+<h3 id="sem-getsemset">sem.GetSemSet</h3>
 <p>( <b>path</b>=< string >)<br/>
 <p>( <b>key</b>=< int >)<br/>
 <i>Return values</i>: <b>SemaphoreObject</b></p>
@@ -656,7 +656,7 @@ The <i>flags</i> control how the semaphores set will be created and can be</p>
 
 <h2 id="sharedmemorysegments">Shared Memory Segments</h2>
 <div class="funcfield1">
-<h3 id="shmget"><i>ShmGet</i></h3>
+<h3 id="shmget">ShmGet</h3>
 <p>({<b>key</b>=< int >, <b>size</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "IPC_CREAT | IPC_EXCL | 0666" >})<br/>  
 <i>Return values</i>: <b>int</b></p>
 
@@ -667,7 +667,7 @@ The <i>flags</i> control how the semaphores set will be created and can be</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="shmat"><i>ShmAt</i></h3>
+<h3 id="shmat">ShmAt</h3>
 <p>({<b>shmid</b>=< int >, <i>[o]</i> <b>buffer</b>=< userdata >, <i>[o]</i> <b>flags</b>=< string, "IPC_CREAT | IPC_EXCL | 0666" >})<br/>  
 <i>Return values</i>: <b>nil</b></p>
 
@@ -690,7 +690,7 @@ The <i>flags</i> control how the semaphores set will be created and can be</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="shmctl"><i>ShmCtl</i></h3>
+<h3 id="shmctl">ShmCtl</h3>
 <p>({<b>shmid</b>=< int >, <b>cmd</b>=< int >})<br/>  
 <i>Return values</i>: <b>nil</b> OR <b>table</b> (depending on <i>cmd</i> argument)</p>
 
@@ -707,7 +707,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="shmdt"><i>ShmDt</i></h3>
+<h3 id="shmdt">ShmDt</h3>
 <p>(< int >)<br/>  
 <i>Return values</i>: <b>nil</b></p>
 
@@ -717,7 +717,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="assignshm"><i>AssignShm</i></h3>
+<h3 id="assignshm">AssignShm</h3>
 <p>({<b>shmid</b> = < int >, <b>buffer</b>=< userdata >, <i>[o]</i> <b>offset</b>=< int >})<br/>  
 <i>Return values</i>: <b>nil</b></p>
 
@@ -741,7 +741,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="shmsetmem"><i>ShmSetMem</i></h3>
+<h3 id="shmsetmem">ShmSetMem</h3>
 <p>({<b>shmid</b> = < int >, <b>input</b>=< table >, <b>format</b>=< table >})<br/>  
 <i>Return values</i>: <b>nil</b></p>
 
@@ -765,7 +765,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="shmgetmem"><i>ShmGetMem</i></h3>
+<h3 id="shmgetmem">ShmGetMem</h3>
 <p>({<b>shmid</b> = < int >, <b>format</b>=< table >})<br/>  
 <i>Return values</i>: <b>table</b></p>
 
@@ -789,7 +789,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="shmrawread"><i>ShmRawRead</i></h3>
+<h3 id="shmrawread">ShmRawRead</h3>
 <p>({<b>shmid</b> = < int >, <b>size</b>=< int >, <i>[o]</i> <b>offset</b>=< int >})<br/>  
 <i>Return values</i>: <b>string</b></p>
 
@@ -802,7 +802,7 @@ The supported operations are:</p>
 <p>Most of these functions are registered in the <b>global</b> table <i>sem</i></p>
 
 <div class="funcfield1">
-<h3 id="printsharedmemoryhelp"><i>PrintSharedMemoryHelp</i></h3>
+<h3 id="printsharedmemoryhelp">PrintSharedMemoryHelp</h3>
 <p>( )<br/>
 <i>Return values</i>: <b>nil</b></p>
 
@@ -812,7 +812,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="shmem-listactiveshmem"><i>shmem.ListActiveShMem</i></h3>
+<h3 id="shmem-listactiveshmem">shmem.ListActiveShMem</h3>
 <p>( )<br/>
 <i>Return values</i>: <b>nil</b></p>
 
@@ -822,7 +822,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="shmemobject"><i>ShMemObject</i></h3>
+<h3 id="shmemobject">ShMemObject</h3>
 <p>A Lua Class used to manipulate more easily shared memory segments.</p>
 
 <h4 ="shmemobject-members">Members</h4>
@@ -886,7 +886,7 @@ The supported operations are:</p>
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield1">
-<h3 id="shmem-createshmem"><i>shmem.CreateShMem</i></h3>
+<h3 id="shmem-createshmem">shmem.CreateShMem</h3>
 <p>( <b>path</b>=< string >, <b>buffer</b>=< userdata >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
 <p>( <b>path</b>=< string >, <b>size</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
 <p>( <b>key</b>=< int >, <b>buffer</b>=< userdata >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
@@ -907,7 +907,7 @@ The <i>flags</i> control how the shared memory segment will be created and can b
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
-<h3 id="shmem-getshmem"><i>shmem.GetShMem</i></h3>
+<h3 id="shmem-getshmem">shmem.GetShMem</h3>
 <p>( <b>path</b>=< string >, <b>buffer</b>=< userdata >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
 <p>( <b>path</b>=< string >, <b>size</b>=< int >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
 <p>( <b>key</b>=< int >, <b>buffer</b>=< userdata >, <i>[o]</i> <b>flags</b>=< string, "recreate" >)<br/>
