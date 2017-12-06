@@ -182,6 +182,42 @@ luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepai
 
 <p><a href="#intro">go back to top</a></p>
 
+<p id="updating-a-canvas"><b>Updating canvas after a modification:</b></p>
+
+<p>By default, a canvas will not reflect the latest changes unless clicked to trigger a refresh of the display. This is not a very convenient method to update canvas when displaying a lot of 
+graphs/histograms at once. For that the user can invoke <i>Update</i> either on the object that requires a refresh, or on a general level by calling <i>theApp:Update()</i>, effectively updating 
+all the active canvas.</p>
+
+<pre class="prettyprint"> 
+Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
+ROOT 6.11/03   http://root.cern.ch   The ROOT Team
+luaXroot  https://github.com/zupalex/luaXroot   Alexandre Lepailleur (alex.lepailleur@gmail.com)
+------------------------------------------------------------------------------------------------
+
+> 
+> h1 = TH1("test", "test hist", 10, 0, 10)
+> h1:Fill(4)
+> 
+> h2 = TH1("test2", "test hist 2", 10, 0, 10)
+> h2:Fill(7)
+> 
+> h1:Draw()
+> h2:Draw()
+>
+> h1:Fill(3)
+> h2:Fill(1)       <= These changes will not be reflected on the displayed graph
+>
+> theApp:Update()  <= All the histograms will be updated (here h1 and h2) 
+>
+> h1:Fill(9)
+> h2:Fill(8)
+>
+> h1:Update()      <= Only h1 will be updated and show 3 counts. h2 will still show 2 counts
+>
+</pre>
+
+<p><a href="#intro">go back to top</a></p>
+
 <p><b>Dividing a canvas into sub-canvas:</b></p>
 <pre class="prettyprint"> 
 Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio
