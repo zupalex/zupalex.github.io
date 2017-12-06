@@ -22,7 +22,7 @@
 <p>This section present the binders to the ROOT classes natively supported by <b>luaXroot</b>.</p>
 <p>It is possible for the user to add custom binders to other ROOT classes or extend the ones provided. This is the subject of <a href="#">this section</a>.</p>
 
-<p id="#intro">Reminders:</p>
+<p id="intro">Reminders:</p>
 <ul>
 <li>Each argument is specified using the following nomenclature: < type, default value if any ><br/>
 <b>Examples:</b>  <integer >, < float, 3.14157 >, < string, "O_RDONLY | O_NONBLOCK" >, ...<br/></li>
@@ -86,10 +86,15 @@ calling the function. The advantage of arguments tables is that optional argumen
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-constructor-table"><i>TF1</i> (constructor no arguments)</a></li>
   		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-setparameter"><i>TF1.SetParameter</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-setparameters"><i>TF1.SetParameters</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-setrange"><i>TF1.SetRange</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-setnpx"><i>TF1.SetNpx</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-getparameter"><i>TF1.GetParameter</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-getparameters"><i>TF1.GetParameters</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-getchi2"><i>TF1.GetChi2</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-eval"><i>TF1.Eval</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-getx"><i>TF1.GetX</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-integral"><i>TF1.Integral</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tf1-getrandom"><i>TF1.GetRandom</i></a></li>
   		   </ul></h2></li>
 
 <li><h2><a href ="#tgraph-binder">TGraphErrors</a>
@@ -135,6 +140,7 @@ calling the function. The advantage of arguments tables is that optional argumen
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-clone"><i>TH1.Clone</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-add"><i>TH1.Add</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-setlogscale"><i>TH1.SetLogScale</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th1d-integral"><i>TH1.Integral</i></a></li>
   		   </ul></h2></li>
 
 <li><h2><a href ="#th2d-binder">TH2D</a>
@@ -150,6 +156,7 @@ calling the function. The advantage of arguments tables is that optional argumen
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-getprojectiony"><i>TH2.GetProjectionY</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-setyproperties"><i>TH2.SetYProperties</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-getyproperties"><i>TH2.GetYProperties</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#th2d-integral"><i>TH1.Integral</i></a></li>
   		   </ul></h2></li>
 		   
 <li><h2><a href ="#tspectrum-binder">TSpectrum</a>
@@ -170,8 +177,12 @@ calling the function. The advantage of arguments tables is that optional argumen
 		   <details><summary><span style="font-weight: normal;font-size: 70%">click to expand</span></summary>
 		   <ul>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcutg-constructor0"><i>TCutG</i> (constructor no arguments)</a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcutg-setpoint"><i>TCutG.SetPoint</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcutg-setnpoint"><i>TCutG.SetNPoint</i></a></li>
   		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcutg-isinside"><i>TCutG.IsInside</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcutg-clone"><i>TCutG.Clone</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcutg-area"><i>TCutG.Area</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tcutg-integralhist"><i>TCutG.IntegralHist</i></a></li>
   		   </ul></h2></li>
 		   		   
 <li><h2><a href ="#ttree-binder">TTree</a>
@@ -637,7 +648,7 @@ This function is a common method to all ROOT objects. It is a method and need an
 
 <div class="funcfield1">
 <h3 id="tf1-setparameter"><i>TF1.SetParameter</i></h3>
-<p>( <b>parn</b>=< int >, <b>val</b>=< double >)<br/>
+<p>( <b>parn</b>=< int >, <b>val</b>=< double > )<br/>
 <i>Return values</i>: <b>nil</b></p>
 
 <p>Set value parameter number <i>parn</i> using <i>value</i>.</p>
@@ -647,7 +658,7 @@ This function is a common method to all ROOT objects. It is a method and need an
 
 <div class="funcfield2">
 <h3 id="tf1-setparameters"><i>TF1.SetParameters</i></h3>
-<p>( <b>vals</b>=< double >)<br/>
+<p>( <b>vals</b>=< double > )<br/>
 <i>Return values</i>: <b>nil</b></p>
 
 <p>Set the values of all the parameters using the table <i>vals</i>.</p>
@@ -662,6 +673,26 @@ This function is a common method to all ROOT objects. It is a method and need an
 	 
 	 f1:SetParameters( { 2, 6, -4 } )  -- this will set a to 2, b to 6 and c to -4
 </pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tf1-setrange"><i>TF1.SetRange</i></h3>
+<p>( <b>xmin</b>=< double >, <b>xmax</b>< double > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the the range of the TF1 to [<i>xmin</i> - <i>xmax</i>].</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tf1-setnpx"><i>TF1.SetNpx</i></h3>
+<p>( <b>npx</b>=< double > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the amount of points used to display the function. A higher number of points means a smoother looking function but too many points for the display can harm processing time.</p>
 </div>
 
 <p><a href="#intro">go back to top</a></p>
@@ -698,10 +729,40 @@ This function is a common method to all ROOT objects. It is a method and need an
 
 <div class="funcfield2">
 <h3 id="tf1-eval"><i>TF1.Eval</i></h3>
-<p>( <b>x</b=< double >> )<br/>
+<p>( <b>x</b>=< double > )<br/>
 <i>Return values</i>: <b>double</b></p>
 
 <p>Evaluate the coordinate for the abscissa x.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tf1-getx"><i>TF1.GetX</i></h3>
+<p>( <b>fy</b>=< double > )<br/>
+<i>Return values</i>: <b>double</b></p>
+
+<p>Find the abscissa corresponding to the coordinate <i>fy</i>. Basically performs the opposite of <a href="#tf1-eval"><i>TF1.Eval</i></a>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tf1-integral"><i>TF1.Integral</i></h3>
+<p>( <b>xmin</b>=< double >, <b>xmax</b>=< double > )<br/>
+<i>Return values</i>: <b>double</b></p>
+
+<p>Integrate the function between <i>xmin</i> and <i>xmax</i> and returns the result.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tf1-getrandom"><i>TF1.GetRandom</i></h3>
+<p>( <i>[o]</i> <b>xmin</b>=< double >, <i>[o]</i> <b>xmax</b>=< double > )<br/>
+<i>Return values</i>: <b>double</b></p>
+
+<p>Generate a random number following this function shape. If <i>xmin</i> and <i>xmax</i> are specified, these values are used as boundaries by the random number generator.</p>
 </div>
 
 <p><a href="#intro">go back to top</a></p>
@@ -1104,6 +1165,18 @@ leaves it untouched. The downside is that it can be be a heavy computation when 
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield2">
+<h3 id="th1d-integral"><i>TH1.Integral</i></h3>
+<p>( <i>[o]</i> <b>xmin</b>=< double >, <i>[o]</i> <b>xmax</b>=< double > )<br/>
+<i>Return values</i>: <b>double</b></p>
+
+<p>Returns the integral of the histogram between <i>xmin</i> and <i>xmax</i>. If no values are specified for <i>xmin</i> and <i>xmax</i>, the current display range is used.</p>
+
+<p style="color:red;">Integral won't be computed for bins outside of the current display range, regardless of what the user specified for the boundaries.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
 <hr>
 
 <h2 id="th2d-binder">TH2D</h2>
@@ -1227,6 +1300,19 @@ leaves it untouched. The downside is that it can be be a heavy computation when 
 
 <p><a href="#intro">go back to top</a></p>
 
+<div class="funcfield1">
+<h3 id="th2d-integral"><i>TH2.Integral</i></h3>
+<p>( <i>[o]</i> <b>xmin</b>=< double >, <i>[o]</i> <b>xmax</b>=< double >, <i>[o]</i> <b>ymin</b>=< double >, <i>[o]</i> <b>ymax</b>=< double > )<br/>
+<i>Return values</i>: <b>double</b></p>
+
+<p>Returns the integral of the histogram between <i>xmin</i> and <i>xmax</i> on the X axis, <i>ymin</i> and <i>ymax</i> on the Y axis. If no values are specified for <i>xmin</i> and <i>xmax</i> and/or  
+<i>ymin</i> and <i>ymax</i>, the current display range is used.</p>
+
+<p style="color:red;">Integral won't be computed for bins outside of the current display range, regardless of what the user specified for the boundaries.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
 <hr>
 
 <h2 id="tspectrum-binder">TSpectrum</h2>
@@ -1340,6 +1426,27 @@ peaks position returned by <a href="tspectrum-getpositionx">GetPositionX</a>.</p
 <p><a href="#intro">go back to top</a></p>
 
 <div class="funcfield2">
+<h3 id="tcutg-setpoint"><i>TCutG.SetPoint</i></h3>
+<p>( <b>n</b>=< int >, <b>x</b>=< double >, <b>y</b>=< double > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the x and y values of point number <i>n</i> using arguments <i>x</i> and <i>y</i>.</p>
+<p>For a TCutG to be valid, its first and last points must have the save x and y values.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tcutg-setnpoint"><i>TCutG.SetNPoint</i></h3>
+<p>( <b>n</b>=< int > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Set the amount of points used by this TCutG.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
 <h3 id="tcutg-isinside"><i>TCutG.IsInside</i></h3>
 <p>( <b>x</b>=< double >, <b>y</b>=< double > )<br/>
 <i>Return values</i>: <b>bool</b></p>
@@ -1355,6 +1462,26 @@ peaks position returned by <a href="tspectrum-getpositionx">GetPositionX</a>.</p
 <i>Return values</i>: <b>TCutG</b></p>
 
 <p>Creates clone of the TCutG.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tcutg-area"><i>TCutG.Area</i></h3>
+<p>( )<br/>
+<i>Return values</i>: <b>double</b></p>
+
+<p>Returns the area enclosed by the TCutG.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tcutg-integralhist"><i>TCutG.IntegralHist</i></h3>
+<p>( <b>hist</b>=< TH2 > )<br/>
+<i>Return values</i>: <b>double</b></p>
+
+<p>Returns the integral of the histogram <i>hist</i> using only the bins contained in the area defined by the TCutG.</p>
 </div>
 
 <p><a href="#intro">go back to top</a></p>
