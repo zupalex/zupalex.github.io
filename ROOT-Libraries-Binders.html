@@ -73,6 +73,11 @@ calling the function. The advantage of arguments tables is that optional argumen
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-open"><i>TFile.Open</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-close"><i>TFile.Close</i></a></li>
 		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-getobject"><i>TFile.GetObject</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-write"><i>TFile.Write</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-overwrite"><i>TFile.Overwrite</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-flush"><i>TFile.Flush</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-readkeys"><i>TFile.ReadKeys</i></a></li>
+		   <li style="font-weight: normal;font-size: 70%"><a href ="#tfile-refresh"><i>TFile.Refresh</i></a></li>
   		   </ul></h2></li>
 		   
 <li><h2><a href ="#tf1-binder">TF1</a>
@@ -539,10 +544,61 @@ This function is a common method to all ROOT objects. It is a method and need an
 
 <div class="funcfield2">
 <h3 id="tfile-getobject">TFile.GetObject</h3>
-<p>( <b>type</b>=< string >, <b>name</b>=< string >)<br/>
+<p>( <b>type</b>=< string >, <b>name</b>=< string > )<br/>
 <i>Return values</i>: <b>type of the object</b> OR <b>nil</b> if no object is found</p>
 
 <p>Performs the same operation as the static <a href="#general-getobject">GetObject</a> but does not require that this file is the current active file.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tfile-write">TFile.Write</h3>
+<p>( <b>name</b>=< string > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Write the object with name <i>name</i> to the file. If an object with the same name is already present, both are kept and ";n" is appended to the name, where n is the <i>name cycle</i>.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tfile-overwrite">TFile.Overwrite</h3>
+<p>( <b>name</b>=< string > )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Write the object with name <i>name</i> to the file. If an object with the same name is already present, it is deleted and replaced by the new one.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tfile-flush">TFile.Flush</h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Syncronize the status of the file in memory and on disk. Useful when that file is supposed to be accessed by other process for reading while the writing process is still editing it.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="tfile-readkeys">TFile.ReadKeys</h3>
+<p>( )<br/>
+<i>Return values</i>: <b>nil</b></p>
+
+<p>Read the keys from the file. It allows a reading process to update the informations about the objects in the file and read them while the file is still being edited.</p>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield1">
+<h3 id="tfile-refresh">TFile.Refresh</h3>
+<p>( <b>name</b>=< string >, <b>dest</b>=< ROOT object > )<br/>
+<i>Return values</i>: <b>ROOT object</b></p>
+
+<p>Attempt to get an object with name <i>name</i> from the file and assign it to <i>dest</i>. For this operation to be successful, a call to <a href="#tfile-readkeys"><i>TFile.ReadKeys</i></a> must 
+have been performed recently. Occasionaly this call can fail if the read happens while the writing process is updating the file.</p>
 </div>
 
 <p><a href="#intro">go back to top</a></p>
