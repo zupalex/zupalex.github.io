@@ -41,6 +41,7 @@
     <li style="font-weight: normal;font-size: 100%"><a href="#sysselect">SysSelect</a></li>
     <li style="font-weight: normal;font-size: 100%"><a href="#sysexec">SysExec</a></li>
     <li style="font-weight: normal;font-size: 100%"><a href="#sysfork">SysFork</a></li>
+	<li style="font-weight: normal;font-size: 100%"><a href="#makeslaveterm">MakeSlaveTerm</a></li>
     </ul></details></li>
 </ul>
 
@@ -295,10 +296,45 @@ For instance, one could run the <i>echo</i> command inside a Lua script<br/>
 <p>({<b>fn</b>=< function >, <i>[o]</i> <b>args</b>=< table >, <i>[o]</i> <b>preinit</b>=< function >})<br/>
 <i>Return values</i>: <b>nil</b></p>
 
-<a href="http://man7.org/linux/man-pages/man2/fork.2.html">Fork</a> the process and execute the function <i>fn</i> with the arguments <i>args</i> in the child process.<br/>
+<p><a href="http://man7.org/linux/man-pages/man2/fork.2.html">Fork</a> the process and execute the function <i>fn</i> with the arguments <i>args</i> in the child process.<br/>
 This can be used to start a new task in the background. Note that this function duplicates the process and does not create a new thread. It's usage is very 
 specific and does not allow further communication with the forked process from the master process. <a href="Helper-Functions.html#startnewtask">StartNewTask</a> should be the preferred method when one wants 
 to start a new background task.</p>
+
+<p>Example</p>
+
+<pre class="prettyprint">
+   local EchoFn = function(message)
+      SysExec({file="echo", args={"echo", message}})
+   end
+
+   SysFork({fn=EchoFn, args={"Hello World"}})
+   -- This command created a clone of the current process. 
+   -- The cloned process will execute the command *echo "Hello World"* 
+   -- and terminate while the master process whill keep on running.
+</pre>
+</div>
+
+<p><a href="#intro">go back to top</a></p>
+
+<div class="funcfield2">
+<h3 id="sysfork">MakeSlaveTerm</h3>
+<p>({ <i>[o]</i> <b>fontstyle</b>=< string, "Monospace" >, <i>[o]</i> <b>fontsize</b>=< int, 10 >, <i>[o]</i> <b>bgcolor</b>=< string >, 
+<i>[o]</i> <b>fgcolor</b>=< string >, <i>[o]</i> <b>geometry</b>=< string >, <i>[o]</i> <b>title</b>=< string >, <i>[o]</i> <b>label</b>=< string >})<br/>
+<i>Return values</i>: <b>FileObject</b></p>
+
+<p>Create a terminal for the user to perform output operations. This can be useful to redirect the log from a process and keep the command interpreter clean.</p>
+
+<ul>
+<li><i>fontstyle</i>: set the style used for the font. This style is a FreeType library pattern.</li>
+<li><i>fontsize</i>: set the size of the font.</li>
+<li><i>bgcolor</i>: set the background color. See <a href="https://jonasjacek.github.io/colors/">this link</a> for the color names.</li>
+<li><i>fgcolor</i>: set the font color. See <a href="https://jonasjacek.github.io/colors/">this link</a> for the color names.</li>
+<li><i>title</i>: set the title of the xterm window.</li>
+<li><i>label</i>: set the name of the xterm window when minimized.</li>
+<li><i>geometry</i>: a string with the format <i>width</i>x<i>height</i>+<i>x position</i>+<i>y position</i>. Example: <b>100x15+300+400</b></li>
+</ul>
+
 
 <p>Example</p>
 
