@@ -619,7 +619,7 @@ have been performed recently. Occasionaly this call can fail if the read happens
 
 <div class="funcfield2">
 <h3 id="tf1-constructor2">TF1 (constructor 2 arguments)</h3>
-<p>( { <b>name</b>=< string >, <b>formula</b>=< string > } )<br/>
+<p>( <b>name</b>=< string >, <b>formula</b>=< string > )<br/>
 <i>Return values</i>: <b>TF1</b></p>
 
 <p>Creates a new object of type TF1 and set its name to <i>name</i>.</p>
@@ -639,7 +639,7 @@ have been performed recently. Occasionaly this call can fail if the read happens
 
 <div class="funcfield1">
 <h3 id="tf1-constructor4">TF1 (constructor 4 arguments)</h3>
-<p>( { <b>name</b>=< string >, <b>formula</b>=< string >, <b>xmin</b>=< double >, <b>xmax</b>=< double > } )<br/>
+<p>( <b>name</b>=< string >, <b>formula</b>=< string >, <b>xmin</b>=< double >, <b>xmax</b>=< double > )<br/>
 <i>Return values</i>: <b>TF1</b></p>
 
 <p>Creates a TF1 similarly to <a href="#tf1-constructor2"><i>TF1</i> with 2 arguments</a>. The additionnal <i>xmin</i> and <i>xmax</i> arguments set the boundaries of the function.</p>
@@ -651,11 +651,11 @@ have been performed recently. Occasionaly this call can fail if the read happens
 
 <div class="funcfield2">
 <h3 id="tf1-constructor5">TF1 (constructor 5 arguments)</h3>
-<p>( { <b>name</b>=< string >, <b>formula</b>=< function >, <b>xmin</b>=< double >, <b>xmax</b>=< double >, <b>npars</b>=< int > } )<br/>
+<p>( <b>name</b>=< string >, <b>fn</b>=< function >, <b>xmin</b>=< double >, <b>xmax</b>=< double >, <b>npars</b>=< int > )<br/>
 <i>Return values</i>: <b>TF1</b></p>
 
 <p>Creates a new object of type TF1 and set its name to <i>name</i>, while <i>xmin</i> and <i>xmax</i> arguments set the boundaries of the function</p>
-<p><i>formula</i> must be a Lua function and <i>npars</i> the number of <b>parameters</b> in the function.</p>
+<p><i>fn</i> must be a Lua function and <i>npars</i> the number of <b>parameters</b> in the function.</p>
 
 <p>Example</p>
 <pre class="prettyprint">
@@ -672,7 +672,7 @@ have been performed recently. Occasionaly this call can fail if the read happens
 
 <div class="funcfield1">
 <h3 id="tf1-constructor6">TF1 (constructor 6 arguments)</h3>
-<p>( { <b>name</b>=< string >, <b>formula</b>=< function >, <b>xmin</b>=< double >, <b>xmax</b>=< double >, <b>npars</b>=< int >, <b>ndim</b>=< int > } )<br/>
+<p>( <b>name</b>=< string >, <b>formula</b>=< function >, <b>xmin</b>=< double >, <b>xmax</b>=< double >, <b>npars</b>=< int >, <b>ndim</b>=< int > )<br/>
 <i>Return values</i>: <b>TF1</b></p>
 
 <p>Creates a new object of type TF1 similarly to <a href="#tf1-constructor2"><i>TF1</i> with 5 arguments</a>. The additional <i>ndim</i> arguments specify the dimension of the function.</p>
